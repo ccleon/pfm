@@ -1,0 +1,52 @@
+<section class="container">
+	<div class="jumbotron text-center">
+		<fieldset>
+            <legend class="text-center"><b>CLIENTS</b></legend>
+            <div class="panel panel-primary col-md-3">
+                <div class="row">    
+                    <!-- Panel de búsqueda -->
+                    <div style="padding:10px;">
+                        <div class="form-group">
+                            <label for="search">Search by id</label>
+                            <input ng-model="vm.client_id" id="client_id" placeholder="Insert Client Id" class="form-control">
+                        </div>                        
+                        <button class="btn btn-warning col-md-offset-7" ng-click="vm.search()">
+                            <span class="glyphicon glyphicon-search"></span> Search
+                        </button> 
+                    </div>
+                    <!-- Panel de resultados sin búsqueda-->
+                    <div ng-if="!!vm.data2" class="panel panel-primary" style="padding:10px; margin:10px;">
+                        <b>Client ID:</b> {{vm.data2.client.id}} <br>
+                        <b>Client DNI:</b> {{vm.data2.client.dni}}<br>
+                   </div>
+                    <div class="no-data" ng-if="vm.data2.length === 0">
+                       <div class="panel-body"> No Clients Found </div>
+                    </div>
+                </div>
+            </div> 
+                
+            <!-- Panel de resultados con búsqueda-->
+            <div class="panel panel-primary table-responsive col-md-8 col-md-offset-1">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>DNI</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-init="vm.initList()">
+                        <tr ng-repeat="client in vm.data">
+                            <td>{{client.id}}</td>
+                            <td>{{client.dni}}</td>
+                            <td>Details</td>
+                        </tr>
+                    </tbody>
+                </table>  
+                <div class="no-data" ng-if="vm.data.length === 0">
+                    <div class="panel-body"> No Clients Found </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</section>

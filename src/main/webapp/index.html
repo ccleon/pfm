@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" ng-app="tpv">
+<html lang="es" ng-app="pfm">
 <head>
     <meta charset="utf-8">
     <title>Gestor de reservas</title>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/alertify.css">
     <link rel="stylesheet" href="assets/css/autocomplete.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/angular.min.js"></script>
@@ -21,14 +22,10 @@
     <!-- Configuración -->
     <script src="app/config.js"></script>
     <script src="app/constants.js"></script>
-
-    <!-- Controladores -->
-    <!-- Autor: Jesús Bernal -->
-    <script src="app/components/feature00/f00Service.js"></script>
-    <script src="app/components/feature00/versionController.js"></script>
-    <script src="app/components/feature00/loginController.js"></script>
-    <script src="app/components/feature00/registrationController.js"></script>
-    <script src="app/components/feature00/deleteAllController.js"></script>
+    
+    <!-- Clients -->
+    <script src="app/components/clients/ClientsService.js"></script>
+    <script src="app/components/clients/listAllController.js"></script>
 
 </head>
 <body>
@@ -49,18 +46,14 @@
            <li><a href="#/">Home</a></li>
 
            <!-- Menus -->
-
-           <!-- Autor: Jesús Bernal -->
-           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">F00<b class="caret"></b></a>
+           
+           <!-- Clients -->
+           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes<b class="caret"></b></a>
              <ul class="dropdown-menu">
-               <li><a href="#/feature00/version">Version</a></li>
-               <li><a href="#/feature00/login">Login</a></li>
-               <li><a href="#/feature00/registration">Registration</a></li>
-               <li><a href="#/feature00/delete-all">Delete All</a></li>
+               <li><a href="#/clients">Listar</a></li>
              </ul>
            </li>
 
-      
          </ul>
        </div>
      </nav>

@@ -1,9 +1,4 @@
-var pfm = angular.module("pfm", ["ngRoute",
-                                 'bw.paging',
-                                 "Alertify",
-                                 "angucomplete-alt",
-                                 "ngMessages",
-                                 "checklist-model"]);
+var pfm = angular.module("pfm", ["ngRoute", 'bw.paging', "Alertify", "angucomplete-alt", "ngMessages", "checklist-model"]);
 
 pfm.config(function ($routeProvider) {
     "use strict";
@@ -11,24 +6,9 @@ pfm.config(function ($routeProvider) {
         .when("/", {
             templateUrl: "app/components/home/home.html"
         })
-        .when("/feature00/version", {
-            templateUrl: "app/components/feature00/version.html",
-            controller: "VersionController",
-            controllerAs: "vm"
-        })
-        .when("/feature00/login", {
-            templateUrl: "app/components/feature00/login.html",
-            controller: "LoginController",
-            controllerAs: "vm"
-        })
-        .when("/feature00/registration", {
-            templateUrl: "app/components/feature00/registration.html",
-            controller: "RegistrationController",
-            controllerAs: "vm"
-        })
-        .when("/feature00/delete-all", {
-            templateUrl: "app/components/feature00/deleteAll.html",
-            controller: "DeleteAllController",
+        .when("/clients", {
+            templateUrl: "app/components/clients/list_clients.html",
+            controller: "ListClientsController",
             controllerAs: "vm"
         })
         .otherwise({
