@@ -1,17 +1,20 @@
 <section class="container">
 	<div class="jumbotron text-center">
 		<fieldset>
-            <legend class="text-center"><b>CLIENTS</b></legend>
-            <div class="panel panel-primary col-md-3">
-                <div class="row">    
+            <legend class="text-center"><b>LISTADO DE CLIENTES</b></legend>
+            <div class="col-md-3">
+                <td><a class="btn btn-primary" ng-href="#clients/create">Añadir cliente</a></td> 
+                <hr>
+                <div class="panel panel-primary row"> 
                     <!-- Panel de búsqueda -->
                     <div style="padding:10px;">
+                         <!-- Buscador --> 
                         <div class="form-group">
-                            <label for="search">Search by id</label>
+                            <label for="search">Buscar por id</label>
                             <input ng-model="vm.client_id" id="client_id" placeholder="Insert Client Id" class="form-control">
                         </div>                        
                         <button class="btn btn-warning col-md-offset-7" ng-click="vm.search()">
-                            <span class="glyphicon glyphicon-search"></span> Search
+                            <span class="glyphicon glyphicon-search"></span> Buscar
                         </button> 
                     </div>
                     <!-- Panel de resultados sin búsqueda-->
@@ -30,16 +33,22 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Client ID</th>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Apellido/s</th>
                             <th>DNI</th>
+                            <th>Dirección</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody ng-init="vm.initList()">
                         <tr ng-repeat="client in vm.data">
                             <td>{{client.id}}</td>
+                            <td>{{client.name}}</td>
+                            <td>{{client.surname}}</td>
                             <td>{{client.dni}}</td>
-                            <td>Details</td>
+                            <td>{{client.address}}</td>
+                           <td><a class="btn btn-primary" ng-href="#clients/modify/{{client.id}}">Modificar</a></td>
                         </tr>
                     </tbody>
                 </table>  

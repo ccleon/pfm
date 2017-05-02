@@ -11,6 +11,16 @@ pfm.config(function ($routeProvider) {
             controller: "ListClientsController",
             controllerAs: "vm"
         })
+        .when("/clients/create", {
+            templateUrl: "app/components/clients/create_client.html",
+            controller: "CreateClientController",
+            controllerAs: "vm"
+        })
+        .when("/clients/modify/:idClient", {
+            templateUrl: "app/components/clients/edit_client.html",
+            controller: "EditClientController",
+            controllerAs: "vm"
+        })
         .otherwise({
             redirectTo: '/'
         });

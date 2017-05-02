@@ -27,5 +27,48 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 	   };
 		  return this.request(config);
 	  }
-
+   
+   this.search = function (client_id){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/clients/search",
+  			   data:{'id': client_id}
+  	   };
+  	  return this.request(config);
+    }
+   
+   this.createClient = function (client){
+	   let config = {
+			   method: 'POST',
+			   url: urlBase+"/clients",
+			   data:{'address': client.address, 'name': client.name, 'dni': client.dni, 'surname': client.surname}
+	   };
+	  return this.request(config);
+   }
+   
+   this.modifyClient = function (client) {
+   	let config = {
+			   method: 'PUT',
+			   url: urlBase+"/clients",
+			   data:{
+				   'id': client.id, 
+				   'name': client.name,
+				   'surname': client.surname,
+				   'dni': client.dni, 
+				   'address': client.address 
+			   }
+	   };
+		  return this.request(config);
+	}
+   
+   this.getClientById = function (id){
+   	let config = {
+    		   //headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
+			   method: 'GET',
+			   url: urlBase+"/clients/"+id
+	   };
+		  return this.request(config);
+	}
+   
+   
 }]);

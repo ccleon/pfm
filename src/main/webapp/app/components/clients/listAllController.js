@@ -8,7 +8,7 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 			
 		vm.client_id;
 		vm.initList = initList;
-		vm.search;
+		vm.search = search;
 
 		function initList() {
 			ClientsService.initList().then(function(result) {
@@ -19,13 +19,13 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 			});
 		}
 			
-		/*function search(){
+		function search(){
 			ClientsService.search(vm.client_id).then(function(result) {
 				vm.completed = true;
 				vm.data2 = result;
 			}, function(errors) {
 				Alertify.error(errors);
 			});
-		}*/
+		}
 	}				
 ]);
