@@ -37,8 +37,8 @@ public class TokenController {
         this.authorizationDao = authorizationDao;
     }
 
-    public TokenWrapper login(long mobile) {
-        User user = userDao.findByMobile(mobile);
+    public TokenWrapper login(String username) {
+        User user = userDao.findByUsername(username);
         assert user != null;
         Token token = new Token(user);
         tokenDao.save(token);

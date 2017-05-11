@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import api.Uris;
+import entities.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -29,9 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {    	
         http.csrf().disable().authorizeRequests()//
-                .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.CLIENTS).permitAll();//
+        .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.ADMINS).permitAll()//
+        .antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()//
+        .antMatchers(Uris.SERVLET_MAP +  Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
+        .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.USERS + "/**").hasRole(Role.ADMIN.name())//
+        .and().httpBasic();//
+                //.antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.CLIENTS).permitAll();//
                /* .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.TOKENS + "/**").authenticated()//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
                 .antMatchers(Uris.SERVLET_MAP + Uris.VERSION + Uris.EMBROIDERIES + "/**").hasRole(Role.MANAGER.name())//

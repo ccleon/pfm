@@ -1,8 +1,5 @@
 package entities;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,20 +15,9 @@ public class User {
     private int id;
 
     @Column(unique = true, nullable = false)
-    private long mobile;
-
     private String username;
 
-    private String dni;
-
-    private String address;
-
-    @Column(unique = true)
-    private String email;
-
     private String password;
-
-    private Calendar registrationDate;
 
     // @Type(type="yes_no")
     private boolean active;
@@ -39,11 +25,9 @@ public class User {
     public User() {
     }
 
-    public User(long mobile, String username, String password) {
-        this.mobile = mobile;
+    public User(String username, String password) {
         this.username = username;
         this.password = new BCryptPasswordEncoder().encode(password);
-        this.registrationDate = Calendar.getInstance();
         this.active = true;
     }
 
@@ -55,10 +39,6 @@ public class User {
         return id;
     }
 
-    public long getMobile() {
-        return mobile;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -67,36 +47,8 @@ public class User {
         this.username = username;
     }
 
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public Calendar getRegistrationDate() {
-        return registrationDate;
     }
 
     public boolean isActive() {
@@ -128,9 +80,7 @@ public class User {
 
     @Override
     public String toString() {
-        String date = new SimpleDateFormat("dd-MMM-yyyy ").format(registrationDate.getTime());
-        return "User [id=" + id + ", mobile=" + mobile + ", username=" + username + ", dni=" + dni + ", address=" + address + ", email="
-                + email + ", password=" + password + ", registrationDate=" + date + ", active=" + active + "]";
+        return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
     }
 
 }

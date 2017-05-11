@@ -2,8 +2,6 @@ package wrappers;
 
 public class UserWrapper {
 
-    private long mobile;
-
     private String username;
 
     private String password;
@@ -11,18 +9,9 @@ public class UserWrapper {
     public UserWrapper() {
     }
 
-    public UserWrapper(long mobile, String username, String password) {
-        this.mobile = mobile;
+    public UserWrapper(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public long getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(long mobile) {
-        this.mobile = mobile;
     }
 
     public String getUsername() {
@@ -43,7 +32,7 @@ public class UserWrapper {
 
     @Override
     public String toString() {
-        return "UserWrapper [mobile=" + mobile + ", username=" + username + ", password=" + password + "]";
+        return "UserWrapper [username=" + username + ", password=" + password + "]";
     }
 
 }

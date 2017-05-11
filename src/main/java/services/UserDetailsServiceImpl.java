@@ -31,26 +31,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private AuthorizationDao authorizationDao;
 
     @Override
-    public UserDetails loadUserByUsername(final String mobileOrTokenValue) throws UsernameNotFoundException {
-        User user = userDao.findByTokenValue(mobileOrTokenValue);
+    public UserDetails loadUserByUsername(final String usernameOrTokenValue) throws UsernameNotFoundException {
+        User user = userDao.findByTokenValue(usernameOrTokenValue);
         if (user != null) {
             List<Role> roleList = authorizationDao.findRoleByUser(user);
-            return this.userBuilder(Long.toString(user.getMobile()), new BCryptPasswordEncoder().encode(""), roleList);
+            return this.userBuilder(String.valueOf(user.getUsername()), new BCryptPasswordEncoder().encode(""), roleList);
         } else {
             try {
-                user = userDao.findByMobile(Long.valueOf(mobileOrTokenValue));
+                user = userDao.findByUsername(usernameOrTokenValue);
             } catch (NumberFormatException nfe) {
                 throw new UsernameNotFoundException("Usuario no encontrado");
             }
             if (user != null) {
-                return this.userBuilder(String.valueOf(user.getMobile()), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
+                return this.userBuilder(String.valueOf(user.getUsername()), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
             } else {
                 throw new UsernameNotFoundException("Usuario no encontrado");
             }
         }
     }
 
-    private org.springframework.security.core.userdetails.User userBuilder(String mobile, String password, List<Role> roles) {
+    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles) {
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
@@ -59,7 +59,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.roleName()));
         }
-        return new org.springframework.security.core.userdetails.User(mobile, password, enabled, accountNonExpired, credentialsNonExpired,
+        return new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
     }
 }

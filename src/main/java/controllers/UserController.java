@@ -28,8 +28,8 @@ public class UserController {
     }
 
     public boolean registration(UserWrapper userWrapper, Role role) {
-        if (null == userDao.findByMobile(userWrapper.getMobile())) {
-            User user = new User(userWrapper.getMobile(), userWrapper.getUsername(), userWrapper.getPassword());
+        if (null == userDao.findByUsername(userWrapper.getUsername())) {
+            User user = new User(userWrapper.getUsername(), userWrapper.getPassword());
             userDao.save(user);
             authorizationDao.save(new Authorization(user, role));
             return true;

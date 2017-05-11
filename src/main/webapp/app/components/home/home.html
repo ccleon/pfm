@@ -1,5 +1,11 @@
-<section class="jumbotron" style='text-align:center' id='cartel'>
+<sec:authorize access="isAnonymous()">
+        Username: 
+</sec:authorize>
+<sec:authorize access="isAuthenticated()">
+ <section class="jumbotron" style='text-align:center' id='cartel'>
   <h2>Gestor de reservas</h2>
   <img src="assets/img/upmlogo.jpg" />
 </section>
+</sec:authorize>
+
 
