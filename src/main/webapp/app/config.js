@@ -5,7 +5,8 @@ pfm.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
             templateUrl: "app/components/home/home.html"
-        })
+        }) 
+        /*Clientes*/
         .when("/clients", {
             templateUrl: "app/components/clients/list_clients.html",
             controller: "ListClientsController",
@@ -19,6 +20,28 @@ pfm.config(function ($routeProvider) {
         .when("/clients/modify/:idClient", {
             templateUrl: "app/components/clients/edit_client.html",
             controller: "EditClientController",
+            controllerAs: "vm"
+        })
+        /*Reservas*/
+        .when("/bookings", {
+            templateUrl: "app/components/clients/list_bookings.html",
+            controller: "ListBookingsController",
+            controllerAs: "vm"
+        })
+        .when("/bookings/create", {
+            templateUrl: "app/components/clients/create_booking.html",
+            controller: "CreateBookingController",
+            controllerAs: "vm"
+        })
+        /*Login*/
+        .when("/login", {
+            templateUrl: "app/components/login/login.html",
+            controller: "LoginController",
+            controllerAs: "vm"
+        })
+        .when("/register", {
+            templateUrl: "app/components/login/registration.html",
+            controller: "RegistrationController",
             controllerAs: "vm"
         })
         .otherwise({

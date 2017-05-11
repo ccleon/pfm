@@ -32,11 +32,6 @@ public class ClientResource {
 		return clientController.getAll();
 	}
 	
-	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
-    public Client searchClient (@RequestBody IdClientWrapper clientWrapper){
-    	return clientController.getClientById(clientWrapper.getId());
-    }
-	
 	@RequestMapping(method = RequestMethod.POST)
     public Client createInvoice(@RequestBody ClientCreateWrapper clientCreateWrapper){
     	return clientController.createClient(clientCreateWrapper);
@@ -45,6 +40,11 @@ public class ClientResource {
 	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)  
     public Client getClientById(@PathVariable(value = "id") int id){
         return clientController.getClientById(id);
+    }
+	
+	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
+    public Client searchClient (@RequestBody IdClientWrapper clientWrapper){
+    	return clientController.getClientById(clientWrapper.getId());
     }
     
     @RequestMapping(method = RequestMethod.PUT)

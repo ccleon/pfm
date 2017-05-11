@@ -1,7 +1,7 @@
 pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
    "use strict";
    
-   const urlBase="http://localhost:8080/GestionReservas.0.0.1-SNAPSHOT/api";
+   const urlBase="http://localhost:8080/pfm.0.0.1-SNAPSHOT/api";
    
    this.request = function(config) {
 	      let deferred = $q.defer();
@@ -28,20 +28,16 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	  }
    
-   this.search = function (client_id){
-  	   let config = {
-  			   method: 'POST',
-  			   url: urlBase+"/clients/search",
-  			   data:{'id': client_id}
-  	   };
-  	  return this.request(config);
-    }
-   
    this.createClient = function (client){
 	   let config = {
 			   method: 'POST',
 			   url: urlBase+"/clients",
-			   data:{'address': client.address, 'name': client.name, 'dni': client.dni, 'surname': client.surname}
+			   data:{
+				   'phone': client.phone, 
+				   'name': client.name, 
+				   'dni': client.dni, 
+				   'surname': client.surname
+			   }
 	   };
 	  return this.request(config);
    }
@@ -55,7 +51,7 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 				   'name': client.name,
 				   'surname': client.surname,
 				   'dni': client.dni, 
-				   'address': client.address 
+				   'phone': client.phone 
 			   }
 	   };
 		  return this.request(config);
@@ -69,6 +65,15 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 	   };
 		  return this.request(config);
 	}
+   
+   this.search = function (client_id){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/clients/search",
+  			   data:{'id': client_id}
+  	   };
+  	  return this.request(config);
+    }
    
    
 }]);

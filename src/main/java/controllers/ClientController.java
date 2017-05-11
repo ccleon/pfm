@@ -33,7 +33,7 @@ public class ClientController {
 		Client client = new Client( 
 				clientCreateWrapper.getName(), 
 				clientCreateWrapper.getSurname(),
-				clientCreateWrapper.getAddress(),				
+				clientCreateWrapper.getPhone(),				
 				clientCreateWrapper.getDni());
 		
 		return clientDao.save(client);
@@ -45,7 +45,7 @@ public class ClientController {
 		client.setName(clientWrapper.getName());
 		client.setSurname(clientWrapper.getSurname());
 		client.setDni(clientWrapper.getDni());
-		client.setAddress(clientWrapper.getAddress());
+		client.setPhone(clientWrapper.getPhone());
 		
 		this.clientDao.save(client);
 	}

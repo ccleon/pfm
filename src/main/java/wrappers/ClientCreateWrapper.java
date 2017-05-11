@@ -2,17 +2,23 @@ package wrappers;
 
 public class ClientCreateWrapper {
 	
-	private String name, surname, address, dni;
+	private String name; 
+	
+	private String surname;
+	
+	private String phone;
+	
+	private String dni;
 	
 	public ClientCreateWrapper() {
 	
 	}
 
-	public ClientCreateWrapper(String name, String surname, String address, String dni) {
+	public ClientCreateWrapper(String name, String surname, String phone, String dni) {
 		this.dni = dni;
 		this.name = name;
 		this.surname = surname;
-		this.address = address;
+		this.phone = phone;
 	}
 
 	public String getName() {
@@ -31,12 +37,12 @@ public class ClientCreateWrapper {
 		this.surname = surname;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getDni() {
@@ -49,7 +55,7 @@ public class ClientCreateWrapper {
 
 	@Override
 	public String toString() {
-		return "ClientWrapper [name=" + name + ", surname=" + surname + ", address=" + address + ", dni=" + dni + "]";
+		return "ClientWrapper [name=" + name + ", surname=" + surname + ", phone=" + phone + ", dni=" + dni + "]";
 	}
 
 }

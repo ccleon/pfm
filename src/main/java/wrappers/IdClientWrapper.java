@@ -23,7 +23,7 @@ public class IdClientWrapper {
 
     @Override
     public String toString() {
-        return "TicketWrapper [id=" + id + "]";
+        return "IdClientWrapper [id=" + id + "]";
     }
        
 }
