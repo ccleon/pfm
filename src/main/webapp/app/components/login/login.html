@@ -2,31 +2,35 @@
 	<div class="jumbotron text-center">
 		<fieldset>
 			<legend>Login</legend>
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="control-label col-sm-2 " for="username">Usuario:</label>
-					<div class='col-sm-10'>
-						<input type='text' class="form-control" name='username' ng-model='vm.username' required />
+			<div class="col-sm-6 col-sm-offset-3" style="padding:10px;">
+				<form class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-sm-2 " for="username">Usuario:</label>
+						<div class='col-sm-10'>
+							<input type='text' class="form-control" name='username' ng-model='vm.username' required />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" for="password">Contraseña:</label>
-					<div class='col-sm-10'>
-						<input type='password' class="form-control" name='password' ng-model='vm.password' required />
+					<div class="form-group">
+						<label class="control-label col-sm-2" for="password">Contraseña:</label>
+						<div class='col-sm-10'>
+							<input type='password' class="form-control" name='password' ng-model='vm.password' required />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-2">
-						<button class="btn btn-primary btn-sm" ng-click="vm.login()">Enviar</button>
+					<div class="form-group">
+						<div class="col-sm-offset-5 col-sm-2">
+							<button class="btn btn-primary btn-sm" ng-click="vm.login()">Enviar</button>
+						</div>
 					</div>
-					<label class="bg-success col-sm-6" ng-show="vm.completed">Petición
-						correcta</label> <label class="bg-danger col-sm-6" ng-show="vm.error">Error!!!</label>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-2" >Respuesta:</label>
-					<label class="col-sm-10" ng-bind='vm.response'></label>
-				</div>
-			</form>
+					<div class="form-group">
+					   <label class="bg-success col-sm-12" ng-show="vm.completed">Petición correcta</label> 
+					   <label class="bg-danger  col-sm-12" ng-show="vm.error">Error!!!</label>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-2" >Respuesta:</label>
+						<label class="col-sm-10" ng-bind='vm.response'></label>
+					</div>
+				</form>
+			 </div>
 		</fieldset>
 	</div>
 </section>

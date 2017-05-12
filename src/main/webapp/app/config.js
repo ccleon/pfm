@@ -4,29 +4,41 @@ pfm.config(function ($routeProvider) {
     "use strict";
     $routeProvider
         .when("/", {
-            templateUrl: "app/components/home/home.html"
+            templateUrl: "app/components/login/login.html"
         }) 
         /*Clientes*/
         .when("/clients", {
             templateUrl: "app/components/clients/list_clients.html",
             controller: "ListClientsController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthClients
+              }
         })
         .when("/clients/create", {
             templateUrl: "app/components/clients/create_client.html",
             controller: "CreateClientController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthClients
+              }
         })
         .when("/clients/modify/:idClient", {
             templateUrl: "app/components/clients/edit_client.html",
             controller: "EditClientController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthClients
+              }
         })
         /*Reservas*/
         .when("/bookings", {
             templateUrl: "app/components/clients/list_bookings.html",
             controller: "ListBookingsController",
-            controllerAs: "vm"
+            controllerAs: "vm"/*,
+            resolve: {
+                notAutorized: checkAuthClients
+              }*/
         })
         .when("/bookings/create", {
             templateUrl: "app/components/clients/create_booking.html",
@@ -42,12 +54,31 @@ pfm.config(function ($routeProvider) {
         .when("/register", {
             templateUrl: "app/components/login/registration.html",
             controller: "RegistrationController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: { //Solo el admin puede registrar usuarios
+                notAutorized: checkAuthRegister
+              }
         })
-        .otherwise({
+        .otherwise({ /*aqui iría planning*/
             redirectTo: '/'
         });
 });
+
+function checkAuthClients($window, $location, Alertify){
+    var role = $window.sessionStorage.getItem('rol');
+    if (!role || (role !== "ADMIN" && role !== "MANAGER")) {
+      $location.url('/login');
+      Alertify.error('No tienes acceso a esta función');
+    }
+ }
+
+function checkAuthRegister($window, $location, Alertify){
+    var role = $window.sessionStorage.getItem('rol');
+    if (!role || role !== "ADMIN") {
+      $location.url('/login');
+      Alertify.error('Sólo el administrador tiene permiso para añadir usuarios. Si quiere añadir un usuario, contacte con el administrador.');
+    }
+  }
 
 pfm.config(['$httpProvider',
   function ($httpProvider) {
