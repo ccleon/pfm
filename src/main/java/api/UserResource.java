@@ -10,6 +10,7 @@ import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.InvalidUserFieldException;
 import controllers.UserController;
 import entities.Role;
+import wrappers.UserCreateWrapper;
 import wrappers.UserWrapper;
 
 @RestController
@@ -24,9 +25,9 @@ public class UserResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void userRegistration(@RequestBody UserWrapper userWrapper) throws InvalidUserFieldException, AlreadyExistUserFieldException {
-    	validateField(userWrapper.getUsername(), "username");
-        if (!this.userController.registration(userWrapper, Role.MANAGER)) {
+    public void userRegistration(@RequestBody UserCreateWrapper userCreateWrapper) throws InvalidUserFieldException, AlreadyExistUserFieldException {
+    	validateField(userCreateWrapper.getUsername(), "username");
+        if (!this.userController.registration(userCreateWrapper)) {
             throw new AlreadyExistUserFieldException();
         }
     }

@@ -31,7 +31,7 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	      return this.request(config);
 	   }
    
-   this.registration = function (username, password){
+   this.registration = function (username, password, role){
 	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 	      let resource="";
 	     /* if (user==='manager')
@@ -41,7 +41,7 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 		  let config = {
 	 	      method: 'POST',
 	 	      url: urlBase+"/users",
-	 	      data: {'username': username, 'password': password}
+	 	      data: {'username': username, 'password': password, 'role': role}
 		  };
 	      return this.request(config);
 	   }

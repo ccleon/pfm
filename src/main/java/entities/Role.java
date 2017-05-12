@@ -1,7 +1,7 @@
 package entities;
 
 public enum Role {
-    ADMIN, MANAGER, OPERATOR, CUSTOMER, ANONYMOUS, AUTHENTICATED;
+    ADMIN, MANAGER, AUTHENTICATED;
 
     public String roleName() {
         return "ROLE_" + this.toString();
