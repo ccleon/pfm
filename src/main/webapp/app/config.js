@@ -31,9 +31,11 @@ pfm.config(function ($routeProvider) {
                 notAutorized: checkAuthClients
               }
         })
-        /*Reservas*/
+        /*
+         * Reservas
+         */
         .when("/bookings", {
-            templateUrl: "app/components/clients/list_bookings.html",
+            templateUrl: "app/components/bookings/list_bookings.html",
             controller: "ListBookingsController",
             controllerAs: "vm"/*,
             resolve: {
@@ -41,9 +43,17 @@ pfm.config(function ($routeProvider) {
               }*/
         })
         .when("/bookings/create", {
-            templateUrl: "app/components/clients/create_booking.html",
+            templateUrl: "app/components/bookings/create_booking.html",
             controller: "CreateBookingController",
             controllerAs: "vm"
+        })
+        .when("/bookings/modify/:idBooking", {
+            templateUrl: "app/components/bookings/edit_booking.html",
+            controller: "EditBookingController",
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthClients
+              }
         })
         /*Login*/
         .when("/login", {
