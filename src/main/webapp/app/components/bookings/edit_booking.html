@@ -1,0 +1,47 @@
+<section class="container">
+    <div class="jumbotron">
+		<fieldset>
+            <legend class="text-center" ng-init="vm.getBookingById()"><b>MODIFICAR DATOS DE LA RESERVA</b></legend>
+            <div class="panel panel-primary col-md-8 col-md-offset-2">
+                <form class="form-horizontal" role="form" name="formBooking" ng-submit="vm.modifyBooking()">
+		          <div class="form-group" style="margin-top:20px;">
+                    <label class="control-label label-id col-md-4">Id</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.booking.id}} ng-model='vm.booking.id' required readonly>
+                    </div>
+                  </div>
+		          <div class="form-group">
+		            <label class="control-label label-id col-md-4">Bungalow</label>
+		            <div class="col-md-4">
+		               <input type="text" class="form-control"  placeholder={{vm.booking.bungalow}} ng-model='vm.booking.bungalow' required>
+		            </div>
+		          </div>
+		          <div class="form-group">
+                    <label class="control-label label-id col-md-4">Cliente</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.booking.client.name}} ng-model='vm.booking.client' required>
+                    </div>
+                  </div>
+		          <div class="form-group">
+                    <label class="control-label label-id col-md-4">Llegada</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.booking.arrivalDate }} ng-model='vm.booking.arrivalDate'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label label-id col-md-4">Salida</label>
+                    <div class="col-md-4">
+                       <input type="text" class="form-control"  placeholder={{vm.booking.departureDate}} ng-model='vm.booking.departureDate'>
+                    </div>
+                  </div>
+		          <div class="form-group"> 
+                    <div class="col-md-offset-4 col-md-10">
+                        <input type="submit" class="btn btn-primary" value="Guardar cambios"> 
+                         <a class="btn btn-danger" ng-href="#/bookings">Volver</a>
+                    </div>
+                 </div> 
+                </form>
+              </div>
+		</fieldset>
+	</div>
+</section>

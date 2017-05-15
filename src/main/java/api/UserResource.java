@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.InvalidUserFieldException;
 import controllers.UserController;
-import entities.Role;
 import wrappers.UserCreateWrapper;
-import wrappers.UserWrapper;
 
 @RestController
 @RequestMapping(Uris.USERS)

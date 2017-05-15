@@ -26,8 +26,8 @@ public class ClientController {
 	}
 	
 	public Client getClientById(long id){
-        return clientDao.findOne((int) id);
-    }
+		return clientDao.findOne((int) id);
+	}
 
 	public Client createClient (ClientCreateWrapper clientCreateWrapper) {
 		Client client = new Client( 

@@ -33,7 +33,7 @@ public class ClientResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public Client createInvoice(@RequestBody ClientCreateWrapper clientCreateWrapper){
+    public Client createClient(@RequestBody ClientCreateWrapper clientCreateWrapper){
     	return clientController.createClient(clientCreateWrapper);
     }
 	
