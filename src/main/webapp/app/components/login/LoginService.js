@@ -31,13 +31,14 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	      return this.request(config);
 	   }
    
+   this.logout = function (){
+
+	      return this.request(config);
+	   }
+   
    this.registration = function (username, password, role){
 	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 	      let resource="";
-	     /* if (user==='manager')
-	    	  resource="users";
-	      else if (user==='customer') 
-	    	  resource="customers";*/
 		  let config = {
 	 	      method: 'POST',
 	 	      url: urlBase+"/users",
@@ -45,5 +46,13 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 		  };
 	      return this.request(config);
 	   }
+   
+   this.isLogged = function isLogged(){
+		return !!sessionStorage.token;
+	}
+   
+   this.logout = function logout(){
+		sessionStorage.clear();
+	}
   
 }]);

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="assets/css/alertify.css">
     <link rel="stylesheet" href="assets/css/autocomplete.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="assets/js/angular.min.js"></script>
     <script src="assets/js/route.min.js"></script>
@@ -25,7 +26,7 @@
     <script src="assets/js/autocomplete.js"></script>
     <script src="assets/js/angular-messages.js"></script>
     <script src="assets/js/checklist.js"></script>
-    
+
      <!-- Theme Base, Components and Settings -->
     <script src="assets/js/theme.js"></script>
     <script src="assets/js/theme.init.js"></script>
@@ -38,6 +39,7 @@
     <!-- Configuración -->
     <script src="app/config.js"></script>
     <script src="app/constants.js"></script>
+    <script src="app/components/navController.js"></script>
     
     <!-- Login -->
     <script src="app/components/login/LoginService.js"></script>
@@ -55,70 +57,12 @@
     <script src="app/components/bookings/listAllController.js"></script>
     <script src="app/components/bookings/createBookingController.js"></script>
     <script src="app/components/bookings/editBookingController.js"></script>
-    
 
 </head>
 
 <body>
-    <header id="header" class="header-narrow" data-plugin-options="{'stickyEnabled': true, 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyStartAt': 0, 'stickySetTop': '0'}">
-        <div class="header-body">
-            <div class="header-container container">
-                <div class="header-row">
-                    <div class="header-column">
-	                    <div class="header-logo">
-	                        <a href="#/">
-	                            <img alt="Logo" width="140" height="70" src="assets/img/logo_bc.png">
-	                        </a>
-	                    </div>
-	                </div>
-	                <div class="header-column">
-	                    <div class="header-row">
-	                        <div class="header-nav">
-	                            <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main">
-                                    <i class="fa fa-bars"></i>
-                                </button>
-                                <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
-	                                <nav>
-	                                    <ul class="nav nav-pills" id="mainNav">
-	                                        <li class="dropdown">
-	                                            <a class="dropdown-toggle" href="#/">Dropdown</a>
-	                                            <ul class="dropdown-menu">
-	                                                <li><a href="#/">Option</a></li>
-	                                            </ul>
-	                                        </li>
-	                                        <li class="">
-	                                           <a href="#/clients">Clientes</a>
-	                                        </li>   
-	                                        <li class="">
-                                               <a href="#/login">Login</a>
-                                            </li>   
-                                            <li class="">
-                                               <a href="#/register">Registro</a>
-                                            </li> 
-	                                        <li class="">
-                                               <a href="#/bookings">Reservas</a>
-                                            </li> 
-                                            <li class="">
-                                               <a href="#/">Planning</a>
-                                            </li>     
-	                                    </ul>
-	                                </nav>
-	                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-       
-    <div class="container">         
-        <div class="row">
-            <hr class="tall">
-            <hr class="tall">
-        </div>
-    </div>
-
+<div ng-include="'nav.html'"></div>
+   
     <main id='cuerpo'>
         <div class="container" ng-view></div>
     </main>

@@ -1,12 +1,18 @@
 var pfm = angular.module("pfm", ["ngRoute", 'bw.paging', "Alertify", "angucomplete-alt", "ngMessages", "checklist-model"]);
 
+pfm.controller ("NavController",function(){
+    
+});
+
 pfm.config(function ($routeProvider) {
     "use strict";
     $routeProvider
         .when("/", {
             templateUrl: "app/components/login/login.html"
         }) 
-        /*Clientes*/
+        /*
+         * Clientes 
+         */
         .when("/clients", {
             templateUrl: "app/components/clients/list_clients.html",
             controller: "ListClientsController",
@@ -37,10 +43,7 @@ pfm.config(function ($routeProvider) {
         .when("/bookings", {
             templateUrl: "app/components/bookings/list_bookings.html",
             controller: "ListBookingsController",
-            controllerAs: "vm"/*,
-            resolve: {
-                notAutorized: checkAuthClients
-              }*/
+            controllerAs: "vm"
         })
         .when("/bookings/create", {
             templateUrl: "app/components/bookings/create_booking.html",
@@ -55,7 +58,9 @@ pfm.config(function ($routeProvider) {
                 notAutorized: checkAuthClients
               }
         })
-        /*Login*/
+        /*
+         * Login
+         */
         .when("/login", {
             templateUrl: "app/components/login/login.html",
             controller: "LoginController",
@@ -73,6 +78,7 @@ pfm.config(function ($routeProvider) {
             redirectTo: '/'
         });
 });
+
 
 function checkAuthClients($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
