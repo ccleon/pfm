@@ -1,16 +1,17 @@
 package wrappers;
 
 import java.util.Calendar;
+import java.util.Date;
 
 public class BookingWrapper {
 	
 	private String bungalow; 
 	
-	private int idClient;
+	private int idcliente;
 	
-	private Calendar arrivalDate;
+	private Calendar arrival;
 	
-	private Calendar departureDate;
+	private Calendar departure;
 	
 	private int id;
 	
@@ -18,12 +19,12 @@ public class BookingWrapper {
 	
 	}
 
-	public BookingWrapper(int id, String bungalow, int idClient, Calendar arrivalDate, Calendar departureDate) {
+	public BookingWrapper(int id, String bungalow, int idcliente, Calendar arrival, Calendar departure) {
 		this.id = id;
 		this.bungalow = bungalow;
-		this.idClient = idClient;
-		this.arrivalDate = arrivalDate;
-		this.departureDate = departureDate;
+		this.idcliente = idcliente;
+		this.arrival = arrival;
+		this.departure = departure;
 	}
 	
 	public int getId() {
@@ -41,34 +42,34 @@ public class BookingWrapper {
 	public void setBungalow(String bungalow) {
 		this.bungalow = bungalow;
 	}
-
-	public int getClientId() {
-		return idClient;
+	
+	public int getIdcliente() {
+		return idcliente;
 	}
 
-	public void setClientId(int client) {
-		this.idClient = client;
+	public void setIdcliente(int idcliente) {
+		this.idcliente = idcliente;
 	}
 
-	public Calendar getArrivalDate() {
-		return arrivalDate;
+	public Calendar getArrival() {
+		return arrival;
 	}
 
-	public void setArrivalDate(Calendar arrivalDate) {
-		this.arrivalDate = arrivalDate;
+	public void setArrival(Calendar arrival) {
+		this.arrival = arrival;
 	}
 
-	public Calendar getDepartureDate() {
-		return departureDate;
+	public Calendar getDeparture() {
+		return departure;
 	}
 
-	public void setDepartureDate(Calendar departureDate) {
-		this.departureDate = departureDate;
+	public void setDeparture(Calendar departure) {
+		this.departure = departure;
 	}
 
 	@Override
 	public String toString() {
-		return "BookingCreateWrapper [id=" + id + ", bungalow=" + bungalow + ", idClient=" + idClient + ", arrivalDate=" + arrivalDate
-				+ ", departureDate=" + departureDate + "]";
+		return "BookingCreateWrapper [id=" + id + ", bungalow=" + bungalow + ", idcliente=" + idcliente + ", arrival=" + arrival
+				+ ", departure=" + departure + "]";
 	}
 }

@@ -1,43 +1,45 @@
+<!-- Datepicker -->    
+<script src="assets/js/datepicker.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
 <section class="container">
     <div class="jumbotron">
         <fieldset>
             <legend class="text-center"><b>NUEVA RESERVA</b></legend>
             <div class="panel panel-primary col-md-8 col-md-offset-2">
 	           <form class="form-horizontal" role="form" name="formCreateBooking" ng-submit="vm.createBooking()">
-                    <!--<div class="form-group">
-                        <label class="control-label label-id col-md-4">Id Cliente </label>
-                        <div class="col-md-6">
-                           <input type="text" class="form-control" ng-model='vm.booking.idcliente' >
-                        </div>
-                    </div>-->
-                    <div class="form-group" ng-init="vm.getClients()">
-                        <label class="control-label col-sm-4" for="idClient"> Cliente: </label>
-                        <select class="col-md-6" name="idClient" ng-model="vm.booking.idcliente" required>
-                            <option ng-repeat="client in vm.clients" value={{client.id}}>{{client.name}} {{client.surname}} {{client.id}}</option>
-                        </select>
-                    </div>
                     <div class="form-group" style="margin-top:20px;">
-                     <label class="control-label label-id col-md-4">Bungalow </label>
-                     <div class="col-md-6">
-                         <input type="text" class="form-control" ng-model='vm.booking.bungalow'>
-                     </div>
+	                     <label class="control-label label-id col-md-4">Bungalow </label>
+	                     <div class="col-md-6">
+	                         <input type="text" class="form-control" ng-model='vm.booking.bungalow'>
+	                     </div>
+                    </div>
+                    <div class="form-group" ng-init="vm.getClients()">
+                        <label class="control-label col-sm-4" for="idClient"> Cliente </label>
+                        <select class="col-md-6" name="idClient" ng-model="vm.booking.idcliente" required>
+                            <option ng-repeat="client in vm.clients" value={{client.id}}>{{client.name}} {{client.surname}}</option>
+                        </select>
+                    </div>     
+                    <div class="form-group">
+                        <label class="control-label label-id col-md-4">Entrada</label>
+                        <div id="datepicker" class= "input-group date calendar col-md-6" ><!--  -->
+                            <input type="text" ng-model='vm.booking.arrival' class="form-control" name="arrival" id="arrival" required>
+                        </div>
+                    </div>
+                    <div class="form-group"> 
+                        <label class="control-label label-id col-md-4">Salida </label>
+                        <div id="datepicker" class="col-md-6">
+                            <input type="text" ng-model='vm.booking.departure' class="form-control" name="departure" id="departure" required>
+                        </div>
                     </div>
                     <div class="form-group"> 
                         <div class="col-md-offset-4 col-md-10">
                             <input type="submit" class="btn btn-primary" value="Guardar"> 
                             <a class="btn btn-danger" ng-href="#/bookings">Volver</a>
                         </div>
-                    </div> 
-			        </form>
-				 </div>
-            </div>
+                    </div>
+                </form>
+		     </div>
         </fieldset>
     </div>			 
-</section>
-
-                   <!--  <div class="form-group" ng-init="vm.getClients()">
-                        <label class="control-label col-sm-4" for="idClient"> Cliente: </label>
-                        <select class="col-md-6" name="idClient" ng-model="vm.booking.booking" required>
-                            <option ng-repeat="client in vm.clients" value={{client.id}}>{{client.name}} {{client.surname}} {{client.id}}</option>
-                        </select>
-                    </div>-->
+</section> 

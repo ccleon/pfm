@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,9 +19,8 @@ public class Booking {
 	@GeneratedValue
 	private int id;
 	
-	//De momento se queda como string hasta que cree los bungalows
-	private String bungalow;
-	
+	private String bungalow;	//De momento se queda como string hasta que cree los bungalows
+
     @ManyToOne
     @JoinColumn
 	private Client client;
@@ -29,18 +29,18 @@ public class Booking {
 	
 	private Calendar departureDate;
 	
-	private BigDecimal totalPrice;
+	private long totalPrice;
 	
 	
 	public Booking (){
 	}
 		
-	public Booking (String bungalow, Client client, Calendar arrivalDate, Calendar departureDate) {
+	public Booking (String bungalow, Client client, Calendar arrivalDate, Calendar departureDate, long totalPrice) {
 		this.bungalow = bungalow;
 		this.client = client;
 		this.arrivalDate = arrivalDate;
 		this.departureDate = departureDate;
-		this.totalPrice = new BigDecimal(9.25);
+		this.totalPrice = totalPrice;
 	}
 	
 	public int getId(){
@@ -79,11 +79,11 @@ public class Booking {
 		this.departureDate = departureDate;
 	}
 
-	public BigDecimal getTotalPrice() {
+	public long getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
+	public void setTotalPrice(long totalPrice) {
 		this.totalPrice = totalPrice;
 	}
     

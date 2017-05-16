@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import controllers.BookingController;
 import entities.Booking;
-import entities.Client;
 import wrappers.BookingCreateWrapper;
-import wrappers.BookingWrapper;
-import wrappers.ClientWrapper;
+import wrappers.BookingModifyWrapper;
+import wrappers.BookingModifyWrapper2;
 
 @RestController
 @RequestMapping(Uris.BOOKINGS)
@@ -45,12 +44,12 @@ public class BookingResource {
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void modifyBooking (@RequestBody BookingWrapper bookingWrapper) {
+    public void modifyBooking (@RequestBody BookingModifyWrapper2 bookingWrapper) {
     	this.bookingController.bookingModify(bookingWrapper);
     }
 	
 	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)  
-    public Booking getBookingById(@PathVariable(value = "id") int id){
+    public BookingModifyWrapper getBookingById(@PathVariable(value = "id") int id){
         return bookingController.getBookingById(id);
     }
 }

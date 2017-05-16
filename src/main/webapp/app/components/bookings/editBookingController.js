@@ -7,6 +7,7 @@ pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsServi
 	vm.id = $routeParams.idBooking;
 	vm.getBookingById = getBookingById;
 	vm.modifyBooking = modifyBooking;
+	vm.getClients = getClients;
 			
 	function getBookingById() {
 		BookingsService.getBookingById(vm.id).then(function(result) {
@@ -23,6 +24,15 @@ pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsServi
 			vm.booking = {};
 	        Alertify.success("¡El usuario ha sido modificado con éxito!");
 			$location.path('/bookings');
+		}, function(errors) {
+			Alertify.error(errors);
+		});
+	}
+	
+	function getClients() {
+		BookingsService.getClients().then(function(result) {
+			vm.completed = true;
+			vm.clients = result;
 		}, function(errors) {
 			Alertify.error(errors);
 		});

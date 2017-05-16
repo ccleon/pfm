@@ -10,10 +10,10 @@ pfm.controller('CreateBookingController', [ '$timeout', 'Alertify', 'BookingsSer
 
 		function createBooking() {
 			BookingsService.createBooking(vm.booking).then(function(result) {
-				Alertify.success("¡La reserva ha sido creada con éxito!");
+				Alertify.success("¡La reserva ha sido creada con éxito!"+ "-----------------------: " + vm.booking.departure);
 				$location.path('/bookings');
 			}, function error(errors){
-		    	Alertify.error("¡ERROR! La reserva no se ha podido crear" + "-----------------------Id del cliente elegido: " + vm.booking.client);
+		    	Alertify.error("¡ERROR! La reserva no se ha podido crear" + "-----------------------: " + vm.booking.arrival);
 		    });
 		}
 		

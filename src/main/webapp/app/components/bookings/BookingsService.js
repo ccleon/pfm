@@ -43,8 +43,8 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 			   data:{
 				   'idcliente': booking.idcliente,
 				   'bungalow': booking.bungalow,
-				   'arrivalDate': booking.arrivalDate, 
-				   'departureDate': booking.departureDate
+				   'arrival': booking.arrival, 
+				   'departure': booking.departure
 			   }
 	   };
 	  return this.request(config);
@@ -57,9 +57,9 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 			   data:{
 				   'id': booking.id, 
 				   'bungalow': booking.bungalow,
-				   'client': booking.client,
-				   'arrivalDate': booking.arrivalDate, 
-				   'departureDate': booking.departureDate 
+				   'idclient': booking.idclient,
+				   'arrival': booking.arrival, 
+				   'departure': booking.departure 
 			   }
 	   };
 		  return this.request(config);

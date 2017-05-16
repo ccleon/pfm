@@ -1,3 +1,7 @@
+<!-- Datepicker -->    
+<script src="assets/js/datepicker.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
 <section class="container">
     <div class="jumbotron">
 		<fieldset>
@@ -13,27 +17,29 @@
 		          <div class="form-group">
 		            <label class="control-label label-id col-md-4">Bungalow</label>
 		            <div class="col-md-4">
-		               <input type="text" class="form-control"  placeholder={{vm.booking.bungalow}} ng-model='vm.booking.bungalow' required>
+		               <input type="text" class="form-control" placeholder={{vm.booking.bungalow}} ng-model='vm.booking.bungalow' required>
 		            </div>
 		          </div>
-		          <div class="form-group">
-                    <label class="control-label label-id col-md-4">Cliente</label>
-                    <div class="col-md-4">
-                       <input type="text" class="form-control"  placeholder={{vm.booking.client.name}} ng-model='vm.booking.client' required>
+                  <div class="form-group" ng-init="vm.getClients()">
+                    <label class="control-label col-sm-4" for="idClient"> Cliente </label>
+                    <select class="col-md-6" name="client" ng-model="vm.booking.idclient" required>
+                       <option ng-repeat="client in vm.clients" ng-if="client.id !== vm.booking.client.id" value={{client.id}}>{{client.name}} {{client.surname}}</option>
+                       <option ng-repeat="client in vm.clients" ng-if="client.id === vm.booking.client.id" value={{cliente.id}} selected="selected">{{client.name}} {{client.surname}}</option>
+                      
+                    </select>
+                   </div>
+                   <div class="form-group">
+                        <label class="control-label label-id col-md-4">Entrada</label>
+                        <div id="datepicker" class="date calendar col-md-6">
+                            <input type="text" ng-model='vm.booking.arrival' placeholder="{{vm.booking.arrival}}" class="form-control" name="arrival" id="arrival" required>
+                        </div>
                     </div>
-                  </div>
-		          <div class="form-group">
-                    <label class="control-label label-id col-md-4">Llegada</label>
-                    <div class="col-md-4">
-                       <input type="text" class="form-control"  placeholder={{vm.booking.arrivalDate }} ng-model='vm.booking.arrivalDate'>
+                   <div class="form-group"> 
+                        <label class="control-label label-id col-md-4">Salida </label>
+                        <div id="datepicker" class="date calendar col-md-6">
+                            <input type="text" ng-model='vm.booking.departure' placeholder={{vm.booking.departure}} class="form-control" name="departure" id="departure" required>
+                        </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label label-id col-md-4">Salida</label>
-                    <div class="col-md-4">
-                       <input type="text" class="form-control"  placeholder={{vm.booking.departureDate}} ng-model='vm.booking.departureDate'>
-                    </div>
-                  </div>
 		          <div class="form-group"> 
                     <div class="col-md-offset-4 col-md-10">
                         <input type="submit" class="btn btn-primary" value="Guardar cambios"> 
