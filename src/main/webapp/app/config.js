@@ -8,7 +8,9 @@ pfm.config(function ($routeProvider) {
     "use strict";
     $routeProvider
         .when("/", {
-            templateUrl: "app/components/login/login.html"
+        	templateUrl: "app/components/login/login.html",
+            controller: "LoginController",
+            controllerAs: "vm"
         }) 
         /*
          * Clientes 
@@ -74,8 +76,14 @@ pfm.config(function ($routeProvider) {
                 notAutorized: checkAuthRegister
               }
         })
+        /*
+         * Planning
+         */
+        .when("/planning", {
+            templateUrl: "app/components/planning/planning.html",
+        })
         .otherwise({ /*aqui iría planning*/
-            redirectTo: '/'
+            redirectTo: 'app/components/planning/planning.html'
         });
 });
 

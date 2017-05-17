@@ -14,12 +14,14 @@
                        <input type="text" class="form-control"  placeholder={{vm.booking.id}} ng-model='vm.booking.id' required readonly>
                     </div>
                   </div>
-		          <div class="form-group">
-		            <label class="control-label label-id col-md-4">Bungalow</label>
-		            <div class="col-md-4">
-		               <input type="text" class="form-control" placeholder={{vm.booking.bungalow}} ng-model='vm.booking.bungalow' required>
-		            </div>
-		          </div>
+                  <div class="form-group" ng-init="vm.getBungalows()">
+                    <label class="control-label col-sm-4" for="idClient"> Bungalow </label>
+                    <select class="col-md-6" name="client" ng-model="vm.booking.idbungalow" required>
+                       <option ng-repeat="bungalow in vm.bungalows" ng-if="bungalow.id !== vm.booking.bungalow.id" value={{bungalow.id}}>Bungalow {{bungalow.number}}</option>
+                       <option ng-repeat="bungalow in vm.bungalows" ng-if="bungalow.id === vm.booking.bungalow.id" value={{bungalow.id}} selected="selected">Bungalow {{bungalow.number}}</option>
+                      
+                    </select>
+                   </div>
                   <div class="form-group" ng-init="vm.getClients()">
                     <label class="control-label col-sm-4" for="idClient"> Cliente </label>
                     <select class="col-md-6" name="client" ng-model="vm.booking.idclient" required>

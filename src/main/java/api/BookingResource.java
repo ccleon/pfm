@@ -16,7 +16,7 @@ import controllers.BookingController;
 import entities.Booking;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
-import wrappers.BookingModifyWrapper2;
+import wrappers.BookingSaveModifiedWrapper;
 
 @RestController
 @RequestMapping(Uris.BOOKINGS)
@@ -44,7 +44,7 @@ public class BookingResource {
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void modifyBooking (@RequestBody BookingModifyWrapper2 bookingWrapper) {
+    public void modifyBooking (@RequestBody BookingSaveModifiedWrapper bookingWrapper) {
     	this.bookingController.bookingModify(bookingWrapper);
     }
 	

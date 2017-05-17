@@ -1,5 +1,6 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Controller;
 
 import daos.BookingDao;
 import daos.ClientDao;
+import daos.BungalowDao;
 import entities.Booking;
-import entities.Client;
+import entities.Bungalow;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
-import wrappers.BookingModifyWrapper2;
-import wrappers.BookingWrapper;
+import wrappers.BookingSaveModifiedWrapper;
 
 @Controller
 public class BookingController {
@@ -21,6 +22,8 @@ public class BookingController {
 	private BookingDao bookingDao;
 	
 	private ClientDao clientDao;
+	
+	private BungalowDao bungalowDao;
 	
 	@Autowired
 	public void setBookingDao(BookingDao bookingDao) {
@@ -30,6 +33,11 @@ public class BookingController {
 	@Autowired
 	public void setClientDao(ClientDao clientDao) {
 		this.clientDao = clientDao;
+	}
+	
+	@Autowired
+	public void setBungalowDao(BungalowDao bungalowDao) {
+		this.bungalowDao = bungalowDao;
 	}
 	
 	public List<Booking> getAll(){
@@ -47,27 +55,31 @@ public class BookingController {
 		return date;
 	}
 	
-	public long getBookingDays(BookingCreateWrapper bookingCreateWrapper){
-		Calendar arrival = createDate(bookingCreateWrapper.getArrival());
-		Calendar departure = createDate(bookingCreateWrapper.getDeparture());
+	public BigDecimal getTotalNights(String arrivalDate, String departureDate){
+		Calendar arrival = createDate(arrivalDate);
+		Calendar departure = createDate(departureDate);
 		
 		long arrivalMillis = arrival.getTimeInMillis();
 		long departureMillis = departure.getTimeInMillis();
 		
 		long diff = departureMillis - arrivalMillis;
 		
-		long diffDays = diff / (24 * 60 * 60 * 1000);
+		BigDecimal diffNights = new BigDecimal (diff / (24 * 60 * 60 * 1000));
 		
-		return diffDays*85;
+		return diffNights;
 	}
 	
 	public Booking createBooking(BookingCreateWrapper bookingCreateWrapper) {
-		Calendar arrival = createDate(bookingCreateWrapper.getArrival());
-		Calendar departure = createDate(bookingCreateWrapper.getDeparture());
+		Bungalow bungalow = bungalowDao.findOne(bookingCreateWrapper.getIdBungalow());
+		
+		Booking booking = new Booking (
+				bungalow, 
+				clientDao.findOne(bookingCreateWrapper.getIdCliente()), 
+				createDate(bookingCreateWrapper.getArrival()), 
+				createDate(bookingCreateWrapper.getDeparture()), 
+				(getTotalNights(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture()).multiply(bungalow.getPricePerNight()))
+				);
 
-		Client client = clientDao.findOne(bookingCreateWrapper.getIdcliente());
-		Booking booking = new Booking (bookingCreateWrapper.getBungalow(), client, arrival, departure, getBookingDays(bookingCreateWrapper));
-		System.out.println(booking.toString());
 		return bookingDao.save(booking);
 	}
 	
@@ -87,14 +99,15 @@ public class BookingController {
 		return booking;
 	}
 	
-	public void bookingModify (BookingModifyWrapper2 bookingWrapper) {
-		Booking booking = bookingDao.findOne(bookingWrapper.getId());
-		Client c = clientDao.findOne(bookingWrapper.getIdclient());
+	public void bookingModify (BookingSaveModifiedWrapper bookingSaveModifiedWrapper) {
+		Booking booking = bookingDao.findOne(bookingSaveModifiedWrapper.getId());
+		Bungalow bungalow = bungalowDao.findOne(bookingSaveModifiedWrapper.getIdBungalow());
 		
-		booking.setBungalow(bookingWrapper.getBungalow());
-		booking.setClient(c);
-		booking.setArrivalDate(createDate(bookingWrapper.getArrival()));
-		booking.setDepartureDate(createDate(bookingWrapper.getDeparture()));
+		booking.setBungalow(bungalow);
+		booking.setClient(clientDao.findOne(bookingSaveModifiedWrapper.getIdClient()));
+		booking.setArrivalDate(createDate(bookingSaveModifiedWrapper.getArrival()));
+		booking.setDepartureDate(createDate(bookingSaveModifiedWrapper.getDeparture()));
+		booking.setTotalPrice((getTotalNights(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture()).multiply(bungalow.getPricePerNight())));
 		
 		this.bookingDao.save(booking);
 	}

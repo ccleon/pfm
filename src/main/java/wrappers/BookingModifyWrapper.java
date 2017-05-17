@@ -1,13 +1,11 @@
 package wrappers;
 
-import java.util.Calendar;
-import java.util.Date;
-
+import entities.Bungalow;
 import entities.Client;
 
 public class BookingModifyWrapper {
 	
-	private String bungalow; 
+	private Bungalow bungalow; 
 	
 	private Client client;
 	
@@ -21,7 +19,7 @@ public class BookingModifyWrapper {
 	
 	}
 
-	public BookingModifyWrapper(int id, String bungalow, Client client, String arrival, String departure) {
+	public BookingModifyWrapper(int id, Bungalow bungalow, Client client, String arrival, String departure) {
 		this.id = id;
 		this.bungalow = bungalow;
 		this.client = client;
@@ -45,14 +43,14 @@ public class BookingModifyWrapper {
 		this.id = id;
 	}
 	
-	public String getBungalow() {
+	public Bungalow getBungalow() {
 		return bungalow;
 	}
 
-	public void setBungalow(String bungalow) {
+	public void setBungalow(Bungalow bungalow) {
 		this.bungalow = bungalow;
 	}
-	
+
 	public String getArrival() {
 		return arrival;
 	}

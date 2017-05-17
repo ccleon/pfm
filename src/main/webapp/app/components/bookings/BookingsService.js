@@ -36,13 +36,21 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	  }
    
+   this.getBungalows = function (){
+	   let config = {
+			   method: 'GET',
+			   url: urlBase+"/bungalows"
+	   };
+		  return this.request(config);
+	  }
+   
    this.createBooking = function (booking){
 	   let config = {
 			   method: 'POST',
 			   url: urlBase+"/bookings",
 			   data:{
-				   'idcliente': booking.idcliente,
-				   'bungalow': booking.bungalow,
+				   'idCliente': booking.idcliente,
+				   'idBungalow': booking.idbungalow,
 				   'arrival': booking.arrival, 
 				   'departure': booking.departure
 			   }
@@ -56,8 +64,8 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 			   url: urlBase+"/bookings",
 			   data:{
 				   'id': booking.id, 
-				   'bungalow': booking.bungalow,
-				   'idclient': booking.idclient,
+				   'idBungalow': booking.idbungalow,
+				   'idClient': booking.idclient,
 				   'arrival': booking.arrival, 
 				   'departure': booking.departure 
 			   }

@@ -18,25 +18,25 @@
                             <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
                              <nav>
                                  <ul class="nav nav-pills" id="mainNav">
-                                     <li class="dropdown">
+                                     <!--<li class="dropdown">
                                          <a class="dropdown-toggle" href="#/">Dropdown</a>
                                          <ul class="dropdown-menu">
                                              <li><a href="#/">Option</a></li>
                                          </ul>
-                                     </li>
-                                     <li ng-class="{active: navCtrl.isActive('/clients') || isActive('/clients/create')}">
+                                     </li> -->
+                                     <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/clients') || isActive('/clients/create')}">
                                         <a href="#/clients">Clientes</a>
                                      </li>
-                                     <li ng-class="{active: navCtrl.isActive('/register')}">
+                                     <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/register')}">
                                         <a href="#/register">Registro</a>
                                      </li> 
-                                     <li ng-class="{active: navCtrl.isActive('/bookings')}">
+                                     <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/bookings')}">
                                         <a href="#/bookings">Reservas</a>
                                      </li> 
-                                     <li ng-class="{active: navCtrl.isActive('/login')}">
-                                        <a href="#/">Planning</a>
+                                     <li ng-if="navCtrl.isLogged()" ng-class="{active: navCtrl.isActive('/planning')}">
+                                        <a href="#/planning">Planning</a>
                                      </li> 
-                                     <li ng-class="{active: navCtrl.isActive('/login')}" ng-if="!navCtrl.isLogged()">
+                                     <li ng-if="!navCtrl.isLogged()" ng-class="{active: navCtrl.isActive('/login')}">
                                         <a href="#/login"><i class="glyphicon glyphicon-log-in"></i> Login</a>
                                      </li> 
                                      <li ng-if="navCtrl.isLogged()">

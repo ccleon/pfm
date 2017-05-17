@@ -8,6 +8,7 @@ pfm.controller('NavController', [ '$timeout', 'LoginService','Alertify', '$locat
 		vm.logout = LoginService.logout;
 	    vm.isActive = isActive;
 	    vm.isLogged = LoginService.isLogged;
+	    vm.isLoggedAuth = LoginService.isLoggedAuth;
 	
 	    function isActive(viewLocation) {
 	        return viewLocation === $location['path']();

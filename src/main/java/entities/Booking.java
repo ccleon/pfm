@@ -7,9 +7,7 @@ import javax.persistence.ManyToOne;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
-
-import javax.persistence.Column;
+ 
 import javax.persistence.Entity;
 
 @Entity
@@ -18,8 +16,10 @@ public class Booking {
 	@Id
 	@GeneratedValue
 	private int id;
-	
-	private String bungalow;	//De momento se queda como string hasta que cree los bungalows
+
+    @ManyToOne
+    @JoinColumn
+	private Bungalow bungalow;
 
     @ManyToOne
     @JoinColumn
@@ -29,13 +29,12 @@ public class Booking {
 	
 	private Calendar departureDate;
 	
-	private long totalPrice;
-	
+	private BigDecimal totalPrice;
 	
 	public Booking (){
 	}
 		
-	public Booking (String bungalow, Client client, Calendar arrivalDate, Calendar departureDate, long totalPrice) {
+	public Booking (Bungalow bungalow, Client client, Calendar arrivalDate, Calendar departureDate, BigDecimal totalPrice) {
 		this.bungalow = bungalow;
 		this.client = client;
 		this.arrivalDate = arrivalDate;
@@ -47,11 +46,11 @@ public class Booking {
 		return id;
 	}
 	
-	public String getBungalow() {
+	public Bungalow getBungalow() {
 		return bungalow;
 	}
 
-	public void setBungalow(String bungalow) {
+	public void setBungalow(Bungalow bungalow) {
 		this.bungalow = bungalow;
 	}
 
@@ -78,16 +77,16 @@ public class Booking {
 	public void setDepartureDate(Calendar departureDate) {
 		this.departureDate = departureDate;
 	}
-
-	public long getTotalPrice() {
+    
+    public BigDecimal getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(long totalPrice) {
+	public void setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-    
-    @Override
+
+	@Override
     public int hashCode() {
         return id;
     }

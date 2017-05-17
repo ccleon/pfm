@@ -45,7 +45,7 @@
                     <tbody ng-init="vm.listBookings()">
                         <tr ng-repeat="booking in vm.data">
                             <td>{{booking.id}}</td>
-                            <td>{{booking.bungalow}}</td>
+                            <td>{{booking.bungalow.number}}</td>
                             <td>{{booking.client.name}}</td>
                             <td>{{booking.arrivalDate | date:'dd/MM/yyyy' }}</td>
                             <td>{{booking.departureDate | date:'dd/MM/yyyy' }}</td>

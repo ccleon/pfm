@@ -1,39 +1,52 @@
 package wrappers;
 
-public class BookingCreateWrapper {
-	
-	private int idCliente;
+
+public class BookingSaveModifiedWrapper {
 	
 	private int idBungalow; 
+	
+	private int idClient;
 	
 	private String arrival;
 	
 	private String departure;
 	
-	public BookingCreateWrapper() {
+	private int id;
+	
+	public BookingSaveModifiedWrapper() {
+	
 	}
 
-	public BookingCreateWrapper(int idCliente, int idBungalow, String arrival, String departure) {
-		this.idCliente = idCliente;
+	public BookingSaveModifiedWrapper(int id, int idBungalow, int idClient, String arrival, String departure) {
+		this.id = id;
 		this.idBungalow = idBungalow;
+		this.idClient = idClient;
 		this.arrival = arrival;
 		this.departure = departure;
 	}
 
-	public int getIdCliente() {
-		return idCliente;
+	public int getId() {
+		return id;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setId(int id) {
+		this.id = id;
 	}
-
+	
 	public int getIdBungalow() {
 		return idBungalow;
 	}
 
 	public void setIdBungalow(int idBungalow) {
 		this.idBungalow = idBungalow;
+	}
+
+	public int getIdClient() {
+		return idClient;
+	}
+
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getArrival() {
@@ -54,7 +67,7 @@ public class BookingCreateWrapper {
 
 	@Override
 	public String toString() {
-		return "BookingCreateWrapper [bungalow=" + idBungalow + ", idcliente=" + idCliente + ", arrival=" + arrival
+		return "BookingCreateWrapper [id=" + id + ", bungalow=" + idBungalow + ", idclient=" + idClient + ", arrival=" + arrival
 				+ ", departure=" + departure + "]";
 	}
 }

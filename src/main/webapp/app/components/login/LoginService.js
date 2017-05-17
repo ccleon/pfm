@@ -51,6 +51,15 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 		return !!sessionStorage.token;
 	}
    
+   this.isLoggedAuth = function isLoggedAdmin(){
+	   return !!(sessionStorage.rol === "AUTHENTICATED");
+	    /*if (sessionStorage.rol === "AUTHENTICATED") {
+	    	return true;
+	    }else{
+	    	return false;
+	    }*/
+	}
+   
    this.logout = function logout(){
 		sessionStorage.clear();
 	}

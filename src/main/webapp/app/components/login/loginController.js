@@ -11,6 +11,7 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 			vm.respuesta = "";
 			vm.isLogged = isLogged;
 			vm.logout = logout;
+			vm.isLoggedAuth = isLoggedAuth;
 
 			function login() {
 				LoginService.login(vm.username, vm.password).then(function(result) {
@@ -19,7 +20,7 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 					sessionStorage.token = result.token;
 					sessionStorage.rol = result.rol;
 
-					$location.path('/bookings');
+					$location.path('/planning');
 					Alertify.success("Te has logueado con éxito");
 
 				}, function(errors) {
@@ -30,7 +31,14 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 						
 			function isLogged(){
 				LoginService.isLogged().then(function(result) {
-					
+				}, function(errors) {
+					vm.error = true;
+					vm.response = errors;
+				});
+			}
+			
+			function isLoggedAuth(){
+				LoginService.isLoggedAdmin().then(function(result) {
 				}, function(errors) {
 					vm.error = true;
 					vm.response = errors;
@@ -39,7 +47,6 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 			
 			function logout(){
 				LoginService.logout().then(function(result) {
-					$location.path('/login');
 				}, function(errors) {
 					vm.error = true;
 					vm.response = errors;
