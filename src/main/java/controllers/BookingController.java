@@ -15,6 +15,7 @@ import entities.Bungalow;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
+import wrappers.DateRangeWrapper;
 
 @Controller
 public class BookingController {
@@ -50,18 +51,17 @@ public class BookingController {
 		String[] tokens = createDate.split(delims);
 		
 		Calendar date = Calendar.getInstance();
-		date.set(Integer.parseInt(tokens[2])-1, Integer.parseInt(tokens[1])-1, Integer.parseInt(tokens[0]));
-
+		date.set(Integer.parseInt(tokens[2]), Integer.parseInt(tokens[1])-1, Integer.parseInt(tokens[0]));
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+ 
 		return date;
 	}
 	
 	public BigDecimal getTotalNights(String arrivalDate, String departureDate){
-		Calendar arrival = createDate(arrivalDate);
-		Calendar departure = createDate(departureDate);
-		
-		long arrivalMillis = arrival.getTimeInMillis();
-		long departureMillis = departure.getTimeInMillis();
-		
+		long arrivalMillis = createDate(arrivalDate).getTimeInMillis();
+		long departureMillis = createDate(departureDate).getTimeInMillis();
 		long diff = departureMillis - arrivalMillis;
 		
 		BigDecimal diffNights = new BigDecimal (diff / (24 * 60 * 60 * 1000));
@@ -78,7 +78,7 @@ public class BookingController {
 				createDate(bookingCreateWrapper.getArrival()), 
 				createDate(bookingCreateWrapper.getDeparture()), 
 				(getTotalNights(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture()).multiply(bungalow.getPricePerNight()))
-				);
+			);
 
 		return bookingDao.save(booking);
 	}
@@ -109,6 +109,12 @@ public class BookingController {
 		booking.setDepartureDate(createDate(bookingSaveModifiedWrapper.getDeparture()));
 		booking.setTotalPrice((getTotalNights(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture()).multiply(bungalow.getPricePerNight())));
 		
-		this.bookingDao.save(booking);
+		this.bookingDao.save(booking); 
+	}
+	
+	public List<Booking> getBookingByDateRange(DateRangeWrapper dateRangeWrapper){	
+		return bookingDao.findByDatesBetween(
+				createDate(dateRangeWrapper.getArrival()), 
+				createDate(dateRangeWrapper.getDeparture()));
 	}
 }

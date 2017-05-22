@@ -81,6 +81,16 @@ pfm.config(function ($routeProvider) {
          */
         .when("/planning", {
             templateUrl: "app/components/planning/planning.html",
+            controller: "PlanningController",
+            controllerAs: "vm"
+        })
+        /*
+         * Busqueda
+         */
+        .when("/busqueda", {
+            templateUrl: "app/components/busqueda/busqueda.html",
+            controller: "BusquedaController",
+            controllerAs: "vm"
         })
         .otherwise({ /*aqui iría planning*/
             redirectTo: 'app/components/planning/planning.html'

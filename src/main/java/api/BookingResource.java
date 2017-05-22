@@ -17,6 +17,7 @@ import entities.Booking;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
+import wrappers.DateRangeWrapper;
 
 @RestController
 @RequestMapping(Uris.BOOKINGS)
@@ -51,5 +52,10 @@ public class BookingResource {
 	@RequestMapping(value = Uris.ID, method = RequestMethod.GET)  
     public BookingModifyWrapper getBookingById(@PathVariable(value = "id") int id){
         return bookingController.getBookingById(id);
+    }
+	
+	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
+    public List<Booking> search (@RequestBody DateRangeWrapper dateRangeWrapper){
+    	return bookingController.getBookingByDateRange(dateRangeWrapper);
     }
 }

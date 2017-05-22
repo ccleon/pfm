@@ -46,3 +46,35 @@ $( function() {
       return date;
     }
   } );
+
+$( function() {
+    var dateFormat = "dd/mm/yy",
+      arrival = $( "#arrivalb" )
+        .datepicker({
+          defaultDate: "+1d",
+          changeMonth: true,
+          numberOfMonths: 1
+        })
+        .on( "change", function() {
+          departure.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      departure = $( "#departureb" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 1
+      })
+      .on( "change", function() {
+        arrival.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );

@@ -24,6 +24,9 @@
                                              <li><a href="#/">Option</a></li>
                                          </ul>
                                      </li> -->
+                                     <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/busqueda')}">
+                                        <a href="#/busqueda">Busqueda</a>
+                                     </li>
                                      <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/clients') || isActive('/clients/create')}">
                                         <a href="#/clients">Clientes</a>
                                      </li>

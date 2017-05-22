@@ -3,7 +3,6 @@ package api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import controllers.BungalowController;
 import entities.Bungalow;
+import wrappers.DateRangeWrapper;
 
 @RestController
 @RequestMapping(Uris.BUNGALOWS)
@@ -28,4 +28,9 @@ public class BungalowResource {
 	public List<Bungalow> listBungalows(){
 		return bungalowController.getAll();
 	}
+	
+	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
+    public List<Bungalow> searchByBungalow (@RequestBody DateRangeWrapper dateRangeWrapper){
+    	return bungalowController.getAvailabilityInDates(dateRangeWrapper);
+    }
 }
