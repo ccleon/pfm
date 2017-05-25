@@ -8,40 +8,53 @@
             <legend class="text-center" ng-init="vm.getBookingById()"><b>MODIFICAR DATOS DE LA RESERVA</b></legend>
             <div class="panel panel-primary col-md-8 col-md-offset-2">
                 <form class="form-horizontal" role="form" name="formBooking" ng-submit="vm.modifyBooking()">
-		          <div class="form-group" style="margin-top:20px;">
-                    <label class="control-label label-id col-md-4">Id</label>
-                    <div class="col-md-4">
-                       <input type="text" class="form-control"  placeholder={{vm.booking.id}} ng-model='vm.booking.id' required readonly>
-                    </div>
-                  </div>
-                  <div class="form-group" ng-init="vm.getBungalows()">
-                    <label class="control-label col-sm-4" for="idClient"> Bungalow </label>
-                    <select class="col-md-6" name="client" ng-model="vm.booking.idbungalow" required>
-                       <option ng-repeat="bungalow in vm.bungalows" ng-if="bungalow.id !== vm.booking.bungalow.id" value={{bungalow.id}}>Bungalow {{bungalow.number}}</option>
-                       <option ng-repeat="bungalow in vm.bungalows" ng-if="bungalow.id === vm.booking.bungalow.id" value={{bungalow.id}} selected="selected">Bungalow {{bungalow.number}}</option>
-                      
-                    </select>
-                   </div>
-                  <div class="form-group" ng-init="vm.getClients()">
-                    <label class="control-label col-sm-4" for="idClient"> Cliente </label>
-                    <select class="col-md-6" name="client" ng-model="vm.booking.idclient" required>
-                       <option ng-repeat="client in vm.clients" ng-if="client.id !== vm.booking.client.id" value={{client.id}}>{{client.name}} {{client.surname}}</option>
-                       <option ng-repeat="client in vm.clients" ng-if="client.id === vm.booking.client.id" value={{cliente.id}} selected="selected">{{client.name}} {{client.surname}}</option>
-                      
-                    </select>
-                   </div>
-                   <div class="form-group">
-                        <label class="control-label label-id col-md-4">Entrada</label>
-                        <div id="datepicker" class="date calendar col-md-6">
-                            <input type="text" ng-model='vm.booking.arrival' placeholder="{{vm.booking.arrival}}" class="form-control" name="arrival" id="arrival" required>
+                    <div class="form-group" style="margin-top:20px;">
+                        <label class="control-label label-id col-md-4">Id</label>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder={{vm.booking.id}} ng-model='vm.booking.id' required readonly>
                         </div>
                     </div>
-                   <div class="form-group"> 
-                        <label class="control-label label-id col-md-4">Salida </label>
-                        <div id="datepicker" class="date calendar col-md-6">
-                            <input type="text" ng-model='vm.booking.departure' placeholder={{vm.booking.departure}} class="form-control" name="departure" id="departure" required>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Entrada </label>
+                                <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
+                                    <input type="text" ng-model='vm.arrival' placeholder={{vm.booking.arrival}} class="form-control" name="arrival" id="arrival" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Salida </label>
+                                <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
+                                    <input type="text" ng-model='vm.departure' placeholder={{vm.booking.departure}} class="form-control" name="departure" id="departure" required>
+                                </div>
+                            </div>
+                            <button class="btn btn-warning btn-sm col-md-offset-1" ng-click="vm.checkDates()">
+                                <span class="glyphicon glyphicon-search"></span> Buscar disponibilidad
+                            </button> 
                         </div>
+                    </div> 
+                    <hr>      
+                    <div class="form-group">
+                        <label class="control-label col-sm-4" for="idBungalow"> Bungalow </label>
+                        <div class="col-sm-5">
+	                        <select class="form-control" name="client" ng-model="vm.booking.idbungalow" required>
+	                            <option value="" disabled hidden></option>
+	                            <option ng-repeat="bungalow in vm.resBungalow" ng-if="bungalow.id !== vm.booking.bungalow.id" value={{bungalow.id}}>Bungalow {{bungalow.number}}</option>
+	                            <option ng-repeat="bungalow in vm.resBungalow" ng-if="bungalow.id === vm.booking.bungalow.id" value={{bungalow.id}} selected="selected">Bungalow {{bungalow.number}}</option>
+	                        </select>
+	                   </div>
                     </div>
+                    <div class="form-group" ng-init="vm.getClients()">
+                        <label class="control-label col-sm-4" for="idClient"> Cliente </label>
+                        <div class="col-sm-5">
+                            <select class="form-control" name="client" ng-model="vm.booking.idclient" required>
+                                <option value="" disabled hidden></option>
+                                <option ng-repeat="client in vm.clients" ng-if="client.id !== vm.booking.client.id" value={{client.id}}>{{client.name}} {{client.surname}}</option>
+                                <option ng-repeat="client in vm.clients" ng-if="client.id === vm.booking.client.id" value={{cliente.id}} selected="selected">{{client.name}} {{client.surname}}</option>
+                            </select>
+                        </div>
+                    </div> 
 		          <div class="form-group"> 
                     <div class="col-md-offset-4 col-md-10">
                         <input type="submit" class="btn btn-primary" value="Guardar cambios"> 

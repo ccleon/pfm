@@ -1,7 +1,7 @@
 pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
    "use strict";
    
-   const urlBase="http://localhost:8080/pfm.0.0.1-SNAPSHOT/api";
+   const urlBase="http://192.168.0.160:8080/pfm.0.0.1-SNAPSHOT/api";
    
    this.request = function(config) {
 	      let deferred = $q.defer();
@@ -10,20 +10,21 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 	      }, function (response){
 	    	  let errorMsg;
 	    	  if(response.data.error === undefined) {
-	    		  errorMsg="";
+	    		  errorMsg="" + response.data.description;
 	    	  }else{
 	    		  errorMsg = " --- " + response.data.error + ":" + response.data.description;
 	    	  }
 	    	  deferred.reject( 
 	    		 "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
 	      });
+	      
 	      return deferred.promise;	   
    }
   
    this.initList = function (){
 	   let config = {
 			   method: 'GET',
-			   url: urlBase+"/clients"
+			   url: urlBase+"/clients"			  
 	   };
 		  return this.request(config);
 	  }

@@ -1,7 +1,7 @@
 pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
    "use strict";
    
-   const urlBase="http://localhost:8080/pfm.0.0.1-SNAPSHOT/api";
+   const urlBase="http://192.168.0.160:8080/pfm.0.0.1-SNAPSHOT/api";
    
    this.request = function(config) {
 	      let deferred = $q.defer();
@@ -44,15 +44,15 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	  }
    
-   this.createBooking = function (booking){
+   this.createBooking = function (booking, arrival, departure){
 	   let config = {
 			   method: 'POST',
 			   url: urlBase+"/bookings",
 			   data:{
 				   'idCliente': booking.idcliente,
 				   'idBungalow': booking.idbungalow,
-				   'arrival': booking.arrival, 
-				   'departure': booking.departure
+				   'arrival': arrival, 
+				   'departure': departure
 			   }
 	   };
 	  return this.request(config);
@@ -92,5 +92,16 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
   	  return this.request(config);
     }
    
-   
+   this.checkDates = function (arrival, departure){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bungalows/search",
+  			   data:{
+  				   'arrival': arrival, 
+				   'departure': departure 
+  			   }
+  	   };
+  	  return this.request(config);
+    }
+
 }]);

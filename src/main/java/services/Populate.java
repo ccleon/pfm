@@ -69,6 +69,15 @@ public class Populate {
     }
     
     public void populate(){
+    	//USUARIO
+    	User manager = new User("manager", "manager");
+    	userDao.save(manager);
+    	authorizationDao.save(new Authorization(manager, Role.MANAGER));
+    	
+    	User authenticated = new User("authenticated", "auth");
+    	userDao.save(authenticated);
+    	authorizationDao.save(new Authorization(authenticated, Role.AUTHENTICATED));
+    	
     	//CLIENTE
     	Client client1 = new Client("Cliente", "Prueba", "123", "456");
     	clientDao.save(client1);
@@ -106,9 +115,7 @@ public class Populate {
     	bungalowDao.save(bungalow13);
     	Bungalow bungalow14 = new Bungalow(14, new BigDecimal(85.00));
     	bungalowDao.save(bungalow14);
-    	
-    	
-    	
+
     	Calendar arrival = Calendar.getInstance();
     	arrival.set(2017, 4, 1);
     	arrival.set(Calendar.MILLISECOND, 0);

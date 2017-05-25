@@ -7,10 +7,12 @@ pfm.controller('CreateBookingController', [ '$timeout', 'Alertify', 'BookingsSer
 		vm.error = false;
 		vm.createBooking = createBooking;
 		vm.getClients = getClients;
-		vm.getBungalows = getBungalows;
+		vm.checkDates = checkDates;
+		vm.arrival;
+		vm.departure;
 
 		function createBooking() {
-			BookingsService.createBooking(vm.booking).then(function(result) {
+			BookingsService.createBooking(vm.booking, vm.arrival, vm.departure).then(function(result) {
 				Alertify.success("¡La reserva ha sido creada con éxito!");
 				$location.path('/bookings');
 			}, function error(errors){
@@ -18,19 +20,19 @@ pfm.controller('CreateBookingController', [ '$timeout', 'Alertify', 'BookingsSer
 		    });
 		}
 		
-		function getClients() {
-			BookingsService.getClients().then(function(result) {
+		function checkDates(){
+			BookingsService.checkDates(vm.arrival, vm.departure).then(function(result) {
 				vm.completed = true;
-				vm.clients = result;
+				vm.resBungalow = result;
 			}, function(errors) {
 				Alertify.error(errors);
 			});
 		}
 		
-		function getBungalows() {
-			BookingsService.getBungalows().then(function(result) {
+		function getClients() {
+			BookingsService.getClients().then(function(result) {
 				vm.completed = true;
-				vm.bungalows = result;
+				vm.clients = result;
 			}, function(errors) {
 				Alertify.error(errors);
 			});

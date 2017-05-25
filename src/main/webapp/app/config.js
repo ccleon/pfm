@@ -18,18 +18,18 @@ pfm.config(function ($routeProvider) {
         .when("/clients", {
             templateUrl: "app/components/clients/list_clients.html",
             controller: "ListClientsController",
-            controllerAs: "vm",
-        	resolve: {
+            controllerAs: "vm"
+        	/*resolve: {
                 notAutorized: checkAuthClients
-              }
+              }*/
         })
         .when("/clients/create", {
             templateUrl: "app/components/clients/create_client.html",
             controller: "CreateClientController",
             controllerAs: "vm",
-        	resolve: {
+        	/*resolve: {
                 notAutorized: checkAuthClients
-              }
+              }*/
         })
         .when("/clients/modify/:idClient", {
             templateUrl: "app/components/clients/edit_client.html",
@@ -45,7 +45,10 @@ pfm.config(function ($routeProvider) {
         .when("/bookings", {
             templateUrl: "app/components/bookings/list_bookings.html",
             controller: "ListBookingsController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+            	notAutorized: checkLogged
+            }
         })
         .when("/bookings/create", {
             templateUrl: "app/components/bookings/create_booking.html",
@@ -113,6 +116,15 @@ function checkAuthRegister($window, $location, Alertify){
       Alertify.error('Sólo el administrador tiene permiso para añadir usuarios. Si quiere añadir un usuario, contacte con el administrador.');
     }
   }
+
+function checkLogged($window, $location, Alertify){
+    var role = $window.sessionStorage.getItem('rol');
+    if (!role) {
+      $location.url('/login');
+      Alertify.error('No estás logueado');
+    }
+  }
+
 
 pfm.config(['$httpProvider',
   function ($httpProvider) {

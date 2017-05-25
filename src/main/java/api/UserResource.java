@@ -32,7 +32,7 @@ public class UserResource {
     
     private void validateField(String field, String msg) throws InvalidUserFieldException {
         if (field == null || field.isEmpty()) {
-            throw new InvalidUserFieldException(msg);
+            throw new InvalidUserFieldException(".");
         }
     }
 

@@ -1,7 +1,7 @@
 pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
    "use strict";
    
-   const urlBase="http://localhost:8080/pfm.0.0.1-SNAPSHOT/api";
+   const urlBase="http://192.168.0.160:8080/pfm.0.0.1-SNAPSHOT/api";
    
    this.request = function(config) {
 	      let deferred = $q.defer();
@@ -12,10 +12,13 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="";
 	    	  }else{
-	    		  errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		  errorMsg = response.data.description;
 	    	  }
-	    	  deferred.reject( 
-	    		 "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
+		    	  if (response.status == 401 || response.status == 403){
+		    		  deferred.reject("¡ERROR!: Los datos de acceso son incorrectos.")
+		    	  }else{
+		    		  deferred.reject("¡ERROR!: "+ errorMsg );
+		    	  }
 	      });
 	      return deferred.promise;	   
    }
@@ -51,14 +54,13 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 		return !!sessionStorage.token;
 	}
    
-   this.isLoggedAuth = function isLoggedAdmin(){
+   this.isLoggedAuth = function isLoggedAuth(){
 	   return !!(sessionStorage.rol === "AUTHENTICATED");
-	    /*if (sessionStorage.rol === "AUTHENTICATED") {
-	    	return true;
-	    }else{
-	    	return false;
-	    }*/
 	}
+   
+   this.isLoggedAdmin = function isLoggedAdmin(){
+	   return !!(sessionStorage.rol === "ADMIN");
+   }
    
    this.logout = function logout(){
 		sessionStorage.clear();

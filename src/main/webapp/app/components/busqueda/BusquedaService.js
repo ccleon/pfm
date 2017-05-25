@@ -1,7 +1,7 @@
 pfm.service('BusquedaService', ['$http', '$q', function ($http, $q) {
    "use strict";
    
-   const urlBase="http://localhost:8080/pfm.0.0.1-SNAPSHOT/api";
+   const urlBase="http://192.168.0.160:8080/pfm.0.0.1-SNAPSHOT/api";
    
    this.request = function(config) {
 	      let deferred = $q.defer();

@@ -8,7 +8,10 @@ pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsServi
 	vm.getBookingById = getBookingById;
 	vm.modifyBooking = modifyBooking;
 	vm.getClients = getClients;
-	vm.getBungalows = getBungalows;
+	vm.checkDates = checkDates;
+	vm.arrival;
+	vm.departure;
+	
 			
 	function getBookingById() {
 		BookingsService.getBookingById(vm.id).then(function(result) {
@@ -39,10 +42,10 @@ pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsServi
 		});
 	}
 	
-	function getBungalows() {
-		BookingsService.getBungalows().then(function(result) {
+	function checkDates(){
+		BookingsService.checkDates(vm.arrival, vm.departure).then(function(result) {
 			vm.completed = true;
-			vm.bungalows = result;
+			vm.resBungalow = result;
 		}, function(errors) {
 			Alertify.error(errors);
 		});

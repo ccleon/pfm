@@ -7,16 +7,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import api.Uris;
+
 @Configuration
 @EnableWebMvc
-//@EnableSpringDataWebSupport // Esto permite la paginación de Spring
+@EnableSpringDataWebSupport // Esto permite la paginación de Spring
 @ComponentScan(basePackages = {ResourceNames.SERVICES, ResourceNames.REST_API, ResourceNames.CONTROLLERS, ResourceNames.DAOS,
         })
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     // CORS
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("*").maxAge(3600);
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**").allowedOrigins("*").maxAge(3600);
     }
 }

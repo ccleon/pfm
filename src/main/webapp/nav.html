@@ -5,7 +5,7 @@
                 <div class="header-column">
                  <div class="header-logo">
                      <a href="#/">
-                         <img alt="Logo" width="140" height="70" src="assets/img/logo_bc.png">
+                         <img alt="Logo" width="120" height="60" src="assets/img/logo_bc.png">
                      </a>
                  </div>
              </div>
@@ -13,24 +13,18 @@
                  <div class="header-row">
                      <div class="header-nav">
                          <button class="btn header-btn-collapse-nav" data-toggle="collapse" data-target=".header-nav-main">
-                                <i class="fa fa-bars"></i>
-                            </button>
+                            <span class="glyphicon glyphicon-menu-hamburger"></span>
+                         </button>
                             <div class="header-nav-main header-nav-main-effect-1 header-nav-main-sub-effect-1 collapse">
                              <nav>
                                  <ul class="nav nav-pills" id="mainNav">
-                                     <!--<li class="dropdown">
-                                         <a class="dropdown-toggle" href="#/">Dropdown</a>
-                                         <ul class="dropdown-menu">
-                                             <li><a href="#/">Option</a></li>
-                                         </ul>
-                                     </li> -->
                                      <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/busqueda')}">
                                         <a href="#/busqueda">Busqueda</a>
                                      </li>
                                      <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/clients') || isActive('/clients/create')}">
                                         <a href="#/clients">Clientes</a>
                                      </li>
-                                     <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/register')}">
+                                     <li ng-if="navCtrl.isLogged() && navCtrl.isLoggedAdmin()" ng-class="{active: navCtrl.isActive('/register')}">
                                         <a href="#/register">Registro</a>
                                      </li> 
                                      <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/bookings')}">
@@ -48,7 +42,7 @@
                                  </ul>
                              </nav>
                          </div>
-                        </div>
+                       </div>
                     </div>
                 </div>
             </div>

@@ -27,7 +27,7 @@ public class WebInitializer implements WebApplicationInitializer {
 
         // Se configura el contexto utilizado en Securiry
         annConWebAppCtx.setServletContext(servletContext);
-
+        
         // Se configura el servlet
         ServletRegistration.Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(annConWebAppCtx));
 
@@ -36,6 +36,7 @@ public class WebInitializer implements WebApplicationInitializer {
 
         // Se configura la ruta relativa del servlet
         servlet.addMapping(Uris.SERVLET_MAP + "/*");
+
     }
 
 }
