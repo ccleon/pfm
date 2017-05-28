@@ -141,17 +141,29 @@ public class Populate {
     	departure2.set(Calendar.MINUTE, 0);
     	departure2.set(Calendar.HOUR_OF_DAY, 0);
     	Calendar arrival3 = Calendar.getInstance();
-    	arrival3.set(2017, 4, 14);
+    	arrival3.set(2017, 4, 24);
     	arrival3.set(Calendar.MILLISECOND, 0);
     	arrival3.set(Calendar.SECOND, 0);
     	arrival3.set(Calendar.MINUTE, 0);
     	arrival3.set(Calendar.HOUR_OF_DAY, 0);
     	Calendar departure3 = Calendar.getInstance();
-    	departure3.set(2017, 4, 20);
+    	departure3.set(2017, 5, 3);
     	departure3.set(Calendar.MILLISECOND, 0);
     	departure3.set(Calendar.SECOND, 0);
     	departure3.set(Calendar.MINUTE, 0);
     	departure3.set(Calendar.HOUR_OF_DAY, 0);
+    	Calendar arrival4 = Calendar.getInstance();
+    	arrival4.set(2017, 4, 8);
+    	arrival4.set(Calendar.MILLISECOND, 0);
+    	arrival4.set(Calendar.SECOND, 0);
+    	arrival4.set(Calendar.MINUTE, 0);
+    	arrival4.set(Calendar.HOUR_OF_DAY, 0);
+    	Calendar departure4 = Calendar.getInstance();
+    	departure4.set(2017, 4, 12);
+    	departure4.set(Calendar.MILLISECOND, 0);
+    	departure4.set(Calendar.SECOND, 0);
+    	departure4.set(Calendar.MINUTE, 0);
+    	departure4.set(Calendar.HOUR_OF_DAY, 0);
 
     	
     	//BOOKING
@@ -167,6 +179,10 @@ public class Populate {
     	bookingDao.save(booking5);
     	Booking booking6 = new Booking(bungalow8, client2, arrival, departure3, new BigDecimal(85.00));
     	bookingDao.save(booking6);
+    	Booking booking7 = new Booking(bungalow, client2, arrival3, departure3, new BigDecimal(85.00));
+    	bookingDao.save(booking7);
+    	Booking booking8 = new Booking(bungalow3, client2, arrival4, departure4, new BigDecimal(85.00));
+    	bookingDao.save(booking8);
     }
 
 }

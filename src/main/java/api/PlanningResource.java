@@ -1,6 +1,7 @@
 package api;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import controllers.PlanningController;
-import entities.Booking;
 import wrappers.PlanningWrapper;
 
 @RestController
@@ -24,8 +24,8 @@ public class PlanningResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public List<Booking> showPlanning(@RequestBody PlanningWrapper planningWrapper){
+    public Map<Integer, List<Integer>> showPlanning(@RequestBody PlanningWrapper planningWrapper){
 		System.out.println(planningWrapper.toString());
-    	return planningController.getBookingsByMonth(planningWrapper);
+		return planningController.getBookingsForPlanning(planningWrapper);
     }
 }

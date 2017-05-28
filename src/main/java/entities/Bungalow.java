@@ -70,7 +70,7 @@ public class Bungalow {
         }
         return id == ((Bungalow) obj).id;
     }
-
+    
 	@Override
 	public String toString() {
 		return "Bungalow [id=" + id + ", number=" + number + ", pricePerNight=" + pricePerNight + "]";
