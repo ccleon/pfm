@@ -11,8 +11,8 @@ import entities.Booking;
 public interface BookingDao extends JpaRepository<Booking, Integer>{
 
 	@Query("SELECT b FROM Booking b WHERE ("
-			+ " (?1 between b.arrivalDate and b.departureDate OR ?2 between b.arrivalDate and b.departureDate) OR " 
+			+ "(?1 between b.arrivalDate and b.departureDate OR ?2 between b.arrivalDate and b.departureDate) OR " 
 			+ "(b.arrivalDate between ?1 and ?2 OR b.departureDate between ?1 and ?2))")
 	List<Booking> findByDatesBetween(Calendar start, Calendar end);
-
+	
 }

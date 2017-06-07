@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.ApiException;
 import api.exceptions.ErrorMessage;
+import api.exceptions.IncompletePlanningFormException;
 import api.exceptions.InvalidUserFieldException;
 import api.exceptions.MalformedHeaderException;
 import api.exceptions.NotFoundClientIdException;
@@ -35,7 +36,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class})
+    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, IncompletePlanningFormException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

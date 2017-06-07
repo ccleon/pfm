@@ -23,4 +23,6 @@ public class Uris {
     public static final String BUNGALOWS = "/bungalows";
     
     public static final String PLANNING = "/planning";
+    
+    public static final String MODIFY = "/modify";
 }

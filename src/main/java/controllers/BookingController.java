@@ -92,7 +92,6 @@ public class BookingController {
 		String departure= String.valueOf(b.getDepartureDate().get(Calendar.DAY_OF_MONTH)) 
 				+ "/" + String.valueOf(b.getDepartureDate().get(Calendar.MONTH)+1)
 				+ "/" + String.valueOf(b.getDepartureDate().get(Calendar.YEAR));
-		System.out.println(b.toString());
 		
 		BookingModifyWrapper booking = new BookingModifyWrapper(b.getId(), b.getBungalow(), b.getClient(), arrival, departure);
 		

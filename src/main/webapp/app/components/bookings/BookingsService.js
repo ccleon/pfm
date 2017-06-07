@@ -58,16 +58,16 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 	  return this.request(config);
    }
    
-   this.modifyBooking = function (booking) {
+   this.modifyBooking = function (booking, arrival, departure) {
    	let config = {
 			   method: 'PUT',
 			   url: urlBase+"/bookings",
 			   data:{
 				   'id': booking.id, 
-				   'idBungalow': booking.idbungalow,
 				   'idClient': booking.idclient,
-				   'arrival': booking.arrival, 
-				   'departure': booking.departure 
+				   'idBungalow': booking.idbungalow,
+				   'arrival': arrival, 
+				   'departure': departure 
 			   }
 	   };
 		  return this.request(config);
@@ -99,6 +99,19 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
   			   data:{
   				   'arrival': arrival, 
 				   'departure': departure 
+  			   }
+  	   };
+  	  return this.request(config);
+    }
+   
+   this.checkDatesModify = function (id, arrival, departure){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bungalows/search/modify",
+  			   data:{
+  				   'arrival': arrival, 
+				   'idBooking': id,
+				   'departure': departure
   			   }
   	   };
   	  return this.request(config);

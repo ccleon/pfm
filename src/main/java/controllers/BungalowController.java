@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import daos.BungalowDao;
 import entities.Bungalow;
+import wrappers.DateRangeAndIdBookingWrapper;
 import wrappers.DateRangeWrapper;
 
 @Controller
@@ -35,5 +36,13 @@ public class BungalowController {
 		return bungalowDao.findAvailability(
 				bookingController.createDate(dateRangeWrapper.getArrival()), 
 				bookingController.createDate(dateRangeWrapper.getDeparture()));
+	}
+	
+	public List<Bungalow> getAvailabilityInDatesForModify(DateRangeAndIdBookingWrapper dateRangeAndIdBookingWrapper) {
+		System.out.println(dateRangeAndIdBookingWrapper.toString());
+		return bungalowDao.findAvailabilityForModify(
+				bookingController.createDate(dateRangeAndIdBookingWrapper.getArrival()), 
+				bookingController.createDate(dateRangeAndIdBookingWrapper.getDeparture()),
+				dateRangeAndIdBookingWrapper.getIdBooking());
 	}
 }

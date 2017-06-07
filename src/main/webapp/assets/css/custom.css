@@ -1,4 +1,37 @@
-#barraaceptacion {
+table#leyenda{
+   border-collapse: collapse;   
+   border: 1px solid black; 
+   text-align:center;
+   font-size: smaller;
+}
+
+table#leyenda th{
+    width:20px;
+    border-right:0px;
+}
+
+table#leyenda td{
+    width:10px;
+    border:0px;
+}
+
+table#planning{
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+table#planning th, table#planning td, table#planning tbody {
+    border: 1px solid black;
+}
+
+table#planning th{
+   text-align:center;
+   width:35px;
+   height:25px;
+   border: 2px solid black;
+}
+        
+ #barraaceptacion {
     display:none;
     position:fixed;
     left:0px;

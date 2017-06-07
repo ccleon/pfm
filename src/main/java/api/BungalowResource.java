@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import controllers.BungalowController;
 import entities.Bungalow;
+import wrappers.DateRangeAndIdBookingWrapper;
 import wrappers.DateRangeWrapper;
 
 @RestController
@@ -33,4 +34,10 @@ public class BungalowResource {
     public List<Bungalow> searchByBungalow (@RequestBody DateRangeWrapper dateRangeWrapper){
     	return bungalowController.getAvailabilityInDates(dateRangeWrapper);
     }
+	
+	@RequestMapping(value = Uris.SEARCH + Uris.MODIFY, method = RequestMethod.POST)
+    public List<Bungalow> searchByBungalowForModify (@RequestBody DateRangeAndIdBookingWrapper dateRangeAndIdBookingWrapper){
+    	return bungalowController.getAvailabilityInDatesForModify(dateRangeAndIdBookingWrapper);
+    }
+
 }

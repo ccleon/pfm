@@ -3,11 +3,9 @@ package controllers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +56,6 @@ public class PlanningController {
 		List<Booking> listOfBookingInSelectedMonth = bookingDao.findByDatesBetween(start, end);
 
 		return completePlanning(getDaysOfBookingsPerBungalow(listOfBookingInSelectedMonth, planningWrapper), start);
-		//return getDaysOfBookingsPerBungalow(listOfBookingInSelectedMonth, planningWrapper);
 	}
 	
 	public Calendar isArrivalInSelectedMonth(Calendar arrival, PlanningWrapper planningWrapper){
@@ -124,27 +121,27 @@ public class PlanningController {
 	}
 		
 	
-	public Map<Integer, List<Integer>> getDaysOfBookingsPerBungalow(List<Booking> listBookings, PlanningWrapper pw){
+	public Map<Integer, List<Integer>> getDaysOfBookingsPerBungalow(List<Booking> listBookings, PlanningWrapper planningWrapper){
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-		List<Bungalow> listB = bungalowDao.findAll();
+		List<Bungalow> listBungalows = bungalowDao.findAll();
 
-		for(Booking b : listBookings){
-			for(Bungalow bungalow : listB){
-				if (bungalow.getNumber() == b.getBungalow().getNumber()){
+		for(Booking booking : listBookings){
+			for(Bungalow bungalow : listBungalows){
+				if (bungalow.getNumber() == booking.getBungalow().getNumber()){
 					if(!map.containsKey(bungalow.getNumber())){
-						map.put(bungalow.getNumber(), getListOfDays(b, pw));
+						map.put(bungalow.getNumber(), getListOfDays(booking, planningWrapper));
 					}else{
-						List<Integer> otra = new ArrayList<Integer>();
-						List<Integer> yaEstaba = map.get(bungalow.getNumber());
-						List<Integer> laNueva = getListOfDays(b, pw);
-						for (int i=1; i<=yaEstaba.size(); i++){
-							if( (yaEstaba.get(i-1)==0) && (laNueva.get(i-1) == 0)){
-								otra.add(0);
+						List<Integer> mixedList = new ArrayList<Integer>();
+						List<Integer> existingList = map.get(bungalow.getNumber());
+						List<Integer> newList = getListOfDays(booking, planningWrapper);
+						for (int i=1; i<=existingList.size(); i++){
+							if( (existingList.get(i-1)==0) && (newList.get(i-1) == 0)){
+								mixedList.add(0);
 							}else{
-								otra.add(1);
+								mixedList.add(1);
 							}
 						}
-						map.put(bungalow.getNumber(), otra);
+						map.put(bungalow.getNumber(), mixedList);
 					}
 				}
 			}
@@ -152,30 +149,38 @@ public class PlanningController {
 		return map;
 	}
 	
-	public Map<Integer, List<Integer>> completePlanning (Map<Integer, List<Integer>> mapa, Calendar date){
-		List<Bungalow> listB = bungalowDao.findAll();
-		List<Integer> res = new ArrayList<Integer>();
+	public Map<Integer, List<Integer>> completePlanning (Map<Integer, List<Integer>> map, Calendar date){
+		List<Bungalow> listBungalows = bungalowDao.findAll();
+		List<Integer> newDayList = new ArrayList<Integer>();
 		
-		if (mapa.isEmpty()){
-			for(Bungalow b : listB){
-				res.clear();
+		if (map.isEmpty()){
+			for(Bungalow bungalow : listBungalows){
+				newDayList.clear();
 				for (int i=1; i<=date.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
-					res.add(0);
+					newDayList.add(0);
 				}
-			mapa.put(b.getNumber(), res);
+			map.put(bungalow.getNumber(), newDayList);
 			}
 		}else{
-			for(Bungalow b : listB){
-				if(!mapa.containsKey(b.getNumber())){
-					res.clear();
+			for(Bungalow bungalow : listBungalows){
+				if(!map.containsKey(bungalow.getNumber())){
+					newDayList.clear();
 					for (int i=1; i<=date.getActualMaximum(Calendar.DAY_OF_MONTH); i++){
-						res.add(0);
+						newDayList.add(0);
 					}
-					mapa.put(b.getNumber(), res);
+					map.put(bungalow.getNumber(), newDayList);
 				}
 			}
 		}
-		return mapa;
+		return map;
+	}
+	
+	public boolean validatePlanningWrapper(PlanningWrapper planningWrapper){
+		if((planningWrapper.getMonth() == 0) || (planningWrapper.getYear() == 0)){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }
