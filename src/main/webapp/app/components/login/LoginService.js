@@ -14,11 +14,12 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	    	  }else{
 	    		  errorMsg = response.data.description;
 	    	  }
-		    	  if (response.status == 401 || response.status == 403){
+	    	  deferred.reject("Error (" + response.status + ":" + response.statusText + ")" + errorMsg);
+	    	  /*if (response.status == 401 || response.status == 403){
 		    		  deferred.reject("¡ERROR!: Los datos de acceso son incorrectos.")
 		    	  }else{
 		    		  deferred.reject("¡ERROR!: "+ errorMsg );
-		    	  }
+		    	  }*/
 	      });
 	      return deferred.promise;	   
    }
