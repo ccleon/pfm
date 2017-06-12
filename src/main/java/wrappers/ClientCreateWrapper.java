@@ -10,15 +10,18 @@ public class ClientCreateWrapper {
 	
 	private String dni;
 	
+	private String email;
+	
 	public ClientCreateWrapper() {
 	
 	}
 
-	public ClientCreateWrapper(String name, String surname, String phone, String dni) {
+	public ClientCreateWrapper(String name, String surname, String phone, String dni, String email) {
 		this.dni = dni;
 		this.name = name;
 		this.surname = surname;
 		this.phone = phone;
+		this.email = email;
 	}
 
 	public String getName() {
@@ -53,9 +56,18 @@ public class ClientCreateWrapper {
 		this.dni = dni;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "ClientWrapper [name=" + name + ", surname=" + surname + ", phone=" + phone + ", dni=" + dni + "]";
+		return "ClientCreateWrapper [name=" + name + ", surname=" + surname + ", phone=" + phone + ", dni=" + dni
+				+ ", email=" + email + "]";
 	}
 
 }

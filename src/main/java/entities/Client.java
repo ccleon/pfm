@@ -12,24 +12,29 @@ public class Client {
 	@GeneratedValue
 	private int id;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = true)
 	private String dni;
+	
+	@Column(unique = true, nullable = true)
+	private String email;
 	
 	private String name;
 	
 	private String surname;
 	
+	@Column(nullable = true)
 	private String phone;
 	
 	
 	public Client (){
 	}
 	
-	public Client (String name, String surname, String phone, String dni){
+	public Client (String name, String surname, String phone, String dni, String email){
 		this.dni = dni;
 		this.name = name;
 		this.surname = surname;
 		this.phone = phone;
+		this.email = email;
 	}
 	
 	public String getName() {
@@ -68,6 +73,14 @@ public class Client {
         this.dni = dni;
     }
     
+    public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+    
     @Override
     public int hashCode() {
         return id;
@@ -89,8 +102,8 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", dni=" + dni + ", name=" + name + ", surname=" + surname + ", phone=" + phone
-				+ "]";
+		return "Client [id=" + id + ", dni=" + dni + ", email=" + email + ", name=" + name + ", surname=" + surname
+				+ ", phone=" + phone + "]";
 	}
   
 }

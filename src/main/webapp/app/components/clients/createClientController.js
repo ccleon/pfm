@@ -12,7 +12,7 @@ pfm.controller('CreateClientController', [ '$timeout', 'Alertify', 'ClientsServi
 				Alertify.success("¡El cliente ha sido creado con éxito!");
 				$location.path('/clients');
 			}, function error(errors){
-		    	Alertify.error("¡ERROR! El cliente no se ha podido crear");
+		    	Alertify.error("¡ERROR! " + errors);
 		    });
 		}
 	}				

@@ -2,7 +2,7 @@ package wrappers;
 
 public class ClientWrapper {
 	
-	private String name, surname, phone, dni;
+	private String name, surname, phone, dni, email;
 	
 	private int id;
 	
@@ -10,12 +10,13 @@ public class ClientWrapper {
 	
 	}
 
-	public ClientWrapper(int id, String name, String surname, String phone, String dni) {
+	public ClientWrapper(int id, String name, String surname, String phone, String dni, String email) {
 		this.id = id;
 		this.dni = dni;
 		this.name = name;
 		this.surname = surname;
 		this.phone = phone;
+		this.email = email;
 	}
 	
 	public int getId() {
@@ -58,9 +59,18 @@ public class ClientWrapper {
 		this.dni = dni;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
-		return "ClientWrapper [id=" + id + ", name=" + name + ", surname=" + surname + ", phone=" + phone + ", dni=" + dni + "]";
+		return "ClientWrapper [name=" + name + ", surname=" + surname + ", phone=" + phone + ", dni=" + dni + ", email="
+				+ email + ", id=" + id + "]";
 	}
 
 }

@@ -3,12 +3,14 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 	function($timeout, Alertify, ClientsService) {
 		"use strict";
 		var vm = this;
-		vm.completed = false;
-		vm.error = false;
-			
-		vm.client_id;
+
+		vm.searchBy;
+		vm.searchData;
 		vm.initList = initList;
 		vm.search = search;
+		vm.getBookingsByClient = getBookingsByClient;
+		vm.getB;
+		vm.clientB;
 
 		function initList() {
 			ClientsService.initList().then(function(result) {
@@ -20,9 +22,18 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		}
 			
 		function search(){
-			ClientsService.search(vm.client_id).then(function(result) {
+			ClientsService.search(vm.searchBy, vm.searchData).then(function(result) {
 				vm.completed = true;
 				vm.data2 = result;
+			}, function(errors) {
+				Alertify.error(errors);
+			});
+		}
+		
+		function getBookingsByClient(){
+			ClientsService.getBookingsByClient().then(function(result) {
+				vm.completed = true;
+				vm.getB = result;
 			}, function(errors) {
 				Alertify.error(errors);
 			});

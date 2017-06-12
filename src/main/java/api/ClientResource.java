@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import api.exceptions.DuplicatedEntryClientException;
+import api.exceptions.IncompleteDataSearchException;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import controllers.ClientController;
 import entities.Client;
-import wrappers.IdClientWrapper;
+import wrappers.ClientSearchWrapper;
 import wrappers.ClientCreateWrapper;
 import wrappers.ClientWrapper;
 
@@ -33,7 +36,7 @@ public class ClientResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-    public Client createClient(@RequestBody ClientCreateWrapper clientCreateWrapper){
+    public Client createClient(@RequestBody ClientCreateWrapper clientCreateWrapper) throws DuplicatedEntryClientException{
     	return clientController.createClient(clientCreateWrapper);
     }
 	
@@ -43,12 +46,12 @@ public class ClientResource {
     }
 	
 	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
-    public Client searchClient (@RequestBody IdClientWrapper clientWrapper){
-    	return clientController.getClientById(clientWrapper.getId());
+    public List<Client> searchClient (@RequestBody ClientSearchWrapper clientSearchWrapper) throws IncompleteDataSearchException{
+    	return clientController.searchClientBy(clientSearchWrapper.getSearchBy(), clientSearchWrapper.getSearchData());
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public void modifyClient (@RequestBody ClientWrapper clientWrapper) {
+    public void modifyClient (@RequestBody ClientWrapper clientWrapper) throws DuplicatedEntryClientException {
     	this.clientController.clientModify(clientWrapper);
     }
 }

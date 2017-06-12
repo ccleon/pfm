@@ -12,10 +12,11 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="" + response.data.description;
 	    	  }else{
-	    		  errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		 //errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		 errorMsg = response.data.description;
 	    	  }
-	    	  deferred.reject( 
-	    		 "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
+	    	  //deferred.reject( "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
+	    	  deferred.reject(errorMsg);
 	      });
 	      
 	      return deferred.promise;	   
@@ -37,7 +38,8 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 				   'phone': client.phone, 
 				   'name': client.name, 
 				   'dni': client.dni, 
-				   'surname': client.surname
+				   'surname': client.surname,
+				   'email': client.email
 			   }
 	   };
 	  return this.request(config);
@@ -52,7 +54,8 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 				   'name': client.name,
 				   'surname': client.surname,
 				   'dni': client.dni, 
-				   'phone': client.phone 
+				   'phone': client.phone,
+				   'email': client.email
 			   }
 	   };
 		  return this.request(config);
@@ -67,14 +70,27 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	}
    
-   this.search = function (client_id){
+   this.search = function (searchBy, searchData){
   	   let config = {
   			   method: 'POST',
   			   url: urlBase+"/clients/search",
-  			   data:{'id': client_id}
+  			   data:{
+  				   'searchBy': searchBy,
+  				   'searchData': searchData
+  			   }
   	   };
   	  return this.request(config);
     }
    
-   
+   this.getBookingsByClient = function (clientB){
+	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bookings/clients",
+  			   data:{
+  				   'prueba': 33
+  			   }
+  	   };
+  	  return this.request(config);
+   }
+
 }]);
