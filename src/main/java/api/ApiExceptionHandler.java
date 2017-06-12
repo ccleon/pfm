@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import api.exceptions.AlreadyExistUserFieldException;
 import api.exceptions.ApiException;
+import api.exceptions.DuplicatedEntryClientException;
 import api.exceptions.ErrorMessage;
+import api.exceptions.IncompleteDataSearchException;
+import api.exceptions.IncompleteModifyBookingException;
 import api.exceptions.IncompletePlanningFormException;
 import api.exceptions.InvalidUserFieldException;
 import api.exceptions.MalformedHeaderException;
@@ -36,7 +39,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, IncompletePlanningFormException.class})
+    @ExceptionHandler({MalformedHeaderException.class, IncompleteDataSearchException.class, IncompleteModifyBookingException.class, InvalidUserFieldException.class, IncompletePlanningFormException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);
@@ -44,7 +47,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class})
+    @ExceptionHandler({AlreadyExistUserFieldException.class, AlreadyExistUserFieldException.class, DuplicatedEntryClientException.class})
     @ResponseBody
     public ErrorMessage conflictRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

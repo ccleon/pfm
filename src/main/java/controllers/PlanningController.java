@@ -45,13 +45,13 @@ public class PlanningController {
 		start.set(planningWrapper.getYear(), planningWrapper.getMonth()-1, start.getMinimum(Calendar.DAY_OF_MONTH));
 		start.set(Calendar.SECOND, 0);
 		start.set(Calendar.MINUTE, 0);
-		start.set(Calendar.HOUR_OF_DAY, 0);
+		start.set(Calendar.HOUR_OF_DAY, 14);
 		
 		Calendar end = Calendar.getInstance();
 		end.set(planningWrapper.getYear(), planningWrapper.getMonth()-1, start.getActualMaximum(Calendar.DAY_OF_MONTH));
 		end.set(Calendar.SECOND, 0);
 		end.set(Calendar.MINUTE, 0);
-		end.set(Calendar.HOUR_OF_DAY, 0);
+		end.set(Calendar.HOUR_OF_DAY, 12);
 				
 		List<Booking> listOfBookingInSelectedMonth = bookingDao.findByDatesBetween(start, end);
 
@@ -124,7 +124,7 @@ public class PlanningController {
 	public Map<Integer, List<Integer>> getDaysOfBookingsPerBungalow(List<Booking> listBookings, PlanningWrapper planningWrapper){
 		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
 		List<Bungalow> listBungalows = bungalowDao.findAll();
-
+	
 		for(Booking booking : listBookings){
 			for(Bungalow bungalow : listBungalows){
 				if (bungalow.getNumber() == booking.getBungalow().getNumber()){
@@ -135,8 +135,10 @@ public class PlanningController {
 						List<Integer> existingList = map.get(bungalow.getNumber());
 						List<Integer> newList = getListOfDays(booking, planningWrapper);
 						for (int i=1; i<=existingList.size(); i++){
-							if( (existingList.get(i-1)==0) && (newList.get(i-1) == 0)){
+							if( (existingList.get(i-1) == 0) && (newList.get(i-1) == 0)){
 								mixedList.add(0);
+							}else if ((existingList.get(i-1) == 1) && (newList.get(i-1) == 1) || (existingList.get(i-1) == 2)){
+								mixedList.add(2);
 							}else{
 								mixedList.add(1);
 							}

@@ -12,22 +12,26 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="";
 	    	  }else{
-	    		  errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		  //errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		  errorMsg = response.data.description;
 	    	  }
-	    	  deferred.reject( 
-	    		 "Error (" + response.status + ":" + response.statusText + ")" + errorMsg + response.data);
+	    	//deferred.reject("Error (" + response.status + ":" + response.statusText + ")" + errorMsg);
+	    	  deferred.reject("ERROR: " + errorMsg);
 	      });
 	      return deferred.promise;	   
    }
-  
-   this.listBookings = function (){
-	   let config = {
-			   method: 'GET',
-			   url: urlBase+"/bookings"
-	   };
-		  return this.request(config);
-	  }
    
+   this.sortBy = function (parameter){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bookings/sort",
+  			   data:{
+  				   'parameter': parameter
+  			   }
+  	   };
+  	  return this.request(config);
+    }
+ 
    this.getClients = function (){
 	   let config = {
 			   method: 'GET',
@@ -91,7 +95,7 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
   	   };
   	  return this.request(config);
     }
-   
+      
    this.checkDates = function (arrival, departure){
   	   let config = {
   			   method: 'POST',

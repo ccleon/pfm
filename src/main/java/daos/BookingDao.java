@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import entities.Booking;
+import entities.Client;
 
 public interface BookingDao extends JpaRepository<Booking, Integer>{
 
@@ -15,4 +16,14 @@ public interface BookingDao extends JpaRepository<Booking, Integer>{
 			+ "(b.arrivalDate between ?1 and ?2 OR b.departureDate between ?1 and ?2))")
 	List<Booking> findByDatesBetween(Calendar start, Calendar end);
 	
+	List<Booking> findAllByOrderByBungalowAsc();
+	
+	List<Booking> findAllByOrderByArrivalDateAsc();
+	
+	List<Booking> findAllByOrderByClientAsc();
+	
+	List<Booking> findAllByOrderByIdDesc();
+	
+	List<Booking> findByClient(Client client);
+
 }

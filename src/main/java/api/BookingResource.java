@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import api.exceptions.NotFoundClientIdException;
+import api.exceptions.IncompleteModifyBookingException;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,7 +17,9 @@ import entities.Booking;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
+import wrappers.BookingSortedListWrapper;
 import wrappers.DateRangeWrapper;
+import wrappers.PruebaWrapper;
 
 @RestController
 @RequestMapping(Uris.BOOKINGS)
@@ -30,22 +32,13 @@ public class BookingResource {
 		this.bookingController = bookingController;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Booking> listBookings(){
-		return bookingController.getAll();
-	}
-	
 	@RequestMapping(method = RequestMethod.POST)
-    public Booking createBooking(@RequestBody BookingCreateWrapper bookingCreateWrapper) throws NotFoundClientIdException{
-    	/*if (!this.bookingController.validateIdClient(bookingCreateWrapper)){
-    		throw new NotFoundClientIdException();
-    	}else{*/
-    		return bookingController.createBooking(bookingCreateWrapper);
-    	//}
+    public Booking createBooking(@RequestBody BookingCreateWrapper bookingCreateWrapper){
+    	return bookingController.createBooking(bookingCreateWrapper);
     }
 	
 	@RequestMapping(method = RequestMethod.PUT)
-    public void modifyBooking (@RequestBody BookingSaveModifiedWrapper bookingWrapper) {
+    public void modifyBooking (@RequestBody BookingSaveModifiedWrapper bookingWrapper) throws IncompleteModifyBookingException {
     	this.bookingController.bookingModify(bookingWrapper);
     }
 	
@@ -55,7 +48,24 @@ public class BookingResource {
     }
 	
 	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
-    public List<Booking> search (@RequestBody DateRangeWrapper dateRangeWrapper){
+    public List<Booking> search (@RequestBody DateRangeWrapper dateRangeWrapper) throws IncompleteModifyBookingException{
     	return bookingController.getBookingByDateRange(dateRangeWrapper);
     }
+	
+	@RequestMapping(value = Uris.SORT, method = RequestMethod.POST)
+    public List<Booking> sortBy (@RequestBody BookingSortedListWrapper param) {
+		return bookingController.sortBy(param);
+    }
+	
+	/*@RequestMapping(value = Uris.CLIENTS, method = RequestMethod.POST)
+    public List<Booking> getBookingsByClient (ClientIdWrapper clientIdWrapper){
+		System.out.println("RESOURCE" + clientIdWrapper.toString());
+    	return bookingController.getBookingsByClient(clientIdWrapper);
+    }*/
+	
+	@RequestMapping(value = Uris.CLIENTS, method = RequestMethod.POST)
+    public List<Booking> getBookingC(PruebaWrapper p){
+		System.out.println(p.toString());
+		return null;
+	}
 }
