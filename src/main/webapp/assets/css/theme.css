@@ -1806,11 +1806,14 @@ html[dir="rtl"] #header .header-search .btn-default {
 	background-color: #171717;
 	border-bottom: 5px solid #CCC;
 	border-top: 5px solid #384045;
-	margin: 0 0 35px 0;
 	min-height: 50px;
-	padding: 20px 0;
+/* 	margin: 0 0 35px 0; 
+ 	padding: 20px 0; */
 	position: relative;
 	text-align: left;
+	/*CORI*/
+	margin:0 -15px 15px -15px;
+    padding:12px 0;
 }
 
 .page-header .breadcrumb {
@@ -1846,7 +1849,7 @@ html[dir="rtl"] #header .header-search .btn-default {
 	border-bottom: 5px solid #CCC;
 	color: #fff;
 	display: inline-block;
-	font-size: 32px;
+	font-size: 28px;/*CORI 32*/
 	font-weight: 200;
 	line-height: 32px;
 	margin: 0 0 -25px;

@@ -1,53 +1,67 @@
 <script src="assets/js/custom.js"></script>
-<section class="container">
-	<div class="jumbotron text-center">
+<section class="container" style="background-color:white">
+        <div role="main" class="main">
+            <section class="page-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Reservas</h1>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 		<fieldset>
-            <legend class="text-center"><b>LISTADO DE RESERVAS</b></legend>
-            <div class="col-md-3">
-                <td><a class="btn btn-primary" ng-href="#bookings/create">Añadir reserva</a></td> 
-                <hr>
-                <div class="panel panel-primary row"> 
-                    <!-- Panel de búsqueda -->
-                    <div style="padding:10px;">
-                         <!-- Buscador --> 
-                         <div class="form-group">
-                            <label for="search">Buscar por id</label>
-                            <input ng-model="vm.client_id" id="client_id" placeholder="Insert Client Id" class="form-control"> 
-                        </div>                        
-                        <button class="btn btn-warning col-md-offset-7" ng-click="vm.search()">
-                            <span class="glyphicon glyphicon-search"></span> Buscar
-                        </button> 
-                    </div>
-                    <!-- Panel de resultados sin búsqueda-->
-                    <div ng-if="!!vm.data2" class="panel panel-primary" style="padding:10px; margin:10px;">
-                        <b>Client ID:</b> {{client.dni}} <br>
-                        <b>Client DNI:</b> <br>
-                   </div>
-                    <div class="no-data" ng-if="vm.data2.length === 0">
-                       <div class="panel-body"> No Clients Found </div>
-                    </div>
+            <div class="col-md-12" style="background-color:#eee; padding:20px; border-radius: 10px; margin-bottom:10px;">
+            <div class="col-md-12">
+	            <div class="col-md-3" style="padding:10px;">
+	                <td><a class="btn btn-primary" ng-href="#bookings/create">
+	                <span class="glyphicon glyphicon-plus"></span>Añadir reserva</a></td>
+	            </div>
+	            <div class="col-md-9">
+	                <div class="panel panel-primary row"> 
+	                    <!-- Panel de búsqueda -->
+	                    <div style="padding:10px;">
+	                         <!-- Buscador --> 
+	                         <div class="form-group">
+	                            <label for="search">Buscar cliente</label>
+	                            <input ng-model="vm.client_id" id="client_id" placeholder="Insert Client Id" class="form-control"> 
+	                        </div>                        
+	                        <button class="btn btn-warning col-md-offset-7" ng-click="vm.search()">
+	                            <span class="glyphicon glyphicon-search"></span> Buscar
+	                        </button> 
+	                    </div>
+	                    <!-- Panel de resultados sin búsqueda-->
+	                    <div ng-if="!!vm.data2" class="panel panel-primary" style="padding:10px; margin:10px;">
+	                        <b>Client ID:</b> {{client.dni}} <br>
+	                        <b>Client DNI:</b> <br>
+	                   </div>
+	                    <div class="no-data" ng-if="vm.data2.length === 0">
+	                       <div class="panel-body"> No Clients Found </div>
+	                    </div>
+	                </div>
                 </div> 
             </div> 
-                
+            
             <!-- Panel de resultados con búsqueda-->
-            <div class="panel panel-primary table-responsive col-md-8 col-md-offset-1">
-                <table class="table table-striped">
+            <div class="panel panel-primary table-responsive" style="padding-left:0px; padding-right:0px">
+                <table class="table table-striped" id="mejorada">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Bungalow</th>
-                            <th>Cliente</th>
-                            <th>Entrada</th>
+                            <th class="clickable" ng-click="vm.sortBy('bungalow')">Bungalow
+                            <span class="glyphicon glyphicon-triangle-bottom text-primary"></span>
+                            </th>
+                            <th class="clickable" ng-class="{'active':selectedTab === 'client'}" ng-click="vm.sortBy('cliente')">Cliente</th>
+                            <th class="clickable" ng-click="vm.sortBy('entrada')">Entrada</th>
                             <th>Salida</th>
                             <th>Precio total</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody ng-init="vm.listBookings()">
+                    <tbody ng-init="vm.sortBy('id')">
                         <tr ng-repeat="booking in vm.data">
-                            <td>{{booking.id}}</td>
                             <td>{{booking.bungalow.number}}</td>
-                            <td>{{booking.client.name}}</td>
+                            <td>{{booking.client.name}} {{booking.client.surname}}</td>
                             <td>{{booking.arrivalDate | date:'dd/MM/yyyy' }}</td>
                             <td>{{booking.departureDate | date:'dd/MM/yyyy' }}</td>
                             <td>{{booking.totalPrice}}€</td>
@@ -59,6 +73,6 @@
                     <div class="panel-body"> No Bookings Found </div>
                 </div>
             </div>
+            </div>
         </fieldset>
-    </div>
 </section>

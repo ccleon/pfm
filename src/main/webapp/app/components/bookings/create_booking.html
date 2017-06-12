@@ -1,59 +1,71 @@
 <!-- Datepicker -->    
 <script src="assets/js/datepicker.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
-<section class="container">
-    <div class="jumbotron">
-        <fieldset>
-            <legend class="text-center"><b>NUEVA RESERVA</b></legend>
-            <div class="panel panel-primary col-md-8 col-md-offset-2">
-	           <form class="form-horizontal" role="form" name="formCreateBooking" ng-submit="vm.createBooking()">   
-	               <div class="row" style="margin-top:20px;">
-                        <div class="form-group">
-	                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Entrada </label>
-                                <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
-                                    <input type="text" ng-model='vm.arrival' class="form-control" name="arrival" id="arrival" required>
-                                </div>
-                            </div>
-	                        <div class="col-md-4 col-sm-4 col-xs-4">
-	                            <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Salida </label>
-	                            <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
-	                                <input type="text" ng-model='vm.departure' class="form-control" name="departure" id="departure" required>
+  
+<section class="container" style="background-color:white">
+    <div role="main" class="main">
+        <section class="page-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Añadir nueva reserva</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <fieldset>
+        <div class="col-md-12" style="background-color:#eee; padding:20px; border-radius: 10px; margin-bottom:10px;">
+            <div class="col-md-12">
+	            <div class="panel panel-primary col-md-8 col-md-offset-2">
+		           <form class="form-horizontal" role="form" name="formCreateBooking" ng-submit="vm.createBooking()">   
+		               <div class="row" style="margin-top:20px;">
+	                        <div class="form-group">
+		                        <div class="col-md-4 col-sm-4 col-xs-4">
+	                                <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Entrada </label>
+	                                <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
+	                                    <input type="text" ng-model='vm.arrival' class="form-control" name="arrival" id="arrival" required>
+	                                </div>
 	                            </div>
+		                        <div class="col-md-4 col-sm-4 col-xs-4">
+		                            <label class="control-label label-id col-md-3 col-sm-3 col-xs-3">Salida </label>
+		                            <div id="datepicker" class="date calendar col-md-9 col-sm-9 col-xs-9">
+		                                <input type="text" ng-model='vm.departure' class="form-control" name="departure" id="departure" required>
+		                            </div>
+		                        </div>
+	     		                <button class="btn btn-secondary btn-sm col-md-offset-1" ng-click="vm.checkDates()">
+		                            <span class="glyphicon glyphicon-search"></span> Buscar disponibilidad
+		                        </button>
 	                        </div>
-     		                <button class="btn btn-secondary btn-sm col-md-offset-1" ng-click="vm.checkDates()">
-	                            <span class="glyphicon glyphicon-search"></span> Buscar disponibilidad
-	                        </button>
-                        </div>
-	                </div> 
-	                <hr>
-                    <div class="form-group" style="margin-top:20px;">
-		              <label class="control-label label-id col-md-4" for="bungalow">Bungalow </label>
-		              <div class="col-sm-5">
-	                     <select class="form-control" name="bungalow" ng-model="vm.booking.idbungalow" required>
-	                        <option value="" disabled selected hidden>Busque disponibilidad</option>
-                            <option ng-repeat="bungalow in vm.resBungalow" value={{bungalow.id}}>Bungalow {{bungalow.number}}</option>
-                         </select>
-	                   </div>
-                    </div>
-                    <div class="form-group" ng-init="vm.getClients()">
-                        <label class="control-label label-id col-sm-4" for="idClient"> Cliente </label>
-                        <div class="col-sm-5">
-	                        <select class="form-control" name="idClient" ng-model="vm.booking.idcliente" required>
-	                            <option value="" disabled selected hidden>Seleccione un cliente</option>
-	                            <option ng-repeat="client in vm.clients" value={{client.id}}>{{client.name}} {{client.surname}}</option>
-	                        </select>
-	                   </div>
-                    </div> 
-                    <div class="form-group" style="margin-top:30px;"> 
-                        <div class="col-md-offset-4 col-md-10">
-                            <input type="submit" class="btn btn-primary" value="Guardar"> 
-                            <a class="btn btn-danger" ng-href="#/bookings">Volver</a>
-                        </div>
-                    </div>
-                </form>
-		     </div>
-        </fieldset>
-    </div>			 
+		                </div> 
+		                <hr>
+	                    <div class="form-group" style="margin-top:20px;">
+			              <label class="control-label label-id col-md-4" for="bungalow">Bungalow </label>
+			              <div class="col-sm-5">
+		                     <select class="form-control" name="bungalow" ng-model="vm.booking.idbungalow" required>
+		                        <option value="" disabled selected hidden>Busque disponibilidad</option>
+	                            <option ng-repeat="bungalow in vm.resBungalow" value={{bungalow.id}}>Bungalow {{bungalow.number}}</option>
+	                         </select>
+		                   </div>
+	                    </div>
+	                    <div class="form-group" ng-init="vm.getClients()">
+	                        <label class="control-label label-id col-sm-4" for="idClient"> Cliente </label>
+	                        <div class="col-sm-5">
+		                        <select class="form-control" name="idClient" ng-model="vm.booking.idcliente" required>
+		                            <option value="" disabled selected hidden>Seleccione un cliente</option>
+		                            <option ng-repeat="client in vm.clients" value={{client.id}}>{{client.name}} {{client.surname}}</option>
+		                        </select>
+		                   </div>
+	                    </div> 
+	                    <div class="form-group" style="margin-top:30px;"> 
+	                        <div class="col-md-offset-4 col-md-10">
+	                            <input type="submit" class="btn btn-primary" value="Guardar"> 
+	                            <a class="btn btn-danger" ng-href="#/bookings">Volver</a>
+	                        </div>
+	                    </div>
+	                </form>
+			     </div>
+            </div>
+        </div>
+    </fieldset> 
 </section> 

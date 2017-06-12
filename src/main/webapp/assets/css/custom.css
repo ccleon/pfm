@@ -1,3 +1,24 @@
+.page-header h1{
+	padding: 0 0 13px;
+}
+
+small#asterisco{
+    color:red;
+    font-size:small;
+}
+
+table#mejorada{
+	margin-bottom:1px;
+}
+
+table#mejorada th,tr{
+    text-align:center;
+}
+
+table#mejorada thead{
+    color:black;
+}
+
 table#leyenda{
    border-collapse: collapse;   
    border: 1px solid black; 
@@ -8,6 +29,8 @@ table#leyenda{
 table#leyenda th{
     width:20px;
     border-right:0px;
+    text-align:center;
+    min-width:10px;
 }
 
 table#leyenda td{
