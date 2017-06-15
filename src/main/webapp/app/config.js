@@ -8,9 +8,12 @@ pfm.config(function ($routeProvider) {
     "use strict";
     $routeProvider
         .when("/", {
-        	templateUrl: "app/components/login/login.html",
-            controller: "LoginController",
-            controllerAs: "vm"
+        	templateUrl: "app/components/planning/planning.html",
+            controller: "PlanningController",
+            controllerAs: "vm",
+            resolve: {
+            	notAutorized: checkLogged
+            }
         }) 
         /*
          * Clientes 
@@ -38,6 +41,11 @@ pfm.config(function ($routeProvider) {
         	resolve: {
                 notAutorized: checkAuthClients
               }
+        })
+        .when("/bookings/create/:idClient", {
+            templateUrl: "app/components/clients/create_booking.html",
+            controller: "CreateBookingClientController",
+            controllerAs: "vm",
         })
         /*
          * Reservas
@@ -95,7 +103,28 @@ pfm.config(function ($routeProvider) {
             controller: "BusquedaController",
             controllerAs: "vm"
         })
-        .otherwise({ /*aqui iría planning*/
+        /*
+         * Bungalows 
+         */
+        .when("/bungalows", {
+            templateUrl: "app/components/bungalows/list_bungalows.html",
+            controller: "ListBungalowsController",
+            controllerAs: "vm"
+        	/*resolve: {
+                notAutorized: checkAuthClients
+              }*/
+        })
+        .when("/bungalows/create", {
+            templateUrl: "app/components/bungalows/create_bungalow.html",
+            controller: "CreateBungalowController",
+            controllerAs: "vm"
+        })
+        .when("/bungalows/type/modify/:idBungalowType", {
+            templateUrl: "app/components/bungalows/edit_bungalowType.html",
+            controller: "EditBungalowTypeController",
+            controllerAs: "vm"
+        })
+        .otherwise({ 
             redirectTo: 'app/components/planning/planning.html'
         });
 });

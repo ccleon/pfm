@@ -27,6 +27,9 @@
                                      <li ng-if="navCtrl.isLogged() && navCtrl.isLoggedAdmin()" ng-class="{active: navCtrl.isActive('/register')}">
                                         <a href="#/register">Registro</a>
                                      </li> 
+                                     <li ng-if="navCtrl.isLogged() && navCtrl.isLoggedAdmin()" ng-class="{active: navCtrl.isActive('/bungalows')}">
+                                        <a href="#/bungalows">Bungalows</a>
+                                     </li>
                                      <li ng-if="navCtrl.isLogged() && !navCtrl.isLoggedAuth()" ng-class="{active: navCtrl.isActive('/bookings')}">
                                         <a href="#/bookings">Reservas</a>
                                      </li> 

@@ -15,11 +15,13 @@ import config.ResourceNames;
 import daos.AuthorizationDao;
 import daos.BookingDao;
 import daos.BungalowDao;
+import daos.BungalowTypeDao;
 import daos.ClientDao;
 import daos.UserDao;
 import entities.Authorization;
 import entities.Booking;
 import entities.Bungalow;
+import entities.BungalowType;
 import entities.Client;
 import entities.Role;
 import entities.User;
@@ -51,6 +53,9 @@ public class Populate {
     @Autowired
     private BungalowDao bungalowDao;
     
+    @Autowired
+    private BungalowTypeDao bungalowTypeDao;
+    
     @PostConstruct
     public void readAdmin() {
         adminUsername = environment.getProperty("admin.username");
@@ -79,43 +84,55 @@ public class Populate {
     	authorizationDao.save(new Authorization(authenticated, Role.AUTHENTICATED));
     	
     	//CLIENTE
-    	Client client1 = new Client("Cliente", "Prueba", "123", "456", "cliente@prueba.com");
+    	Client client = new Client("Cliente", "Genérico", "-", "-", "-");
+    	clientDao.save(client);
+    	Client client1 = new Client("Richard", "Castle", "678123456", "12345678a", "richard@castle.com");
     	clientDao.save(client1);
-    	Client client2 = new Client("Pepe", "Sanchez", "789", "123", "pepe@sanchez.com");
+    	Client client2 = new Client("Joey", "Triviani", "689000000", "98765432b", "joey@triviani.com");
     	clientDao.save(client2);
-    	Client client3 = new Client("Corina", "Cabrera", "567", "876", "corina@cabrera.com");
+    	Client client3 = new Client("Sheldon", "Cooper", "612398765", "11111111c", "sheldon@cooper.com");
     	clientDao.save(client3);
-    	Client client4 = new Client("Gregory", "House", "928345", "876123", "gregory@house.com");
+    	Client client4 = new Client("Gregory", "House", "699000999", "00011122d", "gregory@house.com");
     	clientDao.save(client4);
+    	Client client5 = new Client("Walter", "White", "611223344", "44334433d", "cuantos@gramos.com");
+    	clientDao.save(client5);
+    	
+    	//BUNGALOW TYPE
+    	BungalowType tipoA = new BungalowType("A", new BigDecimal(110.00),new BigDecimal(130.00),new BigDecimal(110.00),new BigDecimal(85.00),new BigDecimal(95.00));
+    	bungalowTypeDao.save(tipoA);
+    	BungalowType tipoB = new BungalowType("B", new BigDecimal(85.00),new BigDecimal(120.00),new BigDecimal(85.00),new BigDecimal(60.00),new BigDecimal(70.00));
+    	bungalowTypeDao.save(tipoB);
+    	BungalowType tipoC = new BungalowType("C", new BigDecimal(75.00),new BigDecimal(110.00),new BigDecimal(75.00),new BigDecimal(50.00),new BigDecimal(60.00));
+    	bungalowTypeDao.save(tipoC);
     	
     	//BUNGALOW
-    	Bungalow bungalow = new Bungalow(1, new BigDecimal(85.00));
+    	Bungalow bungalow = new Bungalow(1, tipoA);
     	bungalowDao.save(bungalow);
-    	Bungalow bungalow2 = new Bungalow(2, new BigDecimal(85.00));
+    	Bungalow bungalow2 = new Bungalow(2, tipoC);
     	bungalowDao.save(bungalow2);
-    	Bungalow bungalow3 = new Bungalow(3, new BigDecimal(85.00));
+    	Bungalow bungalow3 = new Bungalow(3, tipoB);
     	bungalowDao.save(bungalow3);
-    	Bungalow bungalow4 = new Bungalow(4, new BigDecimal(85.00));
+    	Bungalow bungalow4 = new Bungalow(4, tipoA);
     	bungalowDao.save(bungalow4);
-    	Bungalow bungalow5 = new Bungalow(5, new BigDecimal(85.00));
+    	Bungalow bungalow5 = new Bungalow(5, tipoB);
     	bungalowDao.save(bungalow5);
-    	Bungalow bungalow6 = new Bungalow(6, new BigDecimal(85.00));
+    	Bungalow bungalow6 = new Bungalow(6, tipoC);
     	bungalowDao.save(bungalow6);
-    	Bungalow bungalow7 = new Bungalow(7, new BigDecimal(85.00));
+    	Bungalow bungalow7 = new Bungalow(7, tipoA);
     	bungalowDao.save(bungalow7);
-    	Bungalow bungalow8 = new Bungalow(8, new BigDecimal(85.00));
+    	Bungalow bungalow8 = new Bungalow(8, tipoA);
     	bungalowDao.save(bungalow8);
-    	Bungalow bungalow9 = new Bungalow(9, new BigDecimal(85.00));
+    	Bungalow bungalow9 = new Bungalow(9, tipoB);
     	bungalowDao.save(bungalow9);
-    	Bungalow bungalow10 = new Bungalow(10, new BigDecimal(85.00));
+    	Bungalow bungalow10 = new Bungalow(10, tipoC);
     	bungalowDao.save(bungalow10);
-    	Bungalow bungalow11 = new Bungalow(11, new BigDecimal(85.00));
+    	Bungalow bungalow11 = new Bungalow(11, tipoB);
     	bungalowDao.save(bungalow11);
-    	Bungalow bungalow12 = new Bungalow(12, new BigDecimal(85.00));
+    	Bungalow bungalow12 = new Bungalow(12, tipoB);
     	bungalowDao.save(bungalow12);
-    	Bungalow bungalow13 = new Bungalow(13, new BigDecimal(85.00));
+    	Bungalow bungalow13 = new Bungalow(13, tipoA);
     	bungalowDao.save(bungalow13);
-    	Bungalow bungalow14 = new Bungalow(14, new BigDecimal(85.00));
+    	Bungalow bungalow14 = new Bungalow(14, tipoC);
     	bungalowDao.save(bungalow14);
 
     	Calendar arrival = Calendar.getInstance();
@@ -183,19 +200,19 @@ public class Populate {
     	//BOOKING
     	Booking booking1 = new Booking(bungalow, client4, arrival5, departure5, new BigDecimal(135.00));
     	bookingDao.save(booking1);
-    	Booking booking = new Booking(bungalow, client1, arrival, departure, new BigDecimal(85.00));
+    	Booking booking = new Booking(bungalow, client1, arrival, departure, new BigDecimal(267.00));
     	bookingDao.save(booking);
-    	Booking booking2 = new Booking(bungalow2, client2, arrival2, departure2, new BigDecimal(85.00));
+    	Booking booking2 = new Booking(bungalow2, client2, arrival2, departure2, new BigDecimal(586.00));
     	bookingDao.save(booking2);
     	Booking booking3 = new Booking(bungalow3, client3, arrival3, departure3, new BigDecimal(85.00));
     	bookingDao.save(booking3);
-    	Booking booking4 = new Booking(bungalow4, client2, arrival2, departure3, new BigDecimal(85.00));
+    	Booking booking4 = new Booking(bungalow4, client2, arrival2, departure3, new BigDecimal(185.00));
     	bookingDao.save(booking4);
-    	Booking booking5 = new Booking(bungalow6, client3, arrival, departure2, new BigDecimal(85.00));
+    	Booking booking5 = new Booking(bungalow6, client3, arrival, departure2, new BigDecimal(95.00));
     	bookingDao.save(booking5);
-    	Booking booking6 = new Booking(bungalow8, client2, arrival, departure3, new BigDecimal(85.00));
+    	Booking booking6 = new Booking(bungalow8, client2, arrival, departure3, new BigDecimal(555.00));
     	bookingDao.save(booking6);
-    	Booking booking7 = new Booking(bungalow, client2, arrival3, departure3, new BigDecimal(85.00));
+    	Booking booking7 = new Booking(bungalow, client2, arrival3, departure3, new BigDecimal(125.00));
     	bookingDao.save(booking7);
     	Booking booking8 = new Booking(bungalow3, client2, arrival4, departure4, new BigDecimal(85.00));
     	bookingDao.save(booking8);

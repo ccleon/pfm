@@ -2,9 +2,8 @@ package entities;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import java.math.BigDecimal;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -18,17 +17,20 @@ public class Bungalow {
 	@Column(unique = true)
 	private int number;
 	
-	private BigDecimal pricePerNight;
+	@ManyToOne
+    @JoinColumn
+	private BungalowType type;
 	
 	public Bungalow (){
+	
 	}
 	
-	public Bungalow (int number, BigDecimal pricePerNight){
+	public Bungalow(int number, BungalowType type) {
 		this.number = number;
-		this.pricePerNight = pricePerNight;
+		this.type = type;
 	}
-    
-    public int getId() {
+
+	public int getId() {
 		return id;
 	}
 
@@ -44,12 +46,12 @@ public class Bungalow {
 		this.number = number;
 	}
 
-	public BigDecimal getPricePerNight() {
-		return pricePerNight;
+	public BungalowType getType() {
+		return type;
 	}
 
-	public void setPricePerNight(BigDecimal pricePerNight) {
-		this.pricePerNight = pricePerNight;
+	public void setType(BungalowType type) {
+		this.type = type;
 	}
 
 	@Override
@@ -70,10 +72,10 @@ public class Bungalow {
         }
         return id == ((Bungalow) obj).id;
     }
-    
+
 	@Override
 	public String toString() {
-		return "Bungalow [id=" + id + ", number=" + number + ", pricePerNight=" + pricePerNight + "]";
+		return "Bungalow [id=" + id + ", number=" + number + ", type=" + type + "]";
 	}
-	
+    
 }
