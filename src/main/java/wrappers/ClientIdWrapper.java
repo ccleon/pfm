@@ -2,27 +2,29 @@ package wrappers;
 
 public class ClientIdWrapper {
    
-	private int ide;
-	private int id2=2;
-
+	private int id;
+	
 	public ClientIdWrapper() {
 
 	}
 	
-	public ClientIdWrapper(int ide) {
-		this.ide = id2;
+	public ClientIdWrapper(int id) {
+		this.id = id;
 	}
 
-	public void setId(int ide) {
-		this.ide = ide;
-	}
-	
 	public int getId() {
-		return ide;
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return "ClientIdWrapper [id=" + ide + id2 + this.ide+ " ]";
+		return "ClientIdWrapper [id=" + id + "]";
 	}
+
+
+	
 }

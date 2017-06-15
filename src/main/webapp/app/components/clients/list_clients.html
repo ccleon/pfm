@@ -16,7 +16,7 @@
             <div class="col-md-12">
                 <div class="col-md-3" style="padding:10px;">
                     <td><a class="btn btn-primary" ng-href="#clients/create">
-                       <span class="glyphicon glyphicon-plus"></span> Añadir cliente</a>
+                       <span class="glyphicon glyphicon-plus"></span> Alta cliente</a>
                     </td> 
                 </div> <!-- col-md-3 -->
                 <div class="col-md-9">
@@ -40,6 +40,9 @@
 		                        <button class="form-group btn btn-warning" ng-click="vm.search()">
 		                            <span class="glyphicon glyphicon-search"></span> Buscar
 		                        </button> 
+		                        <button ng-if="vm.data2.length != null" class="form-group btn btn-danger" ng-click="vm.data2 = null">
+                                    Cerrar
+                                </button> 
 	                        </div>
 	                    </div> <!-- row -->
                         <div ng-if="vm.data2.length > 0" class="table-responsive">
@@ -61,7 +64,11 @@
 			                            <td>{{client.dni}}</td>
 			                            <td>{{client.phone}}</td>
 			                            <td>{{client.email}}</td>
-			                           <td><a class="btn btn-primary" ng-href="#clients/modify/{{client.id}}">Modificar</a></td>
+			                           <td>
+				                           <a class="btn btn-primary btn-xs" ng-href="#clients/modify/{{client.id}}">Modificar</a>
+				                           <a class="btn btn-info btn-xs" ng-click="vm.client_id = client.id; vm.client=client; vm.getBookingsByClient()" data-toggle="modal" data-target="#myModal">Ver reservas</a> 
+	                                       <a class="btn btn-success btn-xs" ng-href="#bookings/create/{{client.id}}"><span class="glyphicon glyphicon-plus-sign"></span> Reserva</a>
+                                       </td>    
 			                        </tr>
 			                    </tbody>
 			                </table>  
@@ -88,22 +95,64 @@
                     </thead>
                     <tbody ng-init="vm.initList()">
                         <tr ng-repeat="client in vm.data">
-                            <td ng-model="vm.clientB" ng-init="vm.clientB = 2">{{client.name}}</td>
+                            <td>{{client.name}}</td>
                             <td>{{client.surname}}</td>
                             <td>{{client.dni}}</td>
                             <td>{{client.phone}}</td>
                             <td>{{client.email}}</td>
                             <td><a class="btn btn-primary btn-sm" ng-href="#clients/modify/{{client.id}}">Modificar</a>
-                            <a class="btn btn-info btn-sm" ng-click="vm.getBookingsByClient()">Ver reservas</a> 
-                            <a class="btn btn-success btn-sm" ng-href="#bookings/create">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Reserva</a></td>
-                        </tr>                        
+                            <a class="btn btn-info btn-sm" ng-click="vm.client_id = client.id; vm.client=client; vm.getBookingsByClient()" data-toggle="modal" data-target="#myModal">Ver reservas</a> 
+                            <a class="btn btn-success btn-sm" ng-href="#bookings/create/{{client.id}}"><span class="glyphicon glyphicon-plus-sign"></span> Reserva</a></td>    
+                        </tr>         
                     </tbody>
-                </table>  
-                <div class="no-data" ng-if="vm.data.length === 0">
+                </table>
+                <div class="no-data" ng-if="vm.data.length < 1">
                     <div class="panel-body"> No hay clientes </div>
                 </div>
             </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Reservas de <b>{{vm.client.name}} {{vm.client.surname}} </b></h4>
+                        </div>
+                        <div class="modal-body">
+	                        <div class="panel panel-primary table-responsive" style="padding-left:0px; padding-right:0px">
+		                        <table class="table table-striped " id="mejorada">
+		                            <thead>
+				                        <tr>
+				                            <th>Bungalow</th>
+				                            <th>Entrada</th>
+				                            <th>Salida</th>
+				                            <th>Precio Total</th>
+				                            <th></th>
+				                        </tr>
+		                            </thead>
+		                            <tbody>
+				                        <tr ng-repeat="booking in vm.bookingsByClient">
+				                            <td>{{booking.bungalow.number}}</td>
+				                            <td>{{booking.arrivalDate | date:'dd/MM/yyyy' }}</td>
+				                            <td>{{booking.departureDate | date:'dd/MM/yyyy' }}</td>
+				                            <td>{{booking.totalPrice}}€</td>
+				                            <td></td>
+				                        </tr>         
+		                            </tbody>
+		                        </table>
+		                        <div class="no-data" ng-if="vm.bookingsByClient < 1">
+                                    <div class="panel-body"> Este cliente no tiene reservas asociadas. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fin modal -->
         </div>
     </fieldset>
 </section>

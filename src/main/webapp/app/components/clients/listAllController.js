@@ -9,8 +9,10 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		vm.initList = initList;
 		vm.search = search;
 		vm.getBookingsByClient = getBookingsByClient;
-		vm.getB;
-		vm.clientB;
+		vm.bookingsByClient;
+		vm.client_id;
+		vm.client;
+
 
 		function initList() {
 			ClientsService.initList().then(function(result) {
@@ -31,9 +33,9 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		}
 		
 		function getBookingsByClient(){
-			ClientsService.getBookingsByClient().then(function(result) {
+			ClientsService.getBookingsByClient(vm.client_id).then(function(result) {
 				vm.completed = true;
-				vm.getB = result;
+				vm.bookingsByClient = result;
 			}, function(errors) {
 				Alertify.error(errors);
 			});

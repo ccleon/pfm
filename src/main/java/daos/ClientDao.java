@@ -22,5 +22,7 @@ public interface ClientDao extends JpaRepository<Client, Integer>{
 	public List<Client> findAllByPhone(String phone);
 	
 	public List<Client> findAllByEmail(String email);
+	
+	public List<Client> findAllByOrderByNameAsc();
 
 }

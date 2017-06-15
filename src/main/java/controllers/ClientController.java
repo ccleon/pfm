@@ -23,8 +23,7 @@ public class ClientController {
 	}
 	
 	public List<Client> getAll(){
-		List<Client> clients = clientDao.findAll();
-		return clients;
+		return clientDao.findAllByOrderByNameAsc();
 	}
 	
 	public Client getClientById(long id){
@@ -83,5 +82,5 @@ public class ClientController {
 					return null;
 			}
 		}
-	}    
+	}
 }

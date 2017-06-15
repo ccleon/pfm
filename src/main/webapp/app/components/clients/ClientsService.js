@@ -61,11 +61,11 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 		  return this.request(config);
 	}
    
-   this.getClientById = function (id){
+   this.getClientById = function (clientId){
    	let config = {
     		   //headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
 			   method: 'GET',
-			   url: urlBase+"/clients/"+id
+			   url: urlBase+"/clients/"+clientId
 	   };
 		  return this.request(config);
 	}
@@ -82,15 +82,41 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
   	  return this.request(config);
     }
    
-   this.getBookingsByClient = function (clientB){
+   this.getBookingsByClient = function (client_id){
 	   let config = {
   			   method: 'POST',
   			   url: urlBase+"/bookings/clients",
   			   data:{
-  				   'prueba': 33
+  				   'id': client_id	   
   			   }
   	   };
   	  return this.request(config);
+   }
+   
+   this.checkDates = function (arrival, departure){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bungalows/search",
+  			   data:{
+  				   'arrival': arrival, 
+				   'departure': departure 
+  			   }
+  	   };
+  	  return this.request(config);
+    }
+   
+   this.createBookingForClient = function (booking, arrival, departure){
+	   let config = {
+			   method: 'POST',
+			   url: urlBase+"/bookings",
+			   data:{
+				   'idCliente': booking.idcliente,
+				   'idBungalow': booking.idbungalow,
+				   'arrival': arrival, 
+				   'departure': departure
+			   }
+	   };
+	  return this.request(config);
    }
 
 }]);

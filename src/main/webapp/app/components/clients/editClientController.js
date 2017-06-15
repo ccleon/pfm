@@ -24,7 +24,7 @@ pfm.controller('EditClientController', [ '$timeout', 'Alertify', 'ClientsService
 	        Alertify.success("¡El usuario ha sido modificado con éxito!");
 			$location.path('/clients');
 		}, function(errors) {
-			Alertify.error(errors);
+			Alertify.error("¡ERROR! " + errors);
 		});
 	}
 }				
