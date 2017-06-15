@@ -17,8 +17,8 @@ import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
 import wrappers.BookingSortedListWrapper;
+import wrappers.ClientIdWrapper;
 import wrappers.DateRangeWrapper;
-import wrappers.PruebaWrapper;
 
 @Controller
 public class BookingController {
@@ -74,15 +74,112 @@ public class BookingController {
  
 		return date;
 	}
+		
+	public Calendar createArrivalDateToCompare(Calendar cal, String month){
+		Calendar date = Calendar.getInstance();
+		switch (month){
+		case "janToApr":
+			date.set(cal.get(Calendar.YEAR), 0, 6);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.HOUR_OF_DAY, 11);
+			break;
+		case "aprToJun":
+			date.set(cal.get(Calendar.YEAR), 3, 15);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.HOUR_OF_DAY, 11);
+			break;
+		case "julToOct":
+			date.set(cal.get(Calendar.YEAR), 6, 1);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.HOUR_OF_DAY, 11);
+			break;
+		case "octToDec":
+			date.set(cal.get(Calendar.YEAR), 9, 15);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.HOUR_OF_DAY, 11);
+			break;
+		case "decToJan":
+			date.set(cal.get(Calendar.YEAR), 11, 22);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.HOUR_OF_DAY, 11);
+			break;
+		default:
+			break;
+		}
+		return date;
+	}
 	
-	public BigDecimal getTotalNights(String arrivalDate, String departureDate){
-		long arrivalMillis = createArrivalDate(arrivalDate).getTimeInMillis();
-		long departureMillis = createArrivalDate(departureDate).getTimeInMillis();
-		long diff = departureMillis - arrivalMillis;
+	public Calendar createDepartureDateToCompare(Calendar cal, String month){
+		Calendar date = Calendar.getInstance();
+		switch (month){
+			case "janToApr":
+				date.set(cal.get(Calendar.YEAR), 3, 14);
+				date.set(Calendar.SECOND, 0);
+				date.set(Calendar.MINUTE, 0);
+				date.set(Calendar.HOUR_OF_DAY, 15);
+				break;
+			case "aprToJun":
+				date.set(cal.get(Calendar.YEAR), 5, 30);
+				date.set(Calendar.SECOND, 0);
+				date.set(Calendar.MINUTE, 0);
+				date.set(Calendar.HOUR_OF_DAY, 15);
+				break;
+			case "julToOct":
+				date.set(cal.get(Calendar.YEAR), 9, 14);
+				date.set(Calendar.SECOND, 0);
+				date.set(Calendar.MINUTE, 0);
+				date.set(Calendar.HOUR_OF_DAY, 15);
+				break;
+			case "octToDec":
+				date.set(cal.get(Calendar.YEAR), 11, 21);
+				date.set(Calendar.SECOND, 0);
+				date.set(Calendar.MINUTE, 0);
+				date.set(Calendar.HOUR_OF_DAY, 15);
+				break;
+			case "decToJan":
+				date.set(cal.get(Calendar.YEAR), 0, 5);
+				date.set(Calendar.SECOND, 0);
+				date.set(Calendar.MINUTE, 0);
+				date.set(Calendar.HOUR_OF_DAY, 15);
+				break;
+			default:
+				break;
+		}
+		return date;
+	}
+	
+	public BigDecimal calculateTotalPrice(String arrivalDate, String departureDate, int idBungalow){
+		Calendar arrival = createArrivalDate(arrivalDate);
+		Calendar departure = createDepartureDate(departureDate);
+		Bungalow bungalow = bungalowDao.findOne(idBungalow);
+		BigDecimal totalPrice = new BigDecimal(0);
+		boolean endOfDate = false;
 		
-		BigDecimal diffNights = new BigDecimal (diff / (24 * 60 * 60 * 1000));
-		
-		return diffNights;
+		while(!endOfDate){			
+			if(!arrival.before(createArrivalDateToCompare(arrival, "janToApr")) && !arrival.after(createDepartureDateToCompare(arrival, "janToApr"))){
+				totalPrice = totalPrice.add(bungalow.getType().getJanToAprPrice());
+			} else if (!arrival.before(createArrivalDateToCompare(arrival, "octToDec")) && !arrival.after(createDepartureDateToCompare(arrival, "octToDec"))){
+				totalPrice = totalPrice.add(bungalow.getType().getOctToDecPrice());
+			} else if (!arrival.before(createArrivalDateToCompare(arrival, "decToJan")) && !arrival.after(createDepartureDateToCompare(arrival, "decToJan"))){
+				totalPrice = totalPrice.add(bungalow.getType().getDecToJanPrice());
+			} else if (!arrival.before(createArrivalDateToCompare(arrival, "aprToJun")) && !arrival.after(createDepartureDateToCompare(arrival, "aprToJun"))){
+				totalPrice = totalPrice.add(bungalow.getType().getAprToJunPrice());
+			} else if (!arrival.before(createArrivalDateToCompare(arrival, "julToOct")) && !arrival.after(createDepartureDateToCompare(arrival, "julToOct"))){
+				totalPrice = totalPrice.add(bungalow.getType().getJulToOctPrice());
+			}
+
+			if (arrival.after(departure)){
+				endOfDate = true;
+			}else{
+				arrival.add(Calendar.DAY_OF_MONTH, 1);
+			}
+		}
+		return totalPrice;
 	}
 	
 	public Booking createBooking(BookingCreateWrapper bookingCreateWrapper) {
@@ -93,8 +190,7 @@ public class BookingController {
 				clientDao.findOne(bookingCreateWrapper.getIdCliente()), 
 				createArrivalDate(bookingCreateWrapper.getArrival()), 
 				createDepartureDate(bookingCreateWrapper.getDeparture()), 
-				(getTotalNights(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture()).multiply(bungalow.getPricePerNight()))
-			);
+				calculateTotalPrice(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture(), bookingCreateWrapper.getIdBungalow()));
 
 		return bookingDao.save(booking);
 	}
@@ -125,7 +221,7 @@ public class BookingController {
 			booking.setClient(clientDao.findOne(bookingSaveModifiedWrapper.getIdClient()));
 			booking.setArrivalDate(createArrivalDate(bookingSaveModifiedWrapper.getArrival()));
 			booking.setDepartureDate(createDepartureDate(bookingSaveModifiedWrapper.getDeparture()));
-			booking.setTotalPrice((getTotalNights(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture()).multiply(bungalow.getPricePerNight())));
+			booking.setTotalPrice(calculateTotalPrice(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture(), bookingSaveModifiedWrapper.getIdBungalow()));
 			
 			this.bookingDao.save(booking); 
 		}
@@ -152,9 +248,8 @@ public class BookingController {
 			return bookingDao.findAllByOrderByIdDesc();
 		}
 	}
-	
-	/*public List<Booking> getBookingsByC(PruebaWrapper p){
-		System.out.println(p.toString());
-		return bookingDao.findAll();
-	}*/
+
+	public List<Booking> getBookingsByClient(ClientIdWrapper clientIdWrapper) {
+		return bookingDao.findByClient(clientDao.findById(clientIdWrapper.getId()));
+	}
 }

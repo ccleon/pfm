@@ -18,8 +18,8 @@ import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
 import wrappers.BookingSortedListWrapper;
+import wrappers.ClientIdWrapper;
 import wrappers.DateRangeWrapper;
-import wrappers.PruebaWrapper;
 
 @RestController
 @RequestMapping(Uris.BOOKINGS)
@@ -57,15 +57,8 @@ public class BookingResource {
 		return bookingController.sortBy(param);
     }
 	
-	/*@RequestMapping(value = Uris.CLIENTS, method = RequestMethod.POST)
-    public List<Booking> getBookingsByClient (ClientIdWrapper clientIdWrapper){
-		System.out.println("RESOURCE" + clientIdWrapper.toString());
-    	return bookingController.getBookingsByClient(clientIdWrapper);
-    }*/
-	
 	@RequestMapping(value = Uris.CLIENTS, method = RequestMethod.POST)
-    public List<Booking> getBookingC(PruebaWrapper p){
-		System.out.println(p.toString());
-		return null;
-	}
+    public List<Booking> getBookingsByClient (@RequestBody ClientIdWrapper clientIdWrapper){
+    	return bookingController.getBookingsByClient(clientIdWrapper);
+    }
 }

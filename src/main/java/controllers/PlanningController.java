@@ -84,6 +84,16 @@ public class PlanningController {
 		return departure;
 	}
 	
+	public BigDecimal getTotalNights(String arrivalDate, String departureDate){
+		long arrivalMillis = bookingController.createArrivalDate(arrivalDate).getTimeInMillis();
+		long departureMillis = bookingController.createArrivalDate(departureDate).getTimeInMillis();
+		long diff = departureMillis - arrivalMillis;
+		
+		BigDecimal diffNights = new BigDecimal (diff / (24 * 60 * 60 * 1000));
+		
+		return diffNights;
+}
+	
 	public List<Integer> getListOfDays (Booking booking, PlanningWrapper planningWrapper) {
 		Calendar arrival = booking.getArrivalDate();
 		Calendar departure = booking.getDepartureDate();
@@ -96,7 +106,7 @@ public class PlanningController {
 		String arrivalString = convertCalendarToString(arrival);
 		String departureString = convertCalendarToString(departure);
 		
-		BigDecimal nights = bookingController.getTotalNights(arrivalString, departureString);
+		BigDecimal nights = getTotalNights(arrivalString, departureString);
 
 		for (int i=0; i<=nights.intValue() ;i++){
 			bookingDays.add(arrival.get(Calendar.DAY_OF_MONTH)+i);
