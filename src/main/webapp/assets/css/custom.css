@@ -30,6 +30,23 @@ table#mejorada thead{
     color:black;
 }
 
+table#bungalows{
+    margin-bottom:1px;
+}
+
+table#bungalows th,tr{
+    text-align:center;
+    line-height:10px;
+}
+
+table#bungalows thead{
+    color:black;
+}
+
+table#bungalows td,th{
+    line-height:7px;
+}
+
 table#leyenda{
    border-collapse: collapse;   
    border: 1px solid black; 
