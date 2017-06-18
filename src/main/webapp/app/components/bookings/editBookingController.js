@@ -30,7 +30,7 @@ pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsServi
 			BookingsService.modifyBooking(vm.booking, vm.arrival, vm.departure).then(function(result) {
 				vm.completed = true;
 				vm.booking = {};
-		        Alertify.success("¡El usuario ha sido modificado con éxito!");
+		        Alertify.success("¡La reserva ha sido modificada con éxito!");
 				$location.path('/bookings');
 			}, function(errors) {
 				Alertify.error(errors);

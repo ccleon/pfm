@@ -7,7 +7,7 @@
         <section class="page-header">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12" ng-init="vm.getBookingById()">
+                    <div class="col-md-12" ng-init="vm.getBookingById();">
                         <h1>Modificar reserva</h1>
                     </div>
                 </div>
@@ -65,4 +65,9 @@
             </div>
         </div>
     </fieldset>
+    <script type="text/javascript">
+	    $('myModal').modal('hide');
+	    $('body').removeClass('modal-open');
+	    $('.modal-backdrop').remove();
+	</script>
 </section>
