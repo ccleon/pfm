@@ -21,31 +21,34 @@ pfm.config(function ($routeProvider) {
         .when("/clients", {
             templateUrl: "app/components/clients/list_clients.html",
             controller: "ListClientsController",
-            controllerAs: "vm"
-        	/*resolve: {
-                notAutorized: checkAuthClients
-              }*/
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthAdminOrManager
+              }
         })
         .when("/clients/create", {
             templateUrl: "app/components/clients/create_client.html",
             controller: "CreateClientController",
             controllerAs: "vm",
-        	/*resolve: {
-                notAutorized: checkAuthClients
-              }*/
+        	resolve: {
+                notAutorized: checkAuthAdminOrManager
+              }
         })
         .when("/clients/modify/:idClient", {
             templateUrl: "app/components/clients/edit_client.html",
             controller: "EditClientController",
             controllerAs: "vm",
         	resolve: {
-                notAutorized: checkAuthClients
+                notAutorized: checkAuthAdminOrManager
               }
         })
         .when("/bookings/create/:idClient", {
             templateUrl: "app/components/clients/create_booking.html",
             controller: "CreateBookingClientController",
             controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthAdminOrManager
+              }
         })
         /*
          * Reservas
@@ -55,20 +58,23 @@ pfm.config(function ($routeProvider) {
             controller: "ListBookingsController",
             controllerAs: "vm",
             resolve: {
-            	notAutorized: checkLogged
+            	notAutorized: checkAuthAdminOrManager
             }
         })
         .when("/bookings/create", {
             templateUrl: "app/components/bookings/create_booking.html",
             controller: "CreateBookingController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+            	notAutorized: checkAuthAdminOrManager
+            }
         })
         .when("/bookings/modify/:idBooking", {
             templateUrl: "app/components/bookings/edit_booking.html",
             controller: "EditBookingController",
             controllerAs: "vm",
         	resolve: {
-                notAutorized: checkAuthClients
+                notAutorized: checkAuthAdminOrManager
               }
         })
         /*
@@ -79,12 +85,15 @@ pfm.config(function ($routeProvider) {
             controller: "LoginController",
             controllerAs: "vm"
         })
+        /*
+         * Register
+         */
         .when("/register", {
             templateUrl: "app/components/login/registration.html",
             controller: "RegistrationController",
             controllerAs: "vm",
-            resolve: { //Solo el admin puede registrar usuarios
-                notAutorized: checkAuthRegister
+            resolve: {
+                notAutorized: checkAuthAdmin
               }
         })
         /*
@@ -93,7 +102,10 @@ pfm.config(function ($routeProvider) {
         .when("/planning", {
             templateUrl: "app/components/planning/planning.html",
             controller: "PlanningController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+            	notAutorized: checkLogged
+            }
         })
         /*
          * Busqueda
@@ -109,36 +121,35 @@ pfm.config(function ($routeProvider) {
         .when("/bungalows", {
             templateUrl: "app/components/bungalows/list_bungalows.html",
             controller: "ListBungalowsController",
-            controllerAs: "vm"
-        	/*resolve: {
-                notAutorized: checkAuthClients
-              }*/
-        })
-        .when("/bungalows/create", {
-            templateUrl: "app/components/bungalows/create_bungalow.html",
-            controller: "CreateBungalowController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+        	resolve: {
+                notAutorized: checkAuthAdmin
+              }
         })
         .when("/bungalows/type/modify/:idBungalowType", {
             templateUrl: "app/components/bungalows/edit_bungalowType.html",
             controller: "EditBungalowTypeController",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: {
+                notAutorized: checkAuthAdmin
+              }
         })
         .otherwise({ 
             redirectTo: 'app/components/planning/planning.html'
         });
 });
 
-
-function checkAuthClients($window, $location, Alertify){
+/*que esté logueado como manager o admin*/
+function checkAuthAdminOrManager($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role || (role !== "ADMIN" && role !== "MANAGER")) {
-      $location.url('/login');
+      $location.url('/planning');
       Alertify.error('No tienes acceso a esta función');
     }
  }
 
-function checkAuthRegister($window, $location, Alertify){
+/*que esté logueado como admin*/
+function checkAuthAdmin($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role || role !== "ADMIN") {
       $location.url('/login');
@@ -146,6 +157,7 @@ function checkAuthRegister($window, $location, Alertify){
     }
   }
 
+/*que esté logueado*/
 function checkLogged($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role) {
@@ -153,7 +165,6 @@ function checkLogged($window, $location, Alertify){
       Alertify.error('No estás logueado');
     }
   }
-
 
 pfm.config(['$httpProvider',
   function ($httpProvider) {

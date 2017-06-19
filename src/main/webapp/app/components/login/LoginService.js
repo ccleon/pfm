@@ -14,12 +14,12 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	    	  }else{
 	    		  errorMsg = response.data.description;
 	    	  }
-	    	  deferred.reject("Error (" + response.status + ":" + response.statusText + ")" + errorMsg);
-	    	  /*if (response.status == 401 || response.status == 403){
-		    		  deferred.reject("¡ERROR!: Los datos de acceso son incorrectos.")
-		    	  }else{
-		    		  deferred.reject("¡ERROR!: "+ errorMsg );
-		    	  }*/
+	    	  
+	    	  if (response.status == 401){
+	    		  deferred.reject("El usuario o la contraseña son incorrectos.")
+	    	  }else{
+	    		  deferred.reject( errorMsg );
+	    	  }
 	      });
 	      return deferred.promise;	   
    }
@@ -36,7 +36,6 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	   }
    
    this.logout = function (){
-
 	      return this.request(config);
 	   }
    
@@ -50,6 +49,14 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 		  };
 	      return this.request(config);
 	   }
+   
+   this.listUsers = function (){
+	   let config = {
+			   method: 'GET',
+			   url: urlBase+"/users"
+	   };
+		  return this.request(config);
+	  }
    
    this.isLogged = function isLogged(){
 		return !!sessionStorage.token;

@@ -18,6 +18,32 @@ small#asterisco{
     font-size:small;
 }
 
+table#bungalows{
+    margin-bottom:1px;
+}
+
+table#bungalows th{
+    text-align:center;
+    line-height:10px;
+}
+
+table#bungalows  tr{
+    text-align:center;
+    line-height:10px;
+}
+
+table#bungalows thead{
+    color:black;
+}
+
+table#bungalows td {
+    line-height:7px;
+}
+
+table#bungalows th{
+    line-height:7px;
+}
+
 table#mejorada{
 	margin-bottom:1px;
 }
@@ -28,23 +54,6 @@ table#mejorada th,tr{
 
 table#mejorada thead{
     color:black;
-}
-
-table#bungalows{
-    margin-bottom:1px;
-}
-
-table#bungalows th,tr{
-    text-align:center;
-    line-height:10px;
-}
-
-table#bungalows thead{
-    color:black;
-}
-
-table#bungalows td,th{
-    line-height:7px;
 }
 
 table#leyenda{

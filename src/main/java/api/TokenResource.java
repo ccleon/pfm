@@ -25,8 +25,4 @@ public class TokenResource {
     public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
         return tokenController.login(activeUser.getUsername());
     }
-    /*@RequestMapping(method = RequestMethod.POST)
-    public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
-        return tokenController.login(Long.parseLong(activeUser.getUsername()));
-    }*/
 }

@@ -3,9 +3,6 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 			"use strict";
 			var vm = this;
 
-			vm.error = false;
-			vm.respuesta = "";
-			
 			vm.login = login;
 			vm.username;
 			vm.password;
@@ -15,7 +12,6 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 			vm.isLoggedAdmin = isLoggedAdmin;
 
 			function login() {
-				const delay = 5000;
 				LoginService.login(vm.username, vm.password).then(function(result) {
 					vm.response = result.token + ":" + result.rol;
 					sessionStorage.token = result.token;
@@ -23,43 +19,35 @@ pfm.controller('LoginController', [ '$timeout', 'LoginService','Alertify', '$loc
 					$location.path('/planning');
 					Alertify.success("Te has logueado con éxito");
 				}, function(errors) {
-					vm.error = true;
-					vm.response = errors;
-					$timeout(function() {
-						vm.error = false;
-					}, delay)
+					Alertify.error("ERROR: " + errors);
 				});
 			}
 						
 			function isLogged(){
 				LoginService.isLogged().then(function(result) {
 				}, function(errors) {
-					vm.error = true;
-					vm.response = errors;
+					Alertify.error("ERROR: " + errors);
 				});
 			}
 			
 			function isLoggedAuth(){
 				LoginService.isLoggedAuth().then(function(result) {
 				}, function(errors) {
-					vm.error = true;
-					vm.response = errors;
+					Alertify.error("ERROR: " + errors);
 				});
 			}
 			
 			function isLoggedAdmin(){
 				LoginService.isLoggedAdmin().then(function(result) {
 				}, function(errors) {
-					vm.error = true;
-					vm.response = errors;
+					Alertify.error("ERROR: " + errors);
 				});
 			}
 			
 			function logout(){
 				LoginService.logout().then(function(result) {
 				}, function(errors) {
-					vm.error = true;
-					vm.response = errors;
+					Alertify.error("ERROR: " + errors);
 				});
 			}
 		} ]);
