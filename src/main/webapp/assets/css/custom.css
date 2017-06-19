@@ -46,14 +46,21 @@ table#bungalows th{
 
 table#mejorada{
 	margin-bottom:1px;
+	vertical-align: middle;
 }
 
 table#mejorada th,tr{
     text-align:center;
+    vertical-align: middle;
 }
 
 table#mejorada thead{
     color:black;
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td{
+	vertical-align: middle;
 }
 
 table#leyenda{

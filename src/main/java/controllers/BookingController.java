@@ -252,4 +252,9 @@ public class BookingController {
 	public List<Booking> getBookingsByClient(ClientIdWrapper clientIdWrapper) {
 		return bookingDao.findByClient(clientDao.findById(clientIdWrapper.getId()));
 	}
+
+	public void deleteBooking (int id) {
+		Booking booking = bookingDao.findOne(id);
+		bookingDao.delete(booking);
+	}
 }

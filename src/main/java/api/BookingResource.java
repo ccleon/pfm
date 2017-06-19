@@ -61,4 +61,9 @@ public class BookingResource {
     public List<Booking> getBookingsByClient (@RequestBody ClientIdWrapper clientIdWrapper){
     	return bookingController.getBookingsByClient(clientIdWrapper);
     }
+	
+	@RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)
+    public void deleteBooking (@PathVariable(value = "id") int id){
+    	this.bookingController.deleteBooking(id);
+    }
 }
