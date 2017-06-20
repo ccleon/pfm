@@ -12,11 +12,11 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="";
 	    	  }else{
-	    		  errorMsg = " --- " + response.data.error + ":" + response.data.description;
-	    		  //errorMsg = response.data.description;
+	    		  //errorMsg = " --- " + response.data.error + ":" + response.data.description;
+	    		  errorMsg = response.data.description;
 	    	  }
-	    	deferred.reject("Error (" + response.status + ":" + response.statusText + ")" + errorMsg);
-	    	  //deferred.reject("ERROR: " + errorMsg);
+	    	//deferred.reject("Error (" + response.status + ":" + response.statusText + ")" + errorMsg);
+	    	  deferred.reject("ERROR: " + errorMsg);
 	      });
 	      return deferred.promise;	   
    }
@@ -124,6 +124,19 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
   				   'arrival': arrival, 
 				   'idBooking': id,
 				   'departure': departure
+  			   }
+  	   };
+  	  return this.request(config);
+    }
+   
+   this.searchBookings = function (arrival, departure, bungalow){
+  	   let config = {
+  			   method: 'POST',
+  			   url: urlBase+"/bookings/search/bookings",
+  			   data:{
+  				   'arrival': arrival, 
+  				   'departure': departure,
+  				   'bungalow': bungalow
   			   }
   	   };
   	  return this.request(config);

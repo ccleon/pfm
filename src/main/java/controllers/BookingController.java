@@ -7,17 +7,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import api.exceptions.IncompleteDataSearchException;
 import api.exceptions.IncompleteModifyBookingException;
 import daos.BookingDao;
 import daos.ClientDao;
 import daos.BungalowDao;
 import entities.Booking;
 import entities.Bungalow;
+import entities.Client;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
 import wrappers.BookingSortedListWrapper;
 import wrappers.ClientIdWrapper;
+import wrappers.DateRangeAndBungalowNrWrapper;
 import wrappers.DateRangeWrapper;
 
 @Controller
@@ -153,44 +156,46 @@ public class BookingController {
 		return date;
 	}
 	
-	public BigDecimal calculateTotalPrice(String arrivalDate, String departureDate, int idBungalow){
+	public BigDecimal calculateTotalPrice(String arrivalDate, String departureDate, int idBungalow, Client client){
 		Calendar arrival = createArrivalDate(arrivalDate);
 		Calendar departure = createDepartureDate(departureDate);
 		Bungalow bungalow = bungalowDao.findOne(idBungalow);
 		BigDecimal totalPrice = new BigDecimal(0);
 		boolean endOfDate = false;
 		
-		while(!endOfDate){			
-			if(!arrival.before(createArrivalDateToCompare(arrival, "janToApr")) && !arrival.after(createDepartureDateToCompare(arrival, "janToApr"))){
-				totalPrice = totalPrice.add(bungalow.getType().getJanToAprPrice());
-			} else if (!arrival.before(createArrivalDateToCompare(arrival, "octToDec")) && !arrival.after(createDepartureDateToCompare(arrival, "octToDec"))){
-				totalPrice = totalPrice.add(bungalow.getType().getOctToDecPrice());
-			} else if (!arrival.before(createArrivalDateToCompare(arrival, "decToJan")) && !arrival.after(createDepartureDateToCompare(arrival, "decToJan"))){
-				totalPrice = totalPrice.add(bungalow.getType().getDecToJanPrice());
-			} else if (!arrival.before(createArrivalDateToCompare(arrival, "aprToJun")) && !arrival.after(createDepartureDateToCompare(arrival, "aprToJun"))){
-				totalPrice = totalPrice.add(bungalow.getType().getAprToJunPrice());
-			} else if (!arrival.before(createArrivalDateToCompare(arrival, "julToOct")) && !arrival.after(createDepartureDateToCompare(arrival, "julToOct"))){
-				totalPrice = totalPrice.add(bungalow.getType().getJulToOctPrice());
+		if (!client.getSurname().equals("Invitado")){
+			while(!endOfDate){			
+				if(!arrival.before(createArrivalDateToCompare(arrival, "janToApr")) && !arrival.after(createDepartureDateToCompare(arrival, "janToApr"))){
+					totalPrice = totalPrice.add(bungalow.getType().getJanToAprPrice());
+				} else if (!arrival.before(createArrivalDateToCompare(arrival, "octToDec")) && !arrival.after(createDepartureDateToCompare(arrival, "octToDec"))){
+					totalPrice = totalPrice.add(bungalow.getType().getOctToDecPrice());
+				} else if (!arrival.before(createArrivalDateToCompare(arrival, "decToJan")) && !arrival.after(createDepartureDateToCompare(arrival, "decToJan"))){
+					totalPrice = totalPrice.add(bungalow.getType().getDecToJanPrice());
+				} else if (!arrival.before(createArrivalDateToCompare(arrival, "aprToJun")) && !arrival.after(createDepartureDateToCompare(arrival, "aprToJun"))){
+					totalPrice = totalPrice.add(bungalow.getType().getAprToJunPrice());
+				} else if (!arrival.before(createArrivalDateToCompare(arrival, "julToOct")) && !arrival.after(createDepartureDateToCompare(arrival, "julToOct"))){
+					totalPrice = totalPrice.add(bungalow.getType().getJulToOctPrice());
+				}
+	
+				if (arrival.after(departure)){
+					endOfDate = true;
+				}else{
+					arrival.add(Calendar.DAY_OF_MONTH, 1);
+				}
 			}
-
-			if (arrival.after(departure)){
-				endOfDate = true;
-			}else{
-				arrival.add(Calendar.DAY_OF_MONTH, 1);
-			}
+			return totalPrice;
+		}else{
+			return totalPrice;
 		}
-		return totalPrice;
 	}
 	
 	public Booking createBooking(BookingCreateWrapper bookingCreateWrapper) {
 		Bungalow bungalow = bungalowDao.findOne(bookingCreateWrapper.getIdBungalow());
-		
-		Booking booking = new Booking (
-				bungalow, 
-				clientDao.findOne(bookingCreateWrapper.getIdCliente()), 
-				createArrivalDate(bookingCreateWrapper.getArrival()), 
+		Client client = clientDao.findOne(bookingCreateWrapper.getIdCliente());
+
+		Booking booking = new Booking (bungalow, client, createArrivalDate(bookingCreateWrapper.getArrival()), 
 				createDepartureDate(bookingCreateWrapper.getDeparture()), 
-				calculateTotalPrice(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture(), bookingCreateWrapper.getIdBungalow()));
+				calculateTotalPrice(bookingCreateWrapper.getArrival(), bookingCreateWrapper.getDeparture(), bookingCreateWrapper.getIdBungalow(), client));
 
 		return bookingDao.save(booking);
 	}
@@ -213,15 +218,16 @@ public class BookingController {
 	public void bookingModify (BookingSaveModifiedWrapper bookingSaveModifiedWrapper) throws IncompleteModifyBookingException {
 		Booking booking = bookingDao.findOne(bookingSaveModifiedWrapper.getId());
 		Bungalow bungalow = bungalowDao.findOne(bookingSaveModifiedWrapper.getIdBungalow());
+		Client client = clientDao.findOne(bookingSaveModifiedWrapper.getIdClient());
 		
 		if((bungalow==null) || (bookingSaveModifiedWrapper.getArrival() == null) || (bookingSaveModifiedWrapper.getDeparture() == null)){
 			throw new IncompleteModifyBookingException();
 		}else{
 			booking.setBungalow(bungalow);
-			booking.setClient(clientDao.findOne(bookingSaveModifiedWrapper.getIdClient()));
+			booking.setClient(client);
 			booking.setArrivalDate(createArrivalDate(bookingSaveModifiedWrapper.getArrival()));
 			booking.setDepartureDate(createDepartureDate(bookingSaveModifiedWrapper.getDeparture()));
-			booking.setTotalPrice(calculateTotalPrice(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture(), bookingSaveModifiedWrapper.getIdBungalow()));
+			booking.setTotalPrice(calculateTotalPrice(bookingSaveModifiedWrapper.getArrival(), bookingSaveModifiedWrapper.getDeparture(), bookingSaveModifiedWrapper.getIdBungalow(), client));
 			
 			this.bookingDao.save(booking); 
 		}
@@ -256,5 +262,21 @@ public class BookingController {
 	public void deleteBooking (int id) {
 		Booking booking = bookingDao.findOne(id);
 		bookingDao.delete(booking);
+	}
+
+	public List<Booking> searchBookings(DateRangeAndBungalowNrWrapper dateRangeAndBungalowNrWrapper) throws IncompleteDataSearchException {
+		if (dateRangeAndBungalowNrWrapper.getArrival() == null || dateRangeAndBungalowNrWrapper.getDeparture() == null){
+			throw new IncompleteDataSearchException ();
+		}else{
+			Bungalow bungalow = bungalowDao.findOne(dateRangeAndBungalowNrWrapper.getBungalow());
+			if (bungalow == null){
+				return bookingDao.findByBookingsBetween(createArrivalDate(dateRangeAndBungalowNrWrapper.getArrival()), createDepartureDate(dateRangeAndBungalowNrWrapper.getDeparture()));
+			}else{
+				return bookingDao.findByBookingsByBungalowBetween(
+						createArrivalDate(dateRangeAndBungalowNrWrapper.getArrival()), 
+						createDepartureDate(dateRangeAndBungalowNrWrapper.getDeparture()), 
+						bungalow);
+			}
+		}
 	}
 }

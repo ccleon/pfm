@@ -84,8 +84,10 @@ public class Populate {
     	authorizationDao.save(new Authorization(authenticated, Role.AUTHENTICATED));
     	
     	//CLIENTE
-    	Client client = new Client("Cliente", "Genérico", "-", "-", "-");
+    	Client client = new Client("Cliente", "Genérico", "-", "-", null);
     	clientDao.save(client);
+    	Client invitado = new Client("Cliente", "Invitado", "--", "--", null);
+    	clientDao.save(invitado);
     	Client client1 = new Client("Richard", "Castle", "678123456", "12345678a", "richard@castle.com");
     	clientDao.save(client1);
     	Client client2 = new Client("Joey", "Triviani", "689000000", "98765432b", "joey@triviani.com");
@@ -136,7 +138,7 @@ public class Populate {
     	bungalowDao.save(bungalow14);
 
     	Calendar arrival = Calendar.getInstance();
-    	arrival.set(2017, 6, 1);
+    	arrival.set(2017, 6, 3);
     	arrival.set(Calendar.SECOND, 0);
     	arrival.set(Calendar.MINUTE, 0);
     	arrival.set(Calendar.HOUR_OF_DAY, 14);
@@ -151,7 +153,7 @@ public class Populate {
     	arrival2.set(Calendar.MINUTE, 0);
     	arrival2.set(Calendar.HOUR_OF_DAY, 14);
     	Calendar departure2 = Calendar.getInstance();
-    	departure2.set(2017, 6,14);
+    	departure2.set(2017, 6, 14);
     	departure2.set(Calendar.SECOND, 0);
     	departure2.set(Calendar.MINUTE, 0);
     	departure2.set(Calendar.HOUR_OF_DAY, 12);
@@ -206,11 +208,11 @@ public class Populate {
     	bookingDao.save(booking2);
     	Booking booking3 = new Booking(bungalow3, client3, arrival3, departure3, new BigDecimal(85.00));
     	bookingDao.save(booking3);
-    	Booking booking4 = new Booking(bungalow4, client2, arrival2, departure3, new BigDecimal(185.00));
+    	Booking booking4 = new Booking(bungalow4, client2, arrival2, departure5, new BigDecimal(185.00));
     	bookingDao.save(booking4);
     	Booking booking5 = new Booking(bungalow6, client3, arrival, departure2, new BigDecimal(95.00));
     	bookingDao.save(booking5);
-    	Booking booking6 = new Booking(bungalow8, client2, arrival, departure3, new BigDecimal(555.00));
+    	Booking booking6 = new Booking(bungalow8, client2, arrival4, departure3, new BigDecimal(555.00));
     	bookingDao.save(booking6);
     	Booking booking7 = new Booking(bungalow, client2, arrival3, departure3, new BigDecimal(125.00));
     	bookingDao.save(booking7);

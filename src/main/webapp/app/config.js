@@ -108,14 +108,6 @@ pfm.config(function ($routeProvider) {
             }
         })
         /*
-         * Busqueda
-         */
-        .when("/busqueda", {
-            templateUrl: "app/components/busqueda/busqueda.html",
-            controller: "BusquedaController",
-            controllerAs: "vm"
-        })
-        /*
          * Bungalows 
          */
         .when("/bungalows", {
@@ -139,7 +131,7 @@ pfm.config(function ($routeProvider) {
         });
 });
 
-/*que esté logueado como manager o admin*/
+/*logueado como manager o admin*/
 function checkAuthAdminOrManager($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role || (role !== "ADMIN" && role !== "MANAGER")) {
@@ -148,7 +140,7 @@ function checkAuthAdminOrManager($window, $location, Alertify){
     }
  }
 
-/*que esté logueado como admin*/
+/*logueado como admin*/
 function checkAuthAdmin($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role || role !== "ADMIN") {
@@ -157,7 +149,7 @@ function checkAuthAdmin($window, $location, Alertify){
     }
   }
 
-/*que esté logueado*/
+/*logueado*/
 function checkLogged($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role) {

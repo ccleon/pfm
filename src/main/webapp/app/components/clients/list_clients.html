@@ -18,7 +18,8 @@
                     <td><a class="btn btn-primary" ng-href="#clients/create">
                        <span class="glyphicon glyphicon-plus"></span> Alta cliente</a>
                     </td> 
-                </div> <!-- col-md-3 -->
+                </div>
+                <!-- Buscador -->
                 <div class="col-md-9">
 	                <div class="panel panel-primary row" style="padding:10px;"> 
 	                   <div class="row">
@@ -65,7 +66,7 @@
 			                            <td>{{client.phone}}</td>
 			                            <td>{{client.email}}</td>
 			                           <td>
-				                           <a class="btn btn-primary btn-xs" ng-href="#clients/modify/{{client.id}}">Modificar</a>
+				                           <a class="btn btn-primary btn-xs" ng-if="client.name != 'Cliente'" ng-href="#clients/modify/{{client.id}}">Modificar</a>
 				                           <a class="btn btn-info btn-xs" ng-click="vm.client_id = client.id; vm.client=client; vm.getBookingsByClient()" data-toggle="modal" data-target="#myModal">Ver reservas</a> 
 	                                       <a class="btn btn-success btn-xs" ng-href="#bookings/create/{{client.id}}"><span class="glyphicon glyphicon-plus-sign"></span> Reserva</a>
                                        </td>    
@@ -78,7 +79,7 @@
                         </div>
                     </div>
                 </div><!-- div md-9 -->
-            </div><!-- col-md-12 Desde añadir cliente hasta buscador -->
+            </div><!-- col-md-12 -->
                
             <!-- Panel de resultados con todos los clientes-->
             <div class="panel panel-primary table-responsive" style="padding-left:0px; padding-right:0px">
@@ -100,7 +101,8 @@
                             <td>{{client.dni}}</td>
                             <td>{{client.phone}}</td>
                             <td>{{client.email}}</td>
-                            <td><a class="btn btn-primary btn-sm" ng-href="#clients/modify/{{client.id}}">Modificar</a>
+                            <td style="text-align:right">
+                            <a class="btn btn-primary btn-sm" ng-if="client.name != 'Cliente'" ng-href="#clients/modify/{{client.id}}">Modificar</a>
                             <a class="btn btn-info btn-sm" ng-click="vm.client_id = client.id; vm.client=client; vm.getBookingsByClient()" data-toggle="modal" data-target="#myModal">Ver reservas</a> 
                             <a class="btn btn-success btn-sm" ng-href="#bookings/create/{{client.id}}"><span class="glyphicon glyphicon-plus-sign"></span> Reserva</a></td>    
                         </tr>         

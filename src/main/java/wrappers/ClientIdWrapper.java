@@ -25,6 +25,4 @@ public class ClientIdWrapper {
 		return "ClientIdWrapper [id=" + id + "]";
 	}
 
-
-	
 }
