@@ -14,13 +14,10 @@ pfm.service('PlanningService', ['$http', '$q', function ($http, $q) {
 	    	  if(response.data.error === undefined) {
 	    		  errorMsg="";
 	    	  }else{
-	    		 // errorMsg = response.data.description;
-		    errorMsg = " --- " + response.data.error + ":" + response.data.description;
-
+	    		  errorMsg = response.data.description;
 	    	  }
-	    	  //deferred.reject("ERROR: " + errorMsg);
-	    	  deferred.reject( "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
-
+	    	  deferred.reject("ERROR: " + errorMsg);
+	    	  //deferred.reject( "Error (" + response.status + ":" + response.statusText + ")" + errorMsg );
 	      });
 	      return deferred.promise;	   
    }

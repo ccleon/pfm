@@ -33,7 +33,7 @@ public class BungalowResource {
 	}
 	
 	@RequestMapping(value = Uris.SEARCH, method = RequestMethod.POST)
-    public List<Bungalow> searchByBungalow (@RequestBody DateRangeWrapper dateRangeWrapper){
+    public List<Bungalow> searchByBungalow (@RequestBody DateRangeWrapper dateRangeWrapper) throws IncompleteModifyBookingException{
     	return bungalowController.getAvailabilityInDates(dateRangeWrapper);
     }
 	

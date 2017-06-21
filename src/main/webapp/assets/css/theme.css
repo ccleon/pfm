@@ -2038,7 +2038,7 @@ html[dir="rtl"] #header .header-search .btn-default {
 @media (max-width: 479px) {
 	.page-header h1 {
 		font-size: 26px;
-		line-height: 26px;
+		line-height: 31px;/*CORI- Antes:26*/
 	}
 }
 /* Parallax */

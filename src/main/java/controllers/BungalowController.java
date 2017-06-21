@@ -33,10 +33,14 @@ public class BungalowController {
 		return bungalows;
 	}
 	
-	public List<Bungalow> getAvailabilityInDates(DateRangeWrapper dateRangeWrapper) {
-		return bungalowDao.findAvailability(
-				bookingController.createArrivalDate(dateRangeWrapper.getArrival()), 
-				bookingController.createDepartureDate(dateRangeWrapper.getDeparture()));
+	public List<Bungalow> getAvailabilityInDates(DateRangeWrapper dateRangeWrapper) throws IncompleteModifyBookingException{
+		if ((dateRangeWrapper.getArrival() == null) || (dateRangeWrapper.getDeparture() == null)){
+			throw new IncompleteModifyBookingException("Fechas incompletas.");
+		}else{
+			return bungalowDao.findAvailability(
+					bookingController.createArrivalDate(dateRangeWrapper.getArrival()), 
+					bookingController.createDepartureDate(dateRangeWrapper.getDeparture()));
+		}
 	}
 	
 	public List<Bungalow> getAvailabilityInDatesForModify(DateRangeAndIdBookingWrapper dateRangeAndIdBookingWrapper) throws IncompleteModifyBookingException{
