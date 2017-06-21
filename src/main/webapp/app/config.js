@@ -144,8 +144,8 @@ function checkAuthAdminOrManager($window, $location, Alertify){
 function checkAuthAdmin($window, $location, Alertify){
     var role = $window.sessionStorage.getItem('rol');
     if (!role || role !== "ADMIN") {
-      $location.url('/login');
-      Alertify.error('Sólo el administrador tiene permiso para añadir usuarios. Si quiere añadir un usuario, contacte con el administrador.');
+      $location.url('/planning');
+      Alertify.error('Sólo el administrador tiene permiso para acceder a esta función.');
     }
   }
 

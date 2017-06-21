@@ -33,9 +33,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {  
         http.csrf().disable().authorizeRequests()//
         .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.ADMINS).permitAll()//
-        //.antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.BUNGALOWS).permitAll()//
-        //.antMatchers(Uris.SERVLET_MAP +  Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
-       // .antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()//
+        .antMatchers(Uris.SERVLET_MAP + Uris.TOKENS + "/**").authenticated()//
+        .antMatchers(Uris.SERVLET_MAP + Uris.ADMINS + "/**").hasRole(Role.ADMIN.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.PLANNING + "/**").authenticated()//
+        .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.BUNGALOWS + "/**").authenticated()//
+        .antMatchers(HttpMethod.GET, Uris.SERVLET_MAP + Uris.TYPE + "/**").hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
+        .antMatchers(HttpMethod.POST, Uris.SERVLET_MAP + Uris.BUNGALOWS + Uris.SEARCH + "/**").hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.BOOKINGS + "/**").hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.BUNGALOWS + "/**").hasRole(Role.ADMIN.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.TYPE + "/**").hasRole(Role.ADMIN.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.USERS + "/**").hasRole(Role.ADMIN.name())//
+        .antMatchers(Uris.SERVLET_MAP + Uris.CLIENTS + "/**").hasAnyRole(Role.ADMIN.name(), Role.MANAGER.name())//
        .and().httpBasic();// 
     }
 

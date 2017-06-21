@@ -35,10 +35,6 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	      return this.request(config);
 	   }
    
-   this.logout = function (){
-	      return this.request(config);
-	   }
-   
    this.registration = function (username, password, role){
 	      $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode(sessionStorage.token + ':');
 	      let resource="";
@@ -52,6 +48,7 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
    
    this.listUsers = function (){
 	   let config = {
+			   headers : { Authorization: 'Basic ' + Base64.encode(sessionStorage.token + ':')},
 			   method: 'GET',
 			   url: urlBase+"/users"
 	   };
@@ -70,6 +67,10 @@ pfm.service('LoginService', ['$http', '$q', function ($http, $q) {
 	   return !!(sessionStorage.rol === "ADMIN");
    }
    
+   this.logout = function (){
+	      return this.request(config);
+	   }
+
    this.logout = function logout(){
 		sessionStorage.clear();
 	}
