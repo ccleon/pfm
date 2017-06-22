@@ -8,11 +8,13 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		vm.searchData;
 		vm.initList = initList;
 		vm.search = search;
+		vm.sortBy = sortBy;
 		vm.getBookingsByClient = getBookingsByClient;
 		vm.bookingsByClient;
 		vm.client_id;
 		vm.client;
-
+		vm.propertyName = 'name';
+		vm.reverse = false;
 
 		function initList() {
 			ClientsService.initList().then(function(result) {
@@ -39,6 +41,11 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 			}, function(errors) {
 				Alertify.error(errors);
 			});
+		}
+		
+		function sortBy(propertyName){
+			vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
+			vm.propertyName = propertyName;
 		}
 	}				
 ]);

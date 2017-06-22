@@ -7,9 +7,25 @@ pfm.controller('ListBookingsController', [ '$timeout', 'Alertify', 'BookingsServ
 		vm.booking_id;
 		vm.search = search;
 		vm.sortBy = sortBy;
+		vm.searchSortBy = searchSortBy;
+		vm.initList = initList;
 		vm.deleteBooking = deleteBooking;
 		vm.searchBookings = searchBookings;
+		vm.propertyName = 'id';
+		vm.sortByProperty = 'bungalow.number'
+		vm.reverse = true;
+		vm.reverseSearch = true;
+		  
+		function sortBy(propertyName){
+			vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
+			vm.propertyName = propertyName;
+		}
 		
+		function searchSortBy(sortByProperty){
+			vm.reverseSearch = (vm.sortByProperty === sortByProperty) ? !vm.reverseSearch : false;
+			vm.sortByProperty = sortByProperty;
+		}
+		  
 		function search(){
 			BookingsService.search(vm.client_id).then(function(result) {
 				vm.data2 = result;
@@ -18,8 +34,17 @@ pfm.controller('ListBookingsController', [ '$timeout', 'Alertify', 'BookingsServ
 			});
 		}
 		
-		function sortBy(parameter){
+		/*function sortBy(parameter){
 			BookingsService.sortBy(parameter).then(function(result) {
+				vm.bookings = result;
+				vm.currentDate = new Date();
+			}, function(errors) {
+				Alertify.error(errors);
+			});
+		}*/
+		
+		function initList() {
+			BookingsService.initList().then(function(result) {
 				vm.bookings = result;
 				vm.currentDate = new Date();
 			}, function(errors) {

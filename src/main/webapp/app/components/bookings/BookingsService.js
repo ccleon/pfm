@@ -21,17 +21,15 @@ pfm.service('BookingsService', ['$http', '$q', function ($http, $q) {
 	      return deferred.promise;	   
    }
    
-   this.sortBy = function (parameter){
+   this.initList = function (){
   	   let config = {
-			   method: 'POST',
-  			   url: urlBase+"/bookings/sort",
-  			   data:{
-  				   'parameter': parameter
-  			   }
+			   method: 'GET',
+  			   url: urlBase+"/bookings"
   	   };
   	  return this.request(config);
-    }
- 
+    };
+    
+
    this.getClients = function (){
 	   let config = {
 			   method: 'GET',

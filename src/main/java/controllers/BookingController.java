@@ -18,7 +18,6 @@ import entities.Client;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
-import wrappers.BookingSortedListWrapper;
 import wrappers.ClientIdWrapper;
 import wrappers.DateRangeAndBungalowNrWrapper;
 import wrappers.DateRangeWrapper;
@@ -240,18 +239,6 @@ public class BookingController {
 			return bookingDao.findByDatesBetween(
 					createArrivalDate(dateRangeWrapper.getArrival()), 
 					createDepartureDate(dateRangeWrapper.getDeparture()));
-		}
-	}
-
-	public List<Booking> sortBy(BookingSortedListWrapper parameter) {
-		if(parameter.getParameter().equals("bungalow")){
-			return bookingDao.findAllByOrderByBungalowAsc();
-		}else if(parameter.getParameter().equals("entrada")){
-			return bookingDao.findAllByOrderByArrivalDateAsc();
-		}else if(parameter.getParameter().equals("cliente")){
-			return bookingDao.findAllByOrderByClientAsc();
-		}else{
-			return bookingDao.findAllByOrderByIdDesc();
 		}
 	}
 

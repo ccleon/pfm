@@ -18,7 +18,6 @@ import entities.Booking;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.BookingSaveModifiedWrapper;
-import wrappers.BookingSortedListWrapper;
 import wrappers.ClientIdWrapper;
 import wrappers.DateRangeAndBungalowNrWrapper;
 import wrappers.DateRangeWrapper;
@@ -32,6 +31,11 @@ public class BookingResource {
 	@Autowired
 	public void setBookingController(BookingController bookingController){
 		this.bookingController = bookingController;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Booking> listBookings(){
+		return bookingController.getAll();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -57,11 +61,6 @@ public class BookingResource {
 	@RequestMapping(value = Uris.SEARCH + Uris.BOOKINGS, method = RequestMethod.POST)
     public List<Booking> searchBookings (@RequestBody DateRangeAndBungalowNrWrapper dateRangeAndBungalowNrWrapper) throws IncompleteDataSearchException {
     	return bookingController.searchBookings(dateRangeAndBungalowNrWrapper);
-    }
-	
-	@RequestMapping(value = Uris.SORT, method = RequestMethod.POST)
-    public List<Booking> sortBy (@RequestBody BookingSortedListWrapper param) {
-		return bookingController.sortBy(param);
     }
 	
 	@RequestMapping(value = Uris.CLIENTS, method = RequestMethod.POST)

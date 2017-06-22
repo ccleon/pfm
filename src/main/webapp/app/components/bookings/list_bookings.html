@@ -51,17 +51,26 @@
 	                            <table class="table table-striped responsive" id="mejorada">
 	                                <thead>
 	                                    <tr>
-	                                        <th>Bungalow</th>
-	                                        <th>Cliente</th>
-	                                        <th>Entrada</th>
-	                                        <th>Salida</th>
-	                                        <th>Precio neto</th>
-	                                        <th>Precio IGIC</th>
-	                                        <th></th>
+	                                        <th class="clickable" ng-click="vm.searchSortBy('bungalow.number')">Bungalow
+				                                <span class="sortorder" ng-show="vm.sortByProperty === 'bungalow.number'" ng-class="{reverse: vm.reverseSearch}"></span>
+				                            </th>
+				                            <th class="clickable" ng-click="vm.searchSortBy('client.name')">Cliente
+				                                <span class="sortorder" ng-show="vm.sortByProperty === 'client.name'" ng-class="{reverse: vm.reverseSearch}"></span>
+				                            </th>
+				                            <th class="clickable"  ng-click="vm.searchSortBy('arrivalDate')">Entrada
+				                                <span class="sortorder" ng-show="vm.sortByProperty === 'arrivalDate'" ng-class="{reverse: vm.reverseSearch"></span>
+				                            </th>
+				                            <th class="clickable"  ng-click="vm.searchSortBy('departureDate')">Salida
+				                                <span class="sortorder" ng-show="vm.sortByProperty === 'departureDate'" ng-class="{reverse: vm.reverseSearch}"></span>
+				                            </th>
+				                            <th>Precio neto</th>
+				                            <th>Precio IGIC</th>
+				                            <th></th>
+	         
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
-	                                    <tr ng-repeat="resBooking in vm.resultBookings">
+	                                    <tr ng-repeat="resBooking in vm.resultBookings | orderBy:vm.sortByProperty:vm.reverseSearch" >
 	                                        <td>{{resBooking.bungalow.number}}</td>
 	                                        <td>{{resBooking.client.name}} {{resBooking.client.surname}}</td>
 	                                        <td>{{resBooking.arrivalDate | date:'dd/MM/yyyy' }}</td>
@@ -88,17 +97,24 @@
                 <table class="table table-striped" id="mejorada">
                     <thead>
                         <tr>
-                            <th class="clickable" ng-click="vm.sortBy('bungalow')"><u>Bungalow</u></th>
-                            <th class="clickable" ng-click="vm.sortBy('cliente')"><u>Cliente</u></th>
-                            <th class="clickable" ng-click="vm.sortBy('entrada')"><u>Entrada</u></th>
-                            <th>Salida</th>
+                            <th class="clickable" ng-click="vm.sortBy('id')">ID
+                            <span class="sortorder" ng-show="vm.propertyName === 'id'" ng-class="{reverse: vm.reverse}"></span></th>
+                            <th class="clickable" ng-click="vm.sortBy('bungalow.number')">Bungalow
+                            <span class="sortorder" ng-show="vm.propertyName === 'bungalow.number'" ng-class="{reverse: vm.reverse}"></span></th>
+                            <th class="clickable" ng-click="vm.sortBy('client.name')">Cliente
+                            <span class="sortorder" ng-show="vm.propertyName === 'client.name'" ng-class="{reverse: vm.reverse}"></span></th>
+                            <th class="clickable"  ng-click="vm.sortBy('arrivalDate')">Entrada
+                            <span class="sortorder" ng-show="vm.propertyName === 'arrivalDate'" ng-class="{reverse: vm.reverse}"></span></th>
+                            <th class="clickable"  ng-click="vm.sortBy('departureDate')">Salida
+                            <span class="sortorder" ng-show="vm.propertyName === 'departureDate'" ng-class="{reverse: vm.reverse}"></span></th>
                             <th>Precio neto</th>
                             <th>Precio IGIC</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody ng-init="vm.sortBy('id')">
-                        <tr ng-repeat="booking in vm.bookings">
+                    <tbody ng-init="vm.initList()">
+                        <tr ng-repeat="booking in vm.bookings | orderBy:vm.propertyName:vm.reverse">
+                            <td>{{booking.id}}</td>
                             <td>{{booking.bungalow.number}}</td>
                             <td>{{booking.client.name}} {{booking.client.surname}}</td>
                             <td>{{booking.arrivalDate | date:'dd/MM/yyyy' }}</td>
