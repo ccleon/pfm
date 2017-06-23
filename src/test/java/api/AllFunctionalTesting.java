@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({ UserResourceFunctionalTesting.class, TokenResourceFunctionalTesting.class,
 				BookingResourceFunctionalTesting.class,BungalowResourceFunctionalTesting.class, 
 				ClientResourceFunctionalTesting.class, BungalowTypeResourceFunctionalTesting.class,
-				PlanningResourceFunctionalTesting.class
+				PlanningResourceFunctionalTesting.class,
 				})
 
 public class AllFunctionalTesting {

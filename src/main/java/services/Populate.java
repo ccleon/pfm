@@ -61,7 +61,7 @@ public class Populate {
         adminUsername = environment.getProperty("admin.username");
         adminPassword = environment.getProperty("admin.password");
         createDefaultAdmin();
-        //populate(); //CORI
+       // populate(); //COMENTAR PARA TESTEAR
     }
     
     public void createDefaultAdmin() {

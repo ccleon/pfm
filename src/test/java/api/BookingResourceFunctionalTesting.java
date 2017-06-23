@@ -18,6 +18,7 @@ import entities.Booking;
 import wrappers.BookingCreateWrapper;
 import wrappers.BookingModifyWrapper;
 import wrappers.ClientIdWrapper;
+import wrappers.DateRangeAndBungalowNrWrapper;
 
 public class BookingResourceFunctionalTesting {
 	
@@ -47,7 +48,7 @@ public class BookingResourceFunctionalTesting {
     public void testCreateBookings() {
 		BookingCreateWrapper bookingCreateWrapper = new BookingCreateWrapper(3, 3, "02/02/2017", "06/02/2017");    	
 		Booking response = new RestBuilder<Booking>(RestService.URL).path(Uris.BOOKINGS).body(bookingCreateWrapper)
-				.post().clazz(Booking.class).basicAuth(token, "").build();
+				.post().clazz(Booking.class).basicAuth(token, "").post().build();
 		
         assertNotNull(response);
         assertEquals(3, response.getBungalow().getId());
@@ -56,12 +57,21 @@ public class BookingResourceFunctionalTesting {
 	
 	@Test
     public void testBookingsByClient() {
-        List<Booking> response = Arrays.asList(new RestBuilder<Booking[]>(RestService.URL).path(Uris.BOOKINGS+Uris.CLIENTS).body(new ClientIdWrapper(5))
-        		.clazz(Booking[].class).basicAuth(token, "").post().build());
+        List<Booking> response = Arrays.asList(new RestBuilder<Booking[]>(RestService.URL).path(Uris.BOOKINGS + Uris.CLIENTS)
+        		.body(new ClientIdWrapper(6)).post().clazz(Booking[].class).basicAuth(token, "").build());
 
         assertNotNull(response);
         assertTrue(response.size() > 0);
-       
+    }
+	
+	@Test
+    public void testSearchBookings() {
+		DateRangeAndBungalowNrWrapper d = new DateRangeAndBungalowNrWrapper("01/06/2017", "06/08/2017", 2);
+        List<Booking> response = Arrays.asList(new RestBuilder<Booking[]>(RestService.URL).path(Uris.BOOKINGS + Uris.SEARCH + Uris.BOOKINGS)
+        		.body(d).post().clazz(Booking[].class).basicAuth(token, "").build());
+
+        assertNotNull(response);
+        assertTrue(response.size() > 0);
     }
 	
 	@Test
