@@ -61,9 +61,9 @@ public class Populate {
         adminUsername = environment.getProperty("admin.username");
         adminPassword = environment.getProperty("admin.password");
         createDefaultAdmin();
-        populate();
+        //populate(); //CORI
     }
-
+    
     public void createDefaultAdmin() {
         User adminSaved = userDao.findByUsername(adminUsername);
         if (adminSaved == null) {

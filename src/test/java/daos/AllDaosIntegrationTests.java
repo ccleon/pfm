@@ -5,9 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({TokenDaoIT.class, UserDaoIT.class, AuthorizationDaoIT.class, 
-	BookingDaoIT.class, ClientDaoIT.class, BungalowDaoIT.class,
-	BungalowTypeDaoIT.class})
+@SuiteClasses({BookingDaoIT.class, ClientDaoIT.class, BungalowDaoIT.class,
+	BungalowTypeDaoIT.class,TokenDaoIT.class, UserDaoIT.class, AuthorizationDaoIT.class,})
 public class AllDaosIntegrationTests {
 
 }

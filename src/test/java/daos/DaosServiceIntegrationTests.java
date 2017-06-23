@@ -15,10 +15,11 @@ public class DaosServiceIntegrationTests {
 
     @PostConstruct
     public void populate() {
-        dataService.deleteAllExceptAdmin();
+        dataService.populate();
     }
 
     public void deleteAll() {
         dataService.deleteAllExceptAdmin();
     }
+
 }

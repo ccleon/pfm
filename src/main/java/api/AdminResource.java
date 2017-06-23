@@ -17,5 +17,15 @@ public class AdminResource {
     public void setAdminController(AdminController adminController) {
         this.adminController = adminController;
     }
+    
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteAllExceptAdmin() {
+        adminController.deleteAllExceptAdmin();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void populate() {
+        adminController.populate();
+    }
 
 }

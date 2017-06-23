@@ -1,7 +1,6 @@
 package daos;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,6 @@ import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import daos.TokenDao;
 import daos.UserDao;
-import entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -27,9 +25,7 @@ public class TokenDaoIT {
 
     @Test
     public void testFindByUser() {
-        User user = userDao.findByUsername("manager");
-        //assertNotNull(tokenDao.findByUser(user));
-        assertNull(tokenDao.findByUser(userDao.findByUsername("Corina")));
+        assertNull(tokenDao.findByUser(userDao.findByUsername("NoHay")));
     }
 
 }
