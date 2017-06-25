@@ -145,7 +145,11 @@
 				                            <td>{{booking.arrivalDate | date:'dd/MM/yyyy' }}</td>
 				                            <td>{{booking.departureDate | date:'dd/MM/yyyy' }}</td>
 				                            <td>{{booking.totalPrice}}€</td>
-				                            <td><a class="btn btn-primary" ng-href="#bookings/modify/{{booking.id}}">Modificar</a></td>
+				                            <td>
+				                                <a ng-if="booking.departureDate > vm.currentDate" class="btn btn-primary btn-sm" ng-href="#bookings/modify/{{booking.id}}">Modificar</a>                                                
+				                                <a ng-if="booking.departureDate > vm.currentDate" class="btn btn-danger btn-sm" ng-click="vm.booking_id = booking.id; vm.booking2=booking;" data-toggle="modal" data-target="#cancelarModal">
+                                                <span class="glyphicon glyphicon-remove"></span>Cancelar</a> 
+                                            </td>
 				                        </tr>         
 		                            </tbody>
 		                        </table>
@@ -156,6 +160,33 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Fin modal -->
+            <!-- Modal Cancelar-->
+            <div class="modal fade" id="cancelarModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Cancelar reserva de <b>{{vm.booking2.client.name}} {{vm.booking2.client.surname}} </b></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel panel-primary table-responsive" style="padding-left:0px; padding-right:0px">
+                                <h4 style="text-align:center">¿Confirma que quiere eliminar la siguiente reserva?</h4>
+                                <ul>
+                                    <li><b>Cliente:</b> {{vm.booking2.client.name}} {{vm.booking2.client.surname}} </li>
+                                    <li><b>Entrada:</b> {{vm.booking2.arrivalDate | date:'dd/MM/yyyy' }} </li>
+                                    <li><b>Salida:</b> {{vm.booking2.departureDate | date:'dd/MM/yyyy' }} </li>
+                                    <li><b>Bungalow:</b> {{vm.booking2.bungalow.number}} - Tipo {{vm.booking2.bungalow.type.type}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-danger btn-sm" ng-click="vm.deleteBooking()" data-dismiss="modal">Sí, eliminar</a> 
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">No</button>
                         </div>
                     </div>
                 </div>

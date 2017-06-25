@@ -34,15 +34,6 @@ pfm.controller('ListBookingsController', [ '$timeout', 'Alertify', 'BookingsServ
 			});
 		}
 		
-		/*function sortBy(parameter){
-			BookingsService.sortBy(parameter).then(function(result) {
-				vm.bookings = result;
-				vm.currentDate = new Date();
-			}, function(errors) {
-				Alertify.error(errors);
-			});
-		}*/
-		
 		function initList() {
 			BookingsService.initList().then(function(result) {
 				vm.bookings = result;
@@ -56,7 +47,9 @@ pfm.controller('ListBookingsController', [ '$timeout', 'Alertify', 'BookingsServ
 			BookingsService.deleteBooking(vm.booking_id).then(function(result) {
 				Alertify.success("La reserva ha sido cancelada");
 				sortBy('id');
-				searchBookings(vm.arrival, vm.departure, vm.bungalow);
+				if(vm.arrival != null){
+					searchBookings(vm.arrival, vm.departure, vm.bungalow);
+				}			
 			}, function(errors) {
 				Alertify.error(errors);
 			});

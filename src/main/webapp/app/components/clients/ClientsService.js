@@ -119,5 +119,13 @@ pfm.service('ClientsService', ['$http', '$q', function ($http, $q) {
 	   };
 	  return this.request(config);
    }
+   
+   this.deleteBooking = function (booking_id){
+  	   let config = {
+			   method: 'DELETE',
+  			   url: urlBase+"/bookings/"+booking_id
+  	   };
+  	  return this.request(config);
+    }
 
 }]);

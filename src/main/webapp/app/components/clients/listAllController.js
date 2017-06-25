@@ -4,12 +4,14 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		"use strict";
 		var vm = this;
 
+		vm.booking_id;
 		vm.searchBy;
 		vm.searchData;
 		vm.initList = initList;
 		vm.search = search;
 		vm.sortBy = sortBy;
 		vm.getBookingsByClient = getBookingsByClient;
+		vm.deleteBooking = deleteBooking;
 		vm.bookingsByClient;
 		vm.client_id;
 		vm.client;
@@ -20,6 +22,7 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 			ClientsService.initList().then(function(result) {
 				vm.completed = true;
 				vm.data = result;
+				vm.currentDate = new Date();
 			}, function(errors) {
 				Alertify.error(errors);
 			});
@@ -46,6 +49,16 @@ pfm.controller('ListClientsController', [ '$timeout', 'Alertify', 'ClientsServic
 		function sortBy(propertyName){
 			vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
 			vm.propertyName = propertyName;
+		}
+		
+		function deleteBooking(){
+			ClientsService.deleteBooking(vm.booking_id).then(function(result) {
+				Alertify.success("La reserva ha sido cancelada");
+				sortBy('id');
+				getBookingsByClient(vm.client_id);			
+			}, function(errors) {
+				Alertify.error(errors);
+			});
 		}
 	}				
 ]);
