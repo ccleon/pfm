@@ -39,40 +39,39 @@
 
     <!-- Configuración -->
     <script src="app/config.js"></script>
-    <script src="app/constants.js"></script>
-    <script src="app/components/navController.js"></script>
+    <script src="app/controllers/navController.js"></script>
     
     <!-- Login -->
-    <script src="app/components/login/LoginService.js"></script>
-    <script src="app/components/login/loginController.js"></script>
-    <script src="app/components/login/registrationController.js"></script>
+    <script src="app/services/LoginService.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/registrationController.js"></script>
     
      <!-- Clientes -->
-    <script src="app/components/clients/ClientsService.js"></script>
-    <script src="app/components/clients/listAllController.js"></script>
-    <script src="app/components/clients/createClientController.js"></script>
-    <script src="app/components/clients/editClientController.js"></script>
-    <script src="app/components/clients/createBookingClientController.js"></script>
+    <script src="app/services/ClientsService.js"></script>
+    <script src="app/controllers/listClientsController.js"></script>
+    <script src="app/controllers/createClientController.js"></script>
+    <script src="app/controllers/editClientController.js"></script>
+    <script src="app/controllers/createBookingClientController.js"></script>
     
     <!-- Reservas -->
-    <script src="app/components/bookings/BookingsService.js"></script>
-    <script src="app/components/bookings/listAllController.js"></script>
-    <script src="app/components/bookings/createBookingController.js"></script>
-    <script src="app/components/bookings/editBookingController.js"></script>
+    <script src="app/services/BookingsService.js"></script>
+    <script src="app/controllers/listBookingsController.js"></script>
+    <script src="app/controllers/createBookingController.js"></script>
+    <script src="app/controllers/editBookingController.js"></script>
    
     <!-- Planning -->
-    <script src="app/components/planning/PlanningService.js"></script>
-    <script src="app/components/planning/planningController.js"></script>
+    <script src="app/services/PlanningService.js"></script>
+    <script src="app/controllers/planningController.js"></script>
     
      <!-- Bungalows -->
-    <script src="app/components/bungalows/BungalowsService.js"></script>
-    <script src="app/components/bungalows/listAllController.js"></script>
-    <script src="app/components/bungalows/editBungalowTypeController.js"></script>
+    <script src="app/services/BungalowsService.js"></script>
+    <script src="app/controllers/listBungalowsController.js"></script>
+    <script src="app/controllers/editBungalowTypeController.js"></script>
 
 </head>
 
 <body>
-	<div ng-include="'nav.html'"></div>
+	<div ng-include="'app/views/nav.html'"></div>
     <main id='cuerpo'>
         <div class="container" ng-view></div>
     </main>

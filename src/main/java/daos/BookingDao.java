@@ -27,13 +27,13 @@ public interface BookingDao extends JpaRepository<Booking, Integer>{
 			+ "(b.arrivalDate between ?1 and ?2 OR b.departureDate between ?1 and ?2)) ORDER BY b.arrivalDate ASC")
 	List<Booking> findByBookingsBetween(Calendar start, Calendar end);
 	
-	List<Booking> findAllByOrderByBungalowAsc();
+	/*List<Booking> findAllByOrderByBungalowAsc();
 	
 	List<Booking> findAllByOrderByArrivalDateAsc();
 	
 	List<Booking> findAllByOrderByClientAsc();
 	
-	List<Booking> findAllByOrderByIdDesc();
+	List<Booking> findAllByOrderByIdDesc();*/
 	
 	List<Booking> findByClient(Client client);
 
