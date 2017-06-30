@@ -1,4 +1,4 @@
-pfm.controller('EditClientController', [ '$timeout', 'Alertify', 'ClientsService', '$location','$routeParams',
+pfm.controller('ModifyClientController', [ '$timeout', 'Alertify', 'ClientsService', '$location','$routeParams',
 
 	function($timeout, Alertify, ClientsService, $location, $routeParams) {
 	"use strict";

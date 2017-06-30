@@ -1,4 +1,4 @@
-pfm.controller('EditBookingController', [ '$timeout', 'Alertify', 'BookingsService', '$location','$routeParams',
+pfm.controller('ModifyBookingController', [ '$timeout', 'Alertify', 'BookingsService', '$location','$routeParams',
 
 	function($timeout, Alertify, BookingsService, $location, $routeParams) {
 		"use strict";

@@ -8,7 +8,7 @@ pfm.config(function ($routeProvider) {
     "use strict";
     $routeProvider
         .when("/", {
-        	templateUrl: "app/views/planning.html",
+        	templateUrl: "app/planning/planning.html",
             controller: "PlanningController",
             controllerAs: "vm",
             resolve: {
@@ -19,7 +19,7 @@ pfm.config(function ($routeProvider) {
          * Clientes 
          */
         .when("/clients", {
-            templateUrl: "app/views/list_clients.html",
+            templateUrl: "app/clients/clients.html",
             controller: "ListClientsController",
             controllerAs: "vm",
         	resolve: {
@@ -27,7 +27,7 @@ pfm.config(function ($routeProvider) {
               }
         })
         .when("/clients/create", {
-            templateUrl: "app/views/create_client.html",
+            templateUrl: "app/clients/create/create_client.html",
             controller: "CreateClientController",
             controllerAs: "vm",
         	resolve: {
@@ -35,15 +35,15 @@ pfm.config(function ($routeProvider) {
               }
         })
         .when("/clients/modify/:idClient", {
-            templateUrl: "app/views/edit_client.html",
-            controller: "EditClientController",
+            templateUrl: "app/clients/modify/modify_client.html",
+            controller: "ModifyClientController",
             controllerAs: "vm",
         	resolve: {
                 notAutorized: checkAuthAdminOrManager
               }
         })
         .when("/bookings/create/:idClient", {
-            templateUrl: "app/views/create_bookingByClient.html",
+            templateUrl: "app/clients/create/bookings/create_bookingByClient.html",
             controller: "CreateBookingClientController",
             controllerAs: "vm",
         	resolve: {
@@ -54,7 +54,7 @@ pfm.config(function ($routeProvider) {
          * Reservas
          */
         .when("/bookings", {
-            templateUrl: "app/views/list_bookings.html",
+            templateUrl: "app/bookings/bookings.html",
             controller: "ListBookingsController",
             controllerAs: "vm",
             resolve: {
@@ -62,7 +62,7 @@ pfm.config(function ($routeProvider) {
             }
         })
         .when("/bookings/create", {
-            templateUrl: "app/views/create_booking.html",
+            templateUrl: "app/bookings/create/create_booking.html",
             controller: "CreateBookingController",
             controllerAs: "vm",
             resolve: {
@@ -70,8 +70,8 @@ pfm.config(function ($routeProvider) {
             }
         })
         .when("/bookings/modify/:idBooking", {
-            templateUrl: "app/views/edit_booking.html",
-            controller: "EditBookingController",
+            templateUrl: "app/bookings/modify/modify_booking.html",
+            controller: "ModifyBookingController",
             controllerAs: "vm",
         	resolve: {
                 notAutorized: checkAuthAdminOrManager
@@ -81,7 +81,7 @@ pfm.config(function ($routeProvider) {
          * Login
          */
         .when("/login", {
-            templateUrl: "app/views/login.html",
+            templateUrl: "app/login/login.html",
             controller: "LoginController",
             controllerAs: "vm"
         })
@@ -89,7 +89,7 @@ pfm.config(function ($routeProvider) {
          * Register
          */
         .when("/register", {
-            templateUrl: "app/views/registration.html",
+            templateUrl: "app/login/register/registration.html",
             controller: "RegistrationController",
             controllerAs: "vm",
             resolve: {
@@ -100,7 +100,7 @@ pfm.config(function ($routeProvider) {
          * Planning
          */
         .when("/planning", {
-            templateUrl: "app/views/planning.html",
+            templateUrl: "app/planning/planning.html",
             controller: "PlanningController",
             controllerAs: "vm",
             resolve: {
@@ -111,7 +111,7 @@ pfm.config(function ($routeProvider) {
          * Bungalows 
          */
         .when("/bungalows", {
-            templateUrl: "app/views/list_bungalows.html",
+            templateUrl: "app/bungalows/bungalows.html",
             controller: "ListBungalowsController",
             controllerAs: "vm",
         	resolve: {
@@ -119,8 +119,8 @@ pfm.config(function ($routeProvider) {
               }
         })
         .when("/bungalows/type/modify/:idBungalowType", {
-            templateUrl: "app/views/edit_bungalowType.html",
-            controller: "EditBungalowTypeController",
+            templateUrl: "app/bungalows/modify/modify_bungalowType.html",
+            controller: "ModifyBungalowTypeController",
             controllerAs: "vm",
             resolve: {
                 notAutorized: checkAuthAdmin

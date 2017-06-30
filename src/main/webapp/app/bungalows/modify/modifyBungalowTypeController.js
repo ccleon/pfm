@@ -1,4 +1,4 @@
-pfm.controller('EditBungalowTypeController', [ '$timeout', 'Alertify', 'BungalowsService', '$location','$routeParams',
+pfm.controller('ModifyBungalowTypeController', [ '$timeout', 'Alertify', 'BungalowsService', '$location','$routeParams',
 
 	function($timeout, Alertify, BungalowsService, $location, $routeParams) {
 		"use strict";
